@@ -1,0 +1,40 @@
+semaphore s1 = 1, s2 = 0, s3 = 0;
+void A() {
+	while (1) {
+		down(&s2);
+		printf("i");
+		up(&s3);
+		down(&s2);
+		printf("a");
+		up(&s1);
+		down(&s2);
+	}
+}
+
+void B() {
+	int i;
+		while (1) {
+		down(&s3);
+		for (i=0; i<2; i++) {
+			printf("t");
+			if (i == 0)
+				printf(" ");
+			up(&s1);
+			down(&s3);
+		}
+	}
+}
+
+void C() {
+	int j;
+	while (1) {
+		down(&s1);
+		for (j=0; j<2; j++) {
+			printf("K");
+			up(&s2);
+			down(&s1);
+		}
+		printf("\n");
+		up(&s1);
+	}
+}
