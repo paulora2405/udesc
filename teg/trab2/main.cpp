@@ -9,8 +9,6 @@
 #include "Aresta.hpp"
 #include "Grafo.hpp"
 
-int n = 300;
-
 int main(){
 	Grafo* g{new Grafo()};
 

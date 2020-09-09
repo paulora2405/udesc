@@ -12,17 +12,10 @@
 
 unsigned int Vertice::proxId{0};
 
-/**
- * Define o nome e o id do vertice.
- * @param[in] name Nome do vertice.
-*/
 Vertice::Vertice(std::string name):id{proxId}, name{name}{
 	Vertice::proxId++;
 }
 
-/**
- * Deleta todas as arestas na lista de arestas do vertice.
-*/
 Vertice::~Vertice(){
 	//copiando a lista original para não corromper o iterador
 	std::list<const Aresta*> copia = arestas;
@@ -39,28 +32,14 @@ Vertice::~Vertice(){
 
 }
 
-/**
- * Retorna o id do vertice de chamada.
- * @returns Id do vertice.
-*/
 unsigned int Vertice::getId() const{
 	return this->id;
 }
 
-/**
- * Retorna o nome do vertice de chamada.
- * @returns Nome do vertice.
-*/
 std::string Vertice::getName() const{
     return this->name;
 }
 
-/**
- * Adiciona uma aresta entre os vertices v1 e v2 com peso igual a distancia.
- * @param[in] v2 Vertice destino.
- * @param[in] distancia Distancia entre origem e destino.
- * @returns Ponteiro para a aresta criada, ou nullptr se v1 == v2, ou nullptr se a ligacao ja existir.
-*/
 Aresta* Vertice::adicionarAresta(Vertice* const v2, int distancia){
 	if(v2 == this)
 		return nullptr; //não aceitamos arestas em que os dois vértices são o mesmos
@@ -81,18 +60,10 @@ Aresta* Vertice::adicionarAresta(Vertice* const v2, int distancia){
 	return a;
 }
 
-/**
- * Adiciona uma aresta a lista de arestas de chamada.
- * @param[in] aresta Nova aresta.
-*/
 void Vertice::adicionarAresta(const Aresta* const aresta){
 	this->arestas.push_back(aresta);
 }
 
-/**
- * Remove uma aresta das listas de arestas de sua origem e destino, e ,em seguida, deleta a instancia de aresta.
- * @param[in] a Aresta a ser removida.
-*/
 void Vertice::removerAresta(Aresta* a){
 	if(a->getVertice1() != this && a->getVertice2() != this){
 		//tentando remover uma aresta que não contem esse vertice
@@ -107,9 +78,6 @@ void Vertice::removerAresta(Aresta* a){
 	delete a;
 }
 
-/**
- * Imprime as ligacoes do vertice de chamada.
-*/
 void Vertice::imprimirLigacoes() const{
 	std::list<const Aresta*>::const_iterator it = arestas.begin();
 	const Vertice* outro;
