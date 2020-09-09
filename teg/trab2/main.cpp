@@ -1,3 +1,9 @@
+/**
+    BCC-20 TEG : Main
+    @file main.cpp
+    @author Paulo Albuquerque & Menderson
+    @version 1.0 09/08/20 
+*/
 #include <iostream>
 #include "Vertice.hpp"
 #include "Aresta.hpp"
@@ -6,7 +12,7 @@
 int n = 300;
 
 int main(){
-	Grafo* g{new Grafo(n)};
+	Grafo* g{new Grafo()};
 
 	std::cout << "Imprimindo grafo completo" << std::endl;
 	g->imprimirGrafo();

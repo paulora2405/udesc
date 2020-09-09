@@ -1,3 +1,9 @@
+/**
+    BCC-20 TEG : Header da classe Grafo
+    @file Grafo.hpp
+    @author Paulo Albuquerque & Menderson
+    @version 1.0 09/08/20 
+*/
 #ifndef GRAFO_HPP
 #define GRAFO_HPP
 
@@ -10,23 +16,21 @@
 
 class Grafo{
 	public:
-		Grafo(int n);
+		Grafo();
 		~Grafo();
 		void iniciaDFS();
 		void imprimirGrafo() const;
 
 	private:
 		void criaGrafoGn();
-		float calculaDistancia(Vertice* const v1, Vertice* const v2);
-		void buscaProfundidade(Vertice* v, bool visited[], std::list<int>* marcados);
-
-		Vertice* adicionarVertice();
+		
+		Vertice* adicionarVertice(std::string name);
 		void removerVertice(Vertice* v);
-		Aresta* adicionarAresta(Vertice* const v1, Vertice* const v2);
+		Aresta* adicionarAresta(std::string name1, std::string name2, int distancia);
+		Aresta* adicionarAresta(Vertice* const v1, Vertice* const v2, int distancia);
 		void removerAresta(Aresta* a);
 		const std::list<Vertice*>* getVertices() const;
 		
-		const int n;
 		std::list<Vertice*>* vertices;
 };
 #endif
