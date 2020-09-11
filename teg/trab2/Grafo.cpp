@@ -35,6 +35,7 @@ void Grafo::criaGrafoGn(){
 	//Id cidade origem, Id cidade destino, distancia entre as cidades
 
 	//Joinville
+
 	this->adicionarAresta(0, 1, 182);
 	this->adicionarAresta(0, 2, 104);
 	this->adicionarAresta(0, 3, 176);
@@ -42,7 +43,7 @@ void Grafo::criaGrafoGn(){
 	this->adicionarAresta(0, 5, 93);
 	this->adicionarAresta(0, 6, 366);
 	this->adicionarAresta(0, 7, 46);
-	this->adicionarAresta(0, 8, 180); //?????????????
+	this->adicionarAresta(0, 8, 180);
 	this->adicionarAresta(0, 9, 312);
 
 	//Florianopolis
@@ -101,6 +102,41 @@ void Grafo::criaGrafoGn(){
 	//Nao aparece pois todas as ligacoes ja foram feitas
 	
 }
+
+void Grafo::construirArvore(std::string raiz){
+	std::list<Vertice*>::iterator it = this->vertices->begin();
+	for(; it != this->vertices->end(); it++)
+		if((*it)->getName() == raiz)
+			break;
+
+	int idRaiz = (*it)->getId();
+
+	bool visitados[10];
+
+	construirArvore(idRaiz, visitados, idRaiz);
+
+}
+
+int Grafo::construirArvore(int id, bool visitados[], int &idRaiz){
+	// std::cout << "Id:" << id << std::endl;
+	int max = pow(2, this->vertices->back()->proxId-1); // == 512
+	int soma = 0;
+	visitados[id] = true;
+
+	for(int i=0; i<10; i++){
+		if(!visitados[i]){
+			
+			bool visitados_copy[10];
+			for (int i = 0; i < 10; i++){
+				visitados_copy[i] = visitados[i];
+			}
+			
+			soma += construirArvore(i, visitados_copy, idRaiz);
+		}
+	}
+	return soma;
+}
+
 
 void Grafo::iniciaDFS(){
 	int qntVertices = this->vertices->size();

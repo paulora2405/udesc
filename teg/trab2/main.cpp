@@ -12,9 +12,9 @@
 int main(){
 	Grafo* g{new Grafo()};
 
-	std::cout << "Imprimindo grafo completo" << std::endl;
-	g->imprimirGrafo();
-
+	//std::cout << "Imprimindo grafo completo" << std::endl;
+	// g->imprimirGrafo();
+	g->construirArvore("Joinville");
 	std::cout << "FIM" << std::endl;
 
 	delete g;
