@@ -67,6 +67,18 @@ class Grafo{
 		Aresta* adicionarAresta(std::string name1, std::string name2, int distancia);
 
 		/**
+		 * Adiciona uma aresta entre dois vertices com os id's 1 e 2 
+		 * 	e define sua distancia.
+		 * @param[in] id1 Id do vertice de origem.
+		 * @param[in] id2 Id do vertice de destino.
+		 * @returns Ponteiro para a aresta criada, 
+		 * 	ou nullptr se a distancia for <= 0, ou
+		 * 	nullptr se algum dos dois nomes nao correspomderem a nenhum 
+		 * 	vertice da lista de vertices do grafo de chamada.
+		*/
+		Aresta* adicionarAresta(int id1, int id2, int distancia);
+
+		/**
 		 * Adiciona uma aresta entre dois vertices v1 e v2 e define sua distancia.
 		 * @param[in] v1 Vertice de origem.
 		 * @param[in] v2 Vertice de destino.

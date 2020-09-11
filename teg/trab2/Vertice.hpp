@@ -28,7 +28,7 @@ class Vertice{
 		std::string getName() const;
 
 		/**
-		 * Adiciona uma aresta entre os vertices v1 e v2 com 
+		 * Adiciona uma aresta entre o vertice de chamada e v2 com 
 		 * 	peso igual a distancia.
 		 * @param[in] v2 Vertice destino.
 		 * @param[in] distancia Distancia entre origem e destino.
