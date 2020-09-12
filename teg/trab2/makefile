@@ -1,4 +1,4 @@
-parametrosCompilacao=-Wall #-Wshadow
+parametrosCompilacao=-Wall -std=c++11 #-Wshadow
 projeto=trab_grafo
 
 all: $(projeto)
