@@ -5,23 +5,24 @@
     @version 1.0 09/08/20 
 */
 #include "Aresta.hpp"
-#include "Vertice.hpp"
-#include <iostream>
+
 #include <cmath>
+#include <iostream>
 
-Aresta::Aresta(Vertice* const v1, Vertice* const v2, int weight):
-                                v1{v1}, v2{v2}, weight{weight}{}
+#include "Vertice.hpp"
 
-Aresta::~Aresta(){}
+Aresta::Aresta(Vertice* const v1, Vertice* const v2, int weight) : v1{v1}, v2{v2}, weight{weight} {}
 
-Vertice* Aresta::getVertice1() const{
-	return v1;
+Aresta::~Aresta() {}
+
+Vertice* Aresta::getVertice1() const {
+  return v1;
 }
 
-Vertice* Aresta::getVertice2() const{
-	return v2;
+Vertice* Aresta::getVertice2() const {
+  return v2;
 }
 
-float Aresta::getWeight() const{
-    return this->weight;
+float Aresta::getWeight() const {
+  return this->weight;
 }

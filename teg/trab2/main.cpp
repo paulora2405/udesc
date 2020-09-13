@@ -5,18 +5,18 @@
     @version 1.0 09/08/20 
 */
 #include <iostream>
-#include "Vertice.hpp"
+
 #include "Aresta.hpp"
 #include "Grafo.hpp"
+#include "Vertice.hpp"
 
-int main(){
-	Grafo* g{new Grafo()};
+int main() {
+  Grafo* g{new Grafo()};
 
-	//std::cout << "Imprimindo grafo completo" << std::endl;
-	// g->imprimirGrafo();
-	g->construirArvore("Joinville");
-	std::cout << "FIM" << std::endl;
+  //std::cout << "Imprimindo grafo completo" << std::endl;
+  // g->imprimirGrafo();
+  g->construirArvore("Joinville");
+  std::cout << "FIM" << std::endl;
 
-	delete g;
-
+  delete g;
 }
