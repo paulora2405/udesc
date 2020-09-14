@@ -34,8 +34,8 @@
 /* Undocumented macros, especially those whose name start with YY_,
    are private implementation details.  Do not rely on them.  */
 
-#ifndef YY_YY_CALC_TAB_H_INCLUDED
-# define YY_YY_CALC_TAB_H_INCLUDED
+#ifndef YY_YY_TRAB_TAB_H_INCLUDED
+# define YY_YY_TRAB_TAB_H_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
 # define YYDEBUG 0
@@ -51,18 +51,44 @@ extern int yydebug;
   {
     T_INT = 258,
     T_REAL = 259,
-    T_VAR = 260,
+    T_BOOL = 260,
     T_PLUS = 261,
     T_MINUS = 262,
     T_MULTIPLY = 263,
     T_DIVIDE = 264,
-    T_LEFT = 265,
-    T_RIGHT = 266,
-    T_DIVIDE_INT = 267,
-    T_EXPOENT = 268,
-    T_EQUALS = 269,
-    T_NEWLINE = 270,
-    T_QUIT = 271
+    T_DIVIDE_INT = 265,
+    T_EXPOENT = 266,
+    T_ATRIBUICAO = 267,
+    T_EQUALS = 268,
+    T_NOTEQUALS = 269,
+    T_MENOR_QUE = 270,
+    T_MAIOR_QUE = 271,
+    T_MENOR_IGUAL_QUE = 272,
+    T_MAIOR_IGUAL_QUE = 273,
+    T_PONTO_VIRGULA = 274,
+    T_DOIS_PONTOS = 275,
+    T_VIRGULA = 276,
+    T_PRINT = 277,
+    T_READ = 278,
+    T_FOR = 279,
+    T_IF = 280,
+    T_ELSE = 281,
+    T_MAIN = 282,
+    T_WHILE = 283,
+    T_DO = 284,
+    T_RETURN = 285,
+    T_OR = 286,
+    T_AND = 287,
+    T_TRUE = 288,
+    T_FALSE = 289,
+    T_COL_ESQ = 290,
+    T_COL_DIR = 291,
+    T_CHA_ESQ = 292,
+    T_CHA_DIR = 293,
+    T_PAR_ESQ = 294,
+    T_PAR_DIR = 295,
+    T_COMENTARIO = 296,
+    T_IDENT = 297
   };
 #endif
 
@@ -70,15 +96,14 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 16 "calc.y"
+#line 16 "trab.y"
 
 	long int ival;
 	float fval;
-	float var;
-	//float carac;
+	int bool;
+	char *str;
 
-
-#line 82 "calc.tab.h"
+#line 107 "trab.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -91,4 +116,4 @@ extern YYSTYPE yylval;
 
 int yyparse (void);
 
-#endif /* !YY_YY_CALC_TAB_H_INCLUDED  */
+#endif /* !YY_YY_TRAB_TAB_H_INCLUDED  */
