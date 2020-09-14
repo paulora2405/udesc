@@ -86,14 +86,14 @@ condicional: ifelse
 	| if
 	;
 
-if: T_IF T_PAR_ESQ condicao T_PAR_DIR T_CHA_ESQ codigo T_CHA_DIR 
-	| T_IF T_PAR_ESQ condicao T_PAR_DIR linha
-	;
-
-ifelse: T_IF T_PAR_ESQ condicao T_PAR_DIR T_CHA_ESQ codigo T_CHA_DIR T_ELSE T_CHA_ESQ codigo T_CHA_DIR 
+ifelse: T_IF T_PAR_ESQ condicao T_PAR_DIR T_CHA_ESQ codigo T_CHA_DIR T_ELSE T_CHA_ESQ codigo T_CHA_DIR
 	| T_IF T_PAR_ESQ condicao T_PAR_DIR linha T_ELSE T_CHA_ESQ linha T_CHA_DIR
 	| T_IF T_PAR_ESQ condicao T_PAR_DIR linha T_ELSE T_CHA_ESQ codigo T_CHA_DIR
 	| T_IF T_PAR_ESQ condicao T_PAR_DIR T_CHA_ESQ codigo T_CHA_DIR T_ELSE linha
+	;
+
+if: T_IF T_PAR_ESQ condicao T_PAR_DIR T_CHA_ESQ codigo T_CHA_DIR 
+	| T_IF T_PAR_ESQ condicao T_PAR_DIR linha
 	;
 
 io: read
