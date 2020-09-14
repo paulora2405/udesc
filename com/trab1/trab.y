@@ -38,8 +38,8 @@ void yyerror(const char* s);
 %left T_MULTIPLY T_DIVIDE T_DIVIDE_INT 
 %left T_EXPOENT
 
-/* %type<ival> expr */
-/* %type<fval> mixed_expr */
+/*%type<ival> expr*/
+/*%type<fval> mixed_expr*/
 
 %start algoritimo
 
@@ -56,7 +56,7 @@ var_global: var_global init_vars
 	| init_vars
 	;
 
-outras_funcoes: outras_funcoes outras_funcoes
+outras_funcoes: outras_funcoes funcao
 	| funcao
 	;
 
@@ -70,7 +70,7 @@ argumentos: tipo_var valor
 funcao_main: tipo_var T_MAIN T_PAR_ESQ T_PAR_DIR T_CHA_ESQ codigo T_CHA_DIR
 	;
 
-codigo: codigo codigo
+codigo: codigo linha
 	| linha
 	;
 
@@ -104,7 +104,9 @@ read: T_READ nome_var T_PONTO_VIRGULA
 print: T_PRINT print2
 	;
 
-print2: print2 print2
+/* --------------- analisar mais a fundo -----------*/
+print2: print2 texto
+	| print2 nome_var
 	| texto
 	| nome_var
 	;
@@ -133,10 +135,13 @@ condicao: condicao T_OR condicao
 expr_cond: expressao op_logico expressao
 	;
 
-op_logico: /* epsilon*/
-	| T_ATRIBUICAO
+op_logico: T_ATRIBUICAO
 	| T_EQUALS
 	| T_NOTEQUALS
+	| T_MAIOR_QUE
+	| T_MENOR_QUE
+	| T_MAIOR_IGUAL_QUE
+	| T_MENOR_IGUAL_QUE
 	;
 
 variaveis: init_vars
@@ -165,7 +170,7 @@ factor: expo T_EXPOENT factor
 	;
 
 expo: T_PAR_ESQ expressao T_PAR_DIR
-	|  valor
+	| valor
 	| chamada_func
 	;
 
@@ -182,12 +187,6 @@ tipo_var: T_BOOL
 	| T_REAL
 	;
 
-nome_var: T_IDENT
-	;
-
-nome_func: T_IDENT
-	;
-
 valor: valor_inteiro
 	| valor_float
 	;
@@ -198,13 +197,19 @@ valor_inteiro: T_INT
 valor_float: T_REAL
 	;
 
+nome_var: T_IDENT
+	;
+
+nome_func: T_IDENT
+	;
+
 texto: /* epislon */
 	| T_TEXT
 	;
 
+/*---------------------------------------------------------------*/
 /*
-
-line:  mixed_expr					{ printf("\tResultado: %f\n", $1);}
+valor:  mixed_expr					{ printf("\tResultado: %f\n", $1);}
 	| expr 								{ printf("\tResultado: %li\n", $1); }
 	;
 
@@ -236,7 +241,6 @@ expr: T_INT									{ $$ = $1; }
 	| expr T_MULTIPLY expr					{ $$ = $1 * $3; }
 	| T_PAR_ESQ expr T_PAR_DIR					{ $$ = $2; }
 	;
-	
 */
 
 %%
