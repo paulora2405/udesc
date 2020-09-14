@@ -31,12 +31,14 @@ void yyerror(const char* s);
 %token T_ATRIBUICAO T_EQUALS T_NOTEQUALS T_MENOR_QUE T_MAIOR_QUE T_MENOR_IGUAL_QUE T_MAIOR_IGUAL_QUE 
 %token T_PONTO_VIRGULA T_DOIS_PONTOS T_VIRGULA  
 %token T_PRINT T_READ T_FOR T_IF T_ELSE T_MAIN T_WHILE T_DO T_RETURN
-%token T_OR T_AND T_TRUE T_FALSE T_COL_ESQ T_COL_DIR T_CHA_ESQ T_CHA_DIR T_PAR_ESQ T_PAR_DIR 
+%token T_TRUE T_FALSE T_COL_ESQ T_COL_DIR T_CHA_ESQ T_CHA_DIR T_PAR_ESQ T_PAR_DIR 
 %token T_COMENTARIO
-%token T_IDENT T_TEXT
+%token T_IDENT T_TEXT T_ASPAS
 %left T_PLUS T_MINUS
 %left T_MULTIPLY T_DIVIDE T_DIVIDE_INT 
 %left T_EXPOENT
+%left T_AND
+%left T_OR
 
 /*%type<ival> expr*/
 /*%type<fval> mixed_expr*/
@@ -101,13 +103,12 @@ io: read
 read: T_READ nome_var T_PONTO_VIRGULA
 	;
 
-print: T_PRINT print2
+print: T_PRINT print2 T_PONTO_VIRGULA
 	;
 
-/* --------------- analisar mais a fundo -----------*/
-print2: print2 texto
+print2: print2 T_ASPAS T_TEXT T_ASPAS
 	| print2 nome_var
-	| texto
+	| T_ASPAS T_TEXT T_ASPAS
 	| nome_var
 	;
 
@@ -123,8 +124,10 @@ while: T_WHILE T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS T_CHA_ESQ codigo T_CHA
 	| T_WHILE T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS T_CHA_ESQ linha T_CHA_DIR T_PONTO_VIRGULA
 	;
 
-for: T_FOR T_PAR_ESQ nome_var T_DOIS_PONTOS valor T_VIRGULA valor T_VIRGULA valor T_PAR_DIR T_DOIS_PONTOS T_CHA_ESQ codigo T_CHA_DIR T_PONTO_VIRGULA 
-	| T_FOR T_PAR_ESQ nome_var T_DOIS_PONTOS valor T_VIRGULA valor T_VIRGULA valor T_PAR_DIR T_DOIS_PONTOS linha T_PONTO_VIRGULA
+for: T_FOR T_PAR_ESQ nome_var T_DOIS_PONTOS valor T_VIRGULA valor T_VIRGULA valor T_PAR_DIR 
+		T_DOIS_PONTOS T_CHA_ESQ codigo T_CHA_DIR T_PONTO_VIRGULA 
+	| T_FOR T_PAR_ESQ nome_var T_DOIS_PONTOS valor T_VIRGULA valor T_VIRGULA valor T_PAR_DIR T_DOIS_PONTOS 
+		linha T_PONTO_VIRGULA
 	;
 
 condicao: condicao T_OR condicao
@@ -201,10 +204,6 @@ nome_var: T_IDENT
 	;
 
 nome_func: T_IDENT
-	;
-
-texto: /* epislon */
-	| T_TEXT
 	;
 
 /*---------------------------------------------------------------*/

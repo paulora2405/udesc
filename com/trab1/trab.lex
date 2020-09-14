@@ -57,9 +57,10 @@ TEXTO [ -~]
 ":"						{return T_DOIS_PONTOS;}
 ","						{return T_VIRGULA;}
 "//"					{return T_COMENTARIO;}
+"\""          {return T_ASPAS;}
 
 {ID}+   {yylval.str = malloc(sizeof(char)*strlen(yytext)); memcpy(yylval.str,yytext,sizeof(char)*strlen(yytext));return T_IDENT;}
-{TEXTO}+ {yylval.str = malloc(sizeof(char)*strlen(yytext)); memcpy(yylval.str,yytext,sizeof(char)*strlen(yytext));return T_TEXT;}
+{TEXTO}* {yylval.str = malloc(sizeof(char)*strlen(yytext)); memcpy(yylval.str,yytext,sizeof(char)*strlen(yytext));return T_TEXT;}
 
 .				        {printf("???????????... %s\n", yytext);}
 
