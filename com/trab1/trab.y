@@ -8,8 +8,6 @@ extern int yylex();
 extern int yyparse();
 extern FILE* yyin;
 
-float a = 0;
-
 void yyerror(const char* s);
 %}
 
@@ -24,7 +22,6 @@ void yyerror(const char* s);
 
 %token<ival> T_INT
 %token<fval> T_REAL
-%token<bool> T_BOOL
 
 
 %token T_PLUS T_MINUS T_MULTIPLY T_DIVIDE T_DIVIDE_INT T_EXPOENT
@@ -34,6 +31,7 @@ void yyerror(const char* s);
 %token T_TRUE T_FALSE T_COL_ESQ T_COL_DIR T_CHA_ESQ T_CHA_DIR T_PAR_ESQ T_PAR_DIR 
 %token T_COMENTARIO
 %token T_IDENT T_TEXT T_ASPAS
+%token T_TIPO_INT T_TIPO_REAL T_TIPO_BOOL
 %left T_PLUS T_MINUS
 %left T_MULTIPLY T_DIVIDE T_DIVIDE_INT 
 %left T_EXPOENT
@@ -43,15 +41,14 @@ void yyerror(const char* s);
 /*%type<ival> expr*/
 /*%type<fval> mixed_expr*/
 
-%start algoritimo
+%start algoritmo
 
 %%
 
-algoritimo:	/* epsilon */
-	| var_global funcao_main outras_funcoes
-	| var_global funcao_main
-	| funcao_main outras_funcoes
-	| funcao_main
+algoritmo: var_global funcao_main outras_funcoes {printf("AS1\n");}
+	| var_global funcao_main {printf("AS2\n");}
+	| funcao_main outras_funcoes {printf("AS3\n");}
+	| funcao_main {printf("AS4\n");}
 	;
 
 var_global: var_global init_vars
@@ -185,9 +182,9 @@ parametros: valor
 	| valor T_VIRGULA parametros
 	;
 
-tipo_var: T_BOOL
-	| T_INT
-	| T_REAL
+tipo_var: T_TIPO_BOOL
+	| T_TIPO_INT
+	| T_TIPO_REAL
 	;
 
 valor: valor_inteiro
@@ -205,42 +202,6 @@ nome_var: T_IDENT
 
 nome_func: T_IDENT
 	;
-
-/*---------------------------------------------------------------*/
-/*
-valor:  mixed_expr					{ printf("\tResultado: %f\n", $1);}
-	| expr 								{ printf("\tResultado: %li\n", $1); }
-	;
-
-mixed_expr: T_REAL							{ $$ = $1; }
-	| mixed_expr T_PLUS mixed_expr			{ $$ = $1 + $3; }
-	| mixed_expr T_MINUS mixed_expr			{ $$ = $1 - $3; }
-	| mixed_expr T_MULTIPLY mixed_expr		{ $$ = $1 * $3; }
-	| mixed_expr T_DIVIDE mixed_expr		{ $$ = $1 / $3; }
-	| mixed_expr T_EXPOENT mixed_expr		{ $$ = pow($1, $3); }
-	| T_PAR_ESQ mixed_expr T_PAR_DIR				{ $$ = $2; }
-	| expr T_PLUS mixed_expr				{ $$ = $1 + $3; }
-	| expr T_MINUS mixed_expr				{ $$ = $1 - $3; }
-	| expr T_MULTIPLY mixed_expr			{ $$ = $1 * $3; }
-	| expr T_DIVIDE mixed_expr				{ $$ = $1 / $3; }
-	| expr T_EXPOENT mixed_expr				{ $$ = pow($1, $3); }
-	| mixed_expr T_PLUS expr				{ $$ = $1 + $3; }
-	| mixed_expr T_MINUS expr				{ $$ = $1 - $3; }
-	| mixed_expr T_MULTIPLY expr			{ $$ = $1 * $3; }
-	| mixed_expr T_DIVIDE expr				{ $$ = $1 / $3; }
-	| mixed_expr T_EXPOENT expr				{ $$ = pow($1, $3); }
-	| expr T_DIVIDE expr					{ $$ = $1 / (float)$3; }
-	| expr T_DIVIDE_INT expr				{ $$ = $1 / $3; }
-	| expr T_EXPOENT expr					{ $$ = pow($1, $3); }
-	;
-
-expr: T_INT									{ $$ = $1; }
-	| expr T_PLUS expr						{ $$ = $1 + $3; }
-	| expr T_MINUS expr						{ $$ = $1 - $3; }
-	| expr T_MULTIPLY expr					{ $$ = $1 * $3; }
-	| T_PAR_ESQ expr T_PAR_DIR					{ $$ = $2; }
-	;
-*/
 
 %%
 

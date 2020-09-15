@@ -10,17 +10,17 @@
 %}
 
 DIGITO		[0-9]+
-ID	[a-z]+[a-zA-Z0-9]*
-TEXTO [ -~]
+ID	[a-z][a-zA-Z0-9]*
+
 %%
 
-[ \n\t]	; // ignore todos os espaços em branco
+[ \n\t] 	 // ignore todos os espaços em branco
 {DIGITO}+\.{DIGITO}+    {yylval.fval = atof(yytext); return T_REAL;}
 {DIGITO}+			    {yylval.ival = atol(yytext); return T_INT;}
 
-"bool"				{return T_BOOL;} 
-"int"					{return T_INT;}
-"float"				{return T_REAL;}
+"bool"				{return T_TIPO_BOOL;} 
+"int"					{return T_TIPO_INT;}
+"float"				{return T_TIPO_REAL;}
 "TRUE"				{return T_TRUE;} 
 "FALSE"				{return T_FALSE;} 
 "["			      {return T_COL_ESQ;} 
@@ -60,8 +60,7 @@ TEXTO [ -~]
 "\""          {return T_ASPAS;}
 
 {ID}+   {yylval.str = malloc(sizeof(char)*strlen(yytext)); memcpy(yylval.str,yytext,sizeof(char)*strlen(yytext));return T_IDENT;}
-{TEXTO}* {yylval.str = malloc(sizeof(char)*strlen(yytext)); memcpy(yylval.str,yytext,sizeof(char)*strlen(yytext));return T_TEXT;}
 
-.				        {printf("???????????... %s\n", yytext);}
+.  {printf("???????????... %s\n", yytext);yylval.str = malloc(sizeof(char)*strlen(yytext)); memcpy(yylval.str,yytext,sizeof(char)*strlen(yytext));return T_TEXT;}
 
 %%
