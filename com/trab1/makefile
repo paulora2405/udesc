@@ -12,13 +12,13 @@ compiladoFlex:
 	flex $(projeto).lex
 
 graphViz:
-	dot -Tpdf $(projeto).dot -o $(projeto)3.pdf -v
+	dot -Tpdf $(projeto).dot -o $(projeto).pdf -v
 
 compiladoC:
 	gcc lex.yy.c -o $(projeto) -lfl
 
 clean:
-	rm lex.yy.c $(projeto) $(projeto).dot $(projeto).tab.c $(projeto).tab.h $(projeto).png
+	rm lex.yy.c $(projeto) $(projeto).dot $(projeto).tab.c $(projeto).tab.h $(projeto).pdf
 
 run:
 	./$(projeto)

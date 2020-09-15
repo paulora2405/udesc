@@ -1,2 +1,0 @@
-#!/bin/bash
-bison -d trab.y;flex trab.lex;gcc trab.tab.c lex.yy.c -o trab -lm

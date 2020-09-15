@@ -9,12 +9,6 @@ Terminals unused in grammar
     T_COMENTARIO
 
 
-State 135 conflicts: 1 shift/reduce
-State 147 conflicts: 1 shift/reduce
-State 150 conflicts: 1 shift/reduce
-State 155 conflicts: 1 shift/reduce
-
-
 Grammar
 
     0 $accept: algoritmo $end
@@ -48,13 +42,13 @@ Grammar
    19 condicional: ifelse
    20            | if
 
-   21 ifelse: T_IF T_PAR_ESQ condicao T_PAR_DIR T_CHA_ESQ codigo T_CHA_DIR T_ELSE T_CHA_ESQ codigo T_CHA_DIR
-   22       | T_IF T_PAR_ESQ condicao T_PAR_DIR linha T_ELSE T_CHA_ESQ linha T_CHA_DIR
-   23       | T_IF T_PAR_ESQ condicao T_PAR_DIR linha T_ELSE T_CHA_ESQ codigo T_CHA_DIR
-   24       | T_IF T_PAR_ESQ condicao T_PAR_DIR T_CHA_ESQ codigo T_CHA_DIR T_ELSE linha
+   21 ifelse: T_IF T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS T_CHA_ESQ codigo T_CHA_DIR T_ELSE T_CHA_ESQ codigo T_CHA_DIR
+   22       | T_IF T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS linha T_ELSE linha
+   23       | T_IF T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS linha T_ELSE T_CHA_ESQ codigo T_CHA_DIR
+   24       | T_IF T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS T_CHA_ESQ codigo T_CHA_DIR T_ELSE linha
 
-   25 if: T_IF T_PAR_ESQ condicao T_PAR_DIR T_CHA_ESQ codigo T_CHA_DIR
-   26   | T_IF T_PAR_ESQ condicao T_PAR_DIR linha
+   25 if: T_IF T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS T_CHA_ESQ codigo T_CHA_DIR
+   26   | T_IF T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS linha
 
    27 io: read
    28   | print
@@ -75,7 +69,7 @@ Grammar
    38 do: T_DO T_CHA_ESQ codigo T_CHA_DIR T_WHILE T_PAR_ESQ condicao T_PAR_DIR T_PONTO_VIRGULA
 
    39 while: T_WHILE T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS T_CHA_ESQ codigo T_CHA_DIR T_PONTO_VIRGULA
-   40      | T_WHILE T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS T_CHA_ESQ linha T_CHA_DIR T_PONTO_VIRGULA
+   40      | T_WHILE T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS linha T_PONTO_VIRGULA
 
    41 for: T_FOR T_PAR_ESQ nome_var T_DOIS_PONTOS valor T_VIRGULA valor T_VIRGULA valor T_PAR_DIR T_DOIS_PONTOS T_CHA_ESQ codigo T_CHA_DIR T_PONTO_VIRGULA
    42    | T_FOR T_PAR_ESQ nome_var T_DOIS_PONTOS valor T_VIRGULA valor T_VIRGULA valor T_PAR_DIR T_DOIS_PONTOS linha T_PONTO_VIRGULA
@@ -159,7 +153,7 @@ Terminals, with rules where they appear
     T_MENOR_IGUAL_QUE (271) 53
     T_MAIOR_IGUAL_QUE (272) 52
     T_PONTO_VIRGULA (273) 29 30 38 39 40 41 42 56 57 58
-    T_DOIS_PONTOS (274) 39 40 41 42
+    T_DOIS_PONTOS (274) 21 22 23 24 25 26 39 40 41 42
     T_VIRGULA (275) 11 41 42 73
     T_PRINT (276) 30
     T_READ (277) 29
@@ -174,8 +168,8 @@ Terminals, with rules where they appear
     T_FALSE (286)
     T_COL_ESQ (287)
     T_COL_DIR (288)
-    T_CHA_ESQ (289) 9 12 21 22 23 24 25 38 39 40 41
-    T_CHA_DIR (290) 9 12 21 22 23 24 25 38 39 40 41
+    T_CHA_ESQ (289) 9 12 21 23 24 25 38 39 41
+    T_CHA_DIR (290) 9 12 21 23 24 25 38 39 41
     T_PAR_ESQ (291) 9 12 21 22 23 24 25 26 38 39 40 41 42 67 70 71
     T_PAR_DIR (292) 9 12 21 22 23 24 25 26 38 39 40 41 42 67 70 71
     T_COMENTARIO (293)
@@ -187,121 +181,123 @@ Terminals, with rules where they appear
     T_TIPO_BOOL (299) 74
     T_AND (300) 44
     T_OR (301) 43
+    THEN (302)
+    THEN_MULTILINE (303)
 
 
 Nonterminals, with rules where they appear
 
-    $accept (47)
+    $accept (49)
         on left: 0
-    algoritmo (48)
+    algoritmo (50)
         on left: 1 2 3 4
         on right: 0
-    var_global (49)
+    var_global (51)
         on left: 5 6
         on right: 1 2 5
-    outras_funcoes (50)
+    outras_funcoes (52)
         on left: 7 8
         on right: 1 3 7
-    funcao (51)
+    funcao (53)
         on left: 9
         on right: 7 8
-    argumentos (52)
+    argumentos (54)
         on left: 10 11
         on right: 9 11
-    funcao_main (53)
+    funcao_main (55)
         on left: 12
         on right: 1 2 3 4
-    codigo (54)
+    codigo (56)
         on left: 13 14
         on right: 9 12 13 21 23 24 25 38 39 41
-    linha (55)
+    linha (57)
         on left: 15 16 17 18
         on right: 13 14 22 23 24 26 40 42
-    condicional (56)
+    condicional (58)
         on left: 19 20
         on right: 18
-    ifelse (57)
+    ifelse (59)
         on left: 21 22 23 24
         on right: 19
-    if (58)
+    if (60)
         on left: 25 26
         on right: 20
-    io (59)
+    io (61)
         on left: 27 28
         on right: 17
-    read (60)
+    read (62)
         on left: 29
         on right: 27
-    print (61)
+    print (63)
         on left: 30
         on right: 28
-    print2 (62)
+    print2 (64)
         on left: 31 32 33 34
         on right: 30 31 32
-    lacos (63)
+    lacos (65)
         on left: 35 36 37
         on right: 16
-    do (64)
+    do (66)
         on left: 38
         on right: 35
-    while (65)
+    while (67)
         on left: 39 40
         on right: 36
-    for (66)
+    for (68)
         on left: 41 42
         on right: 37
-    condicao (67)
+    condicao (69)
         on left: 43 44 45
         on right: 21 22 23 24 25 26 38 39 40 43 44
-    expr_cond (68)
+    expr_cond (70)
         on left: 46
         on right: 45
-    op_logico (69)
+    op_logico (71)
         on left: 47 48 49 50 51 52 53
         on right: 46
-    variaveis (70)
+    variaveis (72)
         on left: 54 55
         on right: 15
-    atribuir_var (71)
+    atribuir_var (73)
         on left: 56
         on right: 55
-    init_vars (72)
+    init_vars (74)
         on left: 57 58
         on right: 5 6 54
-    expressao (73)
+    expressao (75)
         on left: 59 60 61
         on right: 46 56 57 59 60 67
-    term (74)
+    term (76)
         on left: 62 63 64
         on right: 59 60 61 62 63
-    factor (75)
+    factor (77)
         on left: 65 66
         on right: 62 63 64 65
-    expo (76)
+    expo (78)
         on left: 67 68 69
         on right: 65 66
-    chamada_func (77)
+    chamada_func (79)
         on left: 70 71
         on right: 69
-    parametros (78)
+    parametros (80)
         on left: 72 73
         on right: 70 73
-    tipo_var (79)
+    tipo_var (81)
         on left: 74 75 76
         on right: 9 10 11 12 57 58
-    valor (80)
+    valor (82)
         on left: 77 78
         on right: 10 11 41 42 68 72 73
-    valor_inteiro (81)
+    valor_inteiro (83)
         on left: 79
         on right: 77
-    valor_float (82)
+    valor_float (84)
         on left: 80
         on right: 78
-    nome_var (83)
+    nome_var (85)
         on left: 81
         on right: 29 32 34 41 42 56 57 58
-    nome_func (84)
+    nome_func (86)
         on left: 82
         on right: 9 70 71
 
@@ -909,12 +905,12 @@ State 54
 
 State 55
 
-   21 ifelse: T_IF . T_PAR_ESQ condicao T_PAR_DIR T_CHA_ESQ codigo T_CHA_DIR T_ELSE T_CHA_ESQ codigo T_CHA_DIR
-   22       | T_IF . T_PAR_ESQ condicao T_PAR_DIR linha T_ELSE T_CHA_ESQ linha T_CHA_DIR
-   23       | T_IF . T_PAR_ESQ condicao T_PAR_DIR linha T_ELSE T_CHA_ESQ codigo T_CHA_DIR
-   24       | T_IF . T_PAR_ESQ condicao T_PAR_DIR T_CHA_ESQ codigo T_CHA_DIR T_ELSE linha
-   25 if: T_IF . T_PAR_ESQ condicao T_PAR_DIR T_CHA_ESQ codigo T_CHA_DIR
-   26   | T_IF . T_PAR_ESQ condicao T_PAR_DIR linha
+   21 ifelse: T_IF . T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS T_CHA_ESQ codigo T_CHA_DIR T_ELSE T_CHA_ESQ codigo T_CHA_DIR
+   22       | T_IF . T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS linha T_ELSE linha
+   23       | T_IF . T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS linha T_ELSE T_CHA_ESQ codigo T_CHA_DIR
+   24       | T_IF . T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS T_CHA_ESQ codigo T_CHA_DIR T_ELSE linha
+   25 if: T_IF . T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS T_CHA_ESQ codigo T_CHA_DIR
+   26   | T_IF . T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS linha
 
     T_PAR_ESQ  shift, and go to state 91
 
@@ -922,7 +918,7 @@ State 55
 State 56
 
    39 while: T_WHILE . T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS T_CHA_ESQ codigo T_CHA_DIR T_PONTO_VIRGULA
-   40      | T_WHILE . T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS T_CHA_ESQ linha T_CHA_DIR T_PONTO_VIRGULA
+   40      | T_WHILE . T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS linha T_PONTO_VIRGULA
 
     T_PAR_ESQ  shift, and go to state 92
 
@@ -1242,12 +1238,12 @@ State 90
 
 State 91
 
-   21 ifelse: T_IF T_PAR_ESQ . condicao T_PAR_DIR T_CHA_ESQ codigo T_CHA_DIR T_ELSE T_CHA_ESQ codigo T_CHA_DIR
-   22       | T_IF T_PAR_ESQ . condicao T_PAR_DIR linha T_ELSE T_CHA_ESQ linha T_CHA_DIR
-   23       | T_IF T_PAR_ESQ . condicao T_PAR_DIR linha T_ELSE T_CHA_ESQ codigo T_CHA_DIR
-   24       | T_IF T_PAR_ESQ . condicao T_PAR_DIR T_CHA_ESQ codigo T_CHA_DIR T_ELSE linha
-   25 if: T_IF T_PAR_ESQ . condicao T_PAR_DIR T_CHA_ESQ codigo T_CHA_DIR
-   26   | T_IF T_PAR_ESQ . condicao T_PAR_DIR linha
+   21 ifelse: T_IF T_PAR_ESQ . condicao T_PAR_DIR T_DOIS_PONTOS T_CHA_ESQ codigo T_CHA_DIR T_ELSE T_CHA_ESQ codigo T_CHA_DIR
+   22       | T_IF T_PAR_ESQ . condicao T_PAR_DIR T_DOIS_PONTOS linha T_ELSE linha
+   23       | T_IF T_PAR_ESQ . condicao T_PAR_DIR T_DOIS_PONTOS linha T_ELSE T_CHA_ESQ codigo T_CHA_DIR
+   24       | T_IF T_PAR_ESQ . condicao T_PAR_DIR T_DOIS_PONTOS T_CHA_ESQ codigo T_CHA_DIR T_ELSE linha
+   25 if: T_IF T_PAR_ESQ . condicao T_PAR_DIR T_DOIS_PONTOS T_CHA_ESQ codigo T_CHA_DIR
+   26   | T_IF T_PAR_ESQ . condicao T_PAR_DIR T_DOIS_PONTOS linha
 
     T_INT      shift, and go to state 27
     T_REAL     shift, and go to state 28
@@ -1270,7 +1266,7 @@ State 91
 State 92
 
    39 while: T_WHILE T_PAR_ESQ . condicao T_PAR_DIR T_DOIS_PONTOS T_CHA_ESQ codigo T_CHA_DIR T_PONTO_VIRGULA
-   40      | T_WHILE T_PAR_ESQ . condicao T_PAR_DIR T_DOIS_PONTOS T_CHA_ESQ linha T_CHA_DIR T_PONTO_VIRGULA
+   40      | T_WHILE T_PAR_ESQ . condicao T_PAR_DIR T_DOIS_PONTOS linha T_PONTO_VIRGULA
 
     T_INT      shift, and go to state 27
     T_REAL     shift, and go to state 28
@@ -1465,12 +1461,12 @@ State 106
 
 State 107
 
-   21 ifelse: T_IF T_PAR_ESQ condicao . T_PAR_DIR T_CHA_ESQ codigo T_CHA_DIR T_ELSE T_CHA_ESQ codigo T_CHA_DIR
-   22       | T_IF T_PAR_ESQ condicao . T_PAR_DIR linha T_ELSE T_CHA_ESQ linha T_CHA_DIR
-   23       | T_IF T_PAR_ESQ condicao . T_PAR_DIR linha T_ELSE T_CHA_ESQ codigo T_CHA_DIR
-   24       | T_IF T_PAR_ESQ condicao . T_PAR_DIR T_CHA_ESQ codigo T_CHA_DIR T_ELSE linha
-   25 if: T_IF T_PAR_ESQ condicao . T_PAR_DIR T_CHA_ESQ codigo T_CHA_DIR
-   26   | T_IF T_PAR_ESQ condicao . T_PAR_DIR linha
+   21 ifelse: T_IF T_PAR_ESQ condicao . T_PAR_DIR T_DOIS_PONTOS T_CHA_ESQ codigo T_CHA_DIR T_ELSE T_CHA_ESQ codigo T_CHA_DIR
+   22       | T_IF T_PAR_ESQ condicao . T_PAR_DIR T_DOIS_PONTOS linha T_ELSE linha
+   23       | T_IF T_PAR_ESQ condicao . T_PAR_DIR T_DOIS_PONTOS linha T_ELSE T_CHA_ESQ codigo T_CHA_DIR
+   24       | T_IF T_PAR_ESQ condicao . T_PAR_DIR T_DOIS_PONTOS T_CHA_ESQ codigo T_CHA_DIR T_ELSE linha
+   25 if: T_IF T_PAR_ESQ condicao . T_PAR_DIR T_DOIS_PONTOS T_CHA_ESQ codigo T_CHA_DIR
+   26   | T_IF T_PAR_ESQ condicao . T_PAR_DIR T_DOIS_PONTOS linha
    43 condicao: condicao . T_OR condicao
    44         | condicao . T_AND condicao
 
@@ -1504,7 +1500,7 @@ State 109
 State 110
 
    39 while: T_WHILE T_PAR_ESQ condicao . T_PAR_DIR T_DOIS_PONTOS T_CHA_ESQ codigo T_CHA_DIR T_PONTO_VIRGULA
-   40      | T_WHILE T_PAR_ESQ condicao . T_PAR_DIR T_DOIS_PONTOS T_CHA_ESQ linha T_CHA_DIR T_PONTO_VIRGULA
+   40      | T_WHILE T_PAR_ESQ condicao . T_PAR_DIR T_DOIS_PONTOS linha T_PONTO_VIRGULA
    43 condicao: condicao . T_OR condicao
    44         | condicao . T_AND condicao
 
@@ -1598,41 +1594,14 @@ State 117
 
 State 118
 
-   21 ifelse: T_IF T_PAR_ESQ condicao T_PAR_DIR . T_CHA_ESQ codigo T_CHA_DIR T_ELSE T_CHA_ESQ codigo T_CHA_DIR
-   22       | T_IF T_PAR_ESQ condicao T_PAR_DIR . linha T_ELSE T_CHA_ESQ linha T_CHA_DIR
-   23       | T_IF T_PAR_ESQ condicao T_PAR_DIR . linha T_ELSE T_CHA_ESQ codigo T_CHA_DIR
-   24       | T_IF T_PAR_ESQ condicao T_PAR_DIR . T_CHA_ESQ codigo T_CHA_DIR T_ELSE linha
-   25 if: T_IF T_PAR_ESQ condicao T_PAR_DIR . T_CHA_ESQ codigo T_CHA_DIR
-   26   | T_IF T_PAR_ESQ condicao T_PAR_DIR . linha
+   21 ifelse: T_IF T_PAR_ESQ condicao T_PAR_DIR . T_DOIS_PONTOS T_CHA_ESQ codigo T_CHA_DIR T_ELSE T_CHA_ESQ codigo T_CHA_DIR
+   22       | T_IF T_PAR_ESQ condicao T_PAR_DIR . T_DOIS_PONTOS linha T_ELSE linha
+   23       | T_IF T_PAR_ESQ condicao T_PAR_DIR . T_DOIS_PONTOS linha T_ELSE T_CHA_ESQ codigo T_CHA_DIR
+   24       | T_IF T_PAR_ESQ condicao T_PAR_DIR . T_DOIS_PONTOS T_CHA_ESQ codigo T_CHA_DIR T_ELSE linha
+   25 if: T_IF T_PAR_ESQ condicao T_PAR_DIR . T_DOIS_PONTOS T_CHA_ESQ codigo T_CHA_DIR
+   26   | T_IF T_PAR_ESQ condicao T_PAR_DIR . T_DOIS_PONTOS linha
 
-    T_PRINT      shift, and go to state 52
-    T_READ       shift, and go to state 53
-    T_FOR        shift, and go to state 54
-    T_IF         shift, and go to state 55
-    T_WHILE      shift, and go to state 56
-    T_DO         shift, and go to state 57
-    T_CHA_ESQ    shift, and go to state 134
-    T_IDENT      shift, and go to state 16
-    T_TIPO_INT   shift, and go to state 1
-    T_TIPO_REAL  shift, and go to state 2
-    T_TIPO_BOOL  shift, and go to state 3
-
-    linha         go to state 135
-    condicional   go to state 60
-    ifelse        go to state 61
-    if            go to state 62
-    io            go to state 63
-    read          go to state 64
-    print         go to state 65
-    lacos         go to state 66
-    do            go to state 67
-    while         go to state 68
-    for           go to state 69
-    variaveis     go to state 70
-    atribuir_var  go to state 71
-    init_vars     go to state 72
-    tipo_var      go to state 73
-    nome_var      go to state 74
+    T_DOIS_PONTOS  shift, and go to state 134
 
 
 State 119
@@ -1644,7 +1613,7 @@ State 119
     T_PAR_ESQ  shift, and go to state 29
     T_IDENT    shift, and go to state 20
 
-    condicao       go to state 136
+    condicao       go to state 135
     expr_cond      go to state 108
     expressao      go to state 109
     term           go to state 31
@@ -1666,7 +1635,7 @@ State 120
     T_PAR_ESQ  shift, and go to state 29
     T_IDENT    shift, and go to state 20
 
-    condicao       go to state 137
+    condicao       go to state 136
     expr_cond      go to state 108
     expressao      go to state 109
     term           go to state 31
@@ -1737,7 +1706,7 @@ State 128
     T_PAR_ESQ  shift, and go to state 29
     T_IDENT    shift, and go to state 20
 
-    expressao      go to state 138
+    expressao      go to state 137
     term           go to state 31
     factor         go to state 32
     expo           go to state 33
@@ -1751,16 +1720,16 @@ State 128
 State 129
 
    39 while: T_WHILE T_PAR_ESQ condicao T_PAR_DIR . T_DOIS_PONTOS T_CHA_ESQ codigo T_CHA_DIR T_PONTO_VIRGULA
-   40      | T_WHILE T_PAR_ESQ condicao T_PAR_DIR . T_DOIS_PONTOS T_CHA_ESQ linha T_CHA_DIR T_PONTO_VIRGULA
+   40      | T_WHILE T_PAR_ESQ condicao T_PAR_DIR . T_DOIS_PONTOS linha T_PONTO_VIRGULA
 
-    T_DOIS_PONTOS  shift, and go to state 139
+    T_DOIS_PONTOS  shift, and go to state 138
 
 
 State 130
 
    38 do: T_DO T_CHA_ESQ codigo T_CHA_DIR . T_WHILE T_PAR_ESQ condicao T_PAR_DIR T_PONTO_VIRGULA
 
-    T_WHILE  shift, and go to state 140
+    T_WHILE  shift, and go to state 139
 
 
 State 131
@@ -1782,14 +1751,17 @@ State 133
    41 for: T_FOR T_PAR_ESQ nome_var T_DOIS_PONTOS valor . T_VIRGULA valor T_VIRGULA valor T_PAR_DIR T_DOIS_PONTOS T_CHA_ESQ codigo T_CHA_DIR T_PONTO_VIRGULA
    42    | T_FOR T_PAR_ESQ nome_var T_DOIS_PONTOS valor . T_VIRGULA valor T_VIRGULA valor T_PAR_DIR T_DOIS_PONTOS linha T_PONTO_VIRGULA
 
-    T_VIRGULA  shift, and go to state 141
+    T_VIRGULA  shift, and go to state 140
 
 
 State 134
 
-   21 ifelse: T_IF T_PAR_ESQ condicao T_PAR_DIR T_CHA_ESQ . codigo T_CHA_DIR T_ELSE T_CHA_ESQ codigo T_CHA_DIR
-   24       | T_IF T_PAR_ESQ condicao T_PAR_DIR T_CHA_ESQ . codigo T_CHA_DIR T_ELSE linha
-   25 if: T_IF T_PAR_ESQ condicao T_PAR_DIR T_CHA_ESQ . codigo T_CHA_DIR
+   21 ifelse: T_IF T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS . T_CHA_ESQ codigo T_CHA_DIR T_ELSE T_CHA_ESQ codigo T_CHA_DIR
+   22       | T_IF T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS . linha T_ELSE linha
+   23       | T_IF T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS . linha T_ELSE T_CHA_ESQ codigo T_CHA_DIR
+   24       | T_IF T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS . T_CHA_ESQ codigo T_CHA_DIR T_ELSE linha
+   25 if: T_IF T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS . T_CHA_ESQ codigo T_CHA_DIR
+   26   | T_IF T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS . linha
 
     T_PRINT      shift, and go to state 52
     T_READ       shift, and go to state 53
@@ -1797,13 +1769,13 @@ State 134
     T_IF         shift, and go to state 55
     T_WHILE      shift, and go to state 56
     T_DO         shift, and go to state 57
+    T_CHA_ESQ    shift, and go to state 141
     T_IDENT      shift, and go to state 16
     T_TIPO_INT   shift, and go to state 1
     T_TIPO_REAL  shift, and go to state 2
     T_TIPO_BOOL  shift, and go to state 3
 
-    codigo        go to state 142
-    linha         go to state 59
+    linha         go to state 142
     condicional   go to state 60
     ifelse        go to state 61
     if            go to state 62
@@ -1823,18 +1795,6 @@ State 134
 
 State 135
 
-   22 ifelse: T_IF T_PAR_ESQ condicao T_PAR_DIR linha . T_ELSE T_CHA_ESQ linha T_CHA_DIR
-   23       | T_IF T_PAR_ESQ condicao T_PAR_DIR linha . T_ELSE T_CHA_ESQ codigo T_CHA_DIR
-   26 if: T_IF T_PAR_ESQ condicao T_PAR_DIR linha .
-
-    T_ELSE  shift, and go to state 143
-
-    T_ELSE    [reduce using rule 26 (if)]
-    $default  reduce using rule 26 (if)
-
-
-State 136
-
    43 condicao: condicao . T_OR condicao
    44         | condicao . T_AND condicao
    44         | condicao T_AND condicao .
@@ -1844,7 +1804,7 @@ State 136
     $default  reduce using rule 44 (condicao)
 
 
-State 137
+State 136
 
    43 condicao: condicao . T_OR condicao
    43         | condicao T_OR condicao .
@@ -1853,47 +1813,17 @@ State 137
     $default  reduce using rule 43 (condicao)
 
 
-State 138
+State 137
 
    46 expr_cond: expressao op_logico expressao .
 
     $default  reduce using rule 46 (expr_cond)
 
 
-State 139
+State 138
 
    39 while: T_WHILE T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS . T_CHA_ESQ codigo T_CHA_DIR T_PONTO_VIRGULA
-   40      | T_WHILE T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS . T_CHA_ESQ linha T_CHA_DIR T_PONTO_VIRGULA
-
-    T_CHA_ESQ  shift, and go to state 144
-
-
-State 140
-
-   38 do: T_DO T_CHA_ESQ codigo T_CHA_DIR T_WHILE . T_PAR_ESQ condicao T_PAR_DIR T_PONTO_VIRGULA
-
-    T_PAR_ESQ  shift, and go to state 145
-
-
-State 141
-
-   41 for: T_FOR T_PAR_ESQ nome_var T_DOIS_PONTOS valor T_VIRGULA . valor T_VIRGULA valor T_PAR_DIR T_DOIS_PONTOS T_CHA_ESQ codigo T_CHA_DIR T_PONTO_VIRGULA
-   42    | T_FOR T_PAR_ESQ nome_var T_DOIS_PONTOS valor T_VIRGULA . valor T_VIRGULA valor T_PAR_DIR T_DOIS_PONTOS linha T_PONTO_VIRGULA
-
-    T_INT   shift, and go to state 27
-    T_REAL  shift, and go to state 28
-
-    valor          go to state 146
-    valor_inteiro  go to state 36
-    valor_float    go to state 37
-
-
-State 142
-
-   13 codigo: codigo . linha
-   21 ifelse: T_IF T_PAR_ESQ condicao T_PAR_DIR T_CHA_ESQ codigo . T_CHA_DIR T_ELSE T_CHA_ESQ codigo T_CHA_DIR
-   24       | T_IF T_PAR_ESQ condicao T_PAR_DIR T_CHA_ESQ codigo . T_CHA_DIR T_ELSE linha
-   25 if: T_IF T_PAR_ESQ condicao T_PAR_DIR T_CHA_ESQ codigo . T_CHA_DIR
+   40      | T_WHILE T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS . linha T_PONTO_VIRGULA
 
     T_PRINT      shift, and go to state 52
     T_READ       shift, and go to state 53
@@ -1901,13 +1831,13 @@ State 142
     T_IF         shift, and go to state 55
     T_WHILE      shift, and go to state 56
     T_DO         shift, and go to state 57
-    T_CHA_DIR    shift, and go to state 147
+    T_CHA_ESQ    shift, and go to state 143
     T_IDENT      shift, and go to state 16
     T_TIPO_INT   shift, and go to state 1
     T_TIPO_REAL  shift, and go to state 2
     T_TIPO_BOOL  shift, and go to state 3
 
-    linha         go to state 95
+    linha         go to state 144
     condicional   go to state 60
     ifelse        go to state 61
     if            go to state 62
@@ -1925,18 +1855,76 @@ State 142
     nome_var      go to state 74
 
 
+State 139
+
+   38 do: T_DO T_CHA_ESQ codigo T_CHA_DIR T_WHILE . T_PAR_ESQ condicao T_PAR_DIR T_PONTO_VIRGULA
+
+    T_PAR_ESQ  shift, and go to state 145
+
+
+State 140
+
+   41 for: T_FOR T_PAR_ESQ nome_var T_DOIS_PONTOS valor T_VIRGULA . valor T_VIRGULA valor T_PAR_DIR T_DOIS_PONTOS T_CHA_ESQ codigo T_CHA_DIR T_PONTO_VIRGULA
+   42    | T_FOR T_PAR_ESQ nome_var T_DOIS_PONTOS valor T_VIRGULA . valor T_VIRGULA valor T_PAR_DIR T_DOIS_PONTOS linha T_PONTO_VIRGULA
+
+    T_INT   shift, and go to state 27
+    T_REAL  shift, and go to state 28
+
+    valor          go to state 146
+    valor_inteiro  go to state 36
+    valor_float    go to state 37
+
+
+State 141
+
+   21 ifelse: T_IF T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS T_CHA_ESQ . codigo T_CHA_DIR T_ELSE T_CHA_ESQ codigo T_CHA_DIR
+   24       | T_IF T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS T_CHA_ESQ . codigo T_CHA_DIR T_ELSE linha
+   25 if: T_IF T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS T_CHA_ESQ . codigo T_CHA_DIR
+
+    T_PRINT      shift, and go to state 52
+    T_READ       shift, and go to state 53
+    T_FOR        shift, and go to state 54
+    T_IF         shift, and go to state 55
+    T_WHILE      shift, and go to state 56
+    T_DO         shift, and go to state 57
+    T_IDENT      shift, and go to state 16
+    T_TIPO_INT   shift, and go to state 1
+    T_TIPO_REAL  shift, and go to state 2
+    T_TIPO_BOOL  shift, and go to state 3
+
+    codigo        go to state 147
+    linha         go to state 59
+    condicional   go to state 60
+    ifelse        go to state 61
+    if            go to state 62
+    io            go to state 63
+    read          go to state 64
+    print         go to state 65
+    lacos         go to state 66
+    do            go to state 67
+    while         go to state 68
+    for           go to state 69
+    variaveis     go to state 70
+    atribuir_var  go to state 71
+    init_vars     go to state 72
+    tipo_var      go to state 73
+    nome_var      go to state 74
+
+
+State 142
+
+   22 ifelse: T_IF T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS linha . T_ELSE linha
+   23       | T_IF T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS linha . T_ELSE T_CHA_ESQ codigo T_CHA_DIR
+   26 if: T_IF T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS linha .
+
+    T_ELSE  shift, and go to state 148
+
+    $default  reduce using rule 26 (if)
+
+
 State 143
 
-   22 ifelse: T_IF T_PAR_ESQ condicao T_PAR_DIR linha T_ELSE . T_CHA_ESQ linha T_CHA_DIR
-   23       | T_IF T_PAR_ESQ condicao T_PAR_DIR linha T_ELSE . T_CHA_ESQ codigo T_CHA_DIR
-
-    T_CHA_ESQ  shift, and go to state 148
-
-
-State 144
-
    39 while: T_WHILE T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS T_CHA_ESQ . codigo T_CHA_DIR T_PONTO_VIRGULA
-   40      | T_WHILE T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS T_CHA_ESQ . linha T_CHA_DIR T_PONTO_VIRGULA
 
     T_PRINT      shift, and go to state 52
     T_READ       shift, and go to state 53
@@ -1950,7 +1938,7 @@ State 144
     T_TIPO_BOOL  shift, and go to state 3
 
     codigo        go to state 149
-    linha         go to state 150
+    linha         go to state 59
     condicional   go to state 60
     ifelse        go to state 61
     if            go to state 62
@@ -1966,6 +1954,13 @@ State 144
     init_vars     go to state 72
     tipo_var      go to state 73
     nome_var      go to state 74
+
+
+State 144
+
+   40 while: T_WHILE T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS linha . T_PONTO_VIRGULA
+
+    T_PONTO_VIRGULA  shift, and go to state 150
 
 
 State 145
@@ -2000,20 +1995,10 @@ State 146
 
 State 147
 
-   21 ifelse: T_IF T_PAR_ESQ condicao T_PAR_DIR T_CHA_ESQ codigo T_CHA_DIR . T_ELSE T_CHA_ESQ codigo T_CHA_DIR
-   24       | T_IF T_PAR_ESQ condicao T_PAR_DIR T_CHA_ESQ codigo T_CHA_DIR . T_ELSE linha
-   25 if: T_IF T_PAR_ESQ condicao T_PAR_DIR T_CHA_ESQ codigo T_CHA_DIR .
-
-    T_ELSE  shift, and go to state 153
-
-    T_ELSE    [reduce using rule 25 (if)]
-    $default  reduce using rule 25 (if)
-
-
-State 148
-
-   22 ifelse: T_IF T_PAR_ESQ condicao T_PAR_DIR linha T_ELSE T_CHA_ESQ . linha T_CHA_DIR
-   23       | T_IF T_PAR_ESQ condicao T_PAR_DIR linha T_ELSE T_CHA_ESQ . codigo T_CHA_DIR
+   13 codigo: codigo . linha
+   21 ifelse: T_IF T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS T_CHA_ESQ codigo . T_CHA_DIR T_ELSE T_CHA_ESQ codigo T_CHA_DIR
+   24       | T_IF T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS T_CHA_ESQ codigo . T_CHA_DIR T_ELSE linha
+   25 if: T_IF T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS T_CHA_ESQ codigo . T_CHA_DIR
 
     T_PRINT      shift, and go to state 52
     T_READ       shift, and go to state 53
@@ -2021,12 +2006,47 @@ State 148
     T_IF         shift, and go to state 55
     T_WHILE      shift, and go to state 56
     T_DO         shift, and go to state 57
+    T_CHA_DIR    shift, and go to state 153
     T_IDENT      shift, and go to state 16
     T_TIPO_INT   shift, and go to state 1
     T_TIPO_REAL  shift, and go to state 2
     T_TIPO_BOOL  shift, and go to state 3
 
-    codigo        go to state 154
+    linha         go to state 95
+    condicional   go to state 60
+    ifelse        go to state 61
+    if            go to state 62
+    io            go to state 63
+    read          go to state 64
+    print         go to state 65
+    lacos         go to state 66
+    do            go to state 67
+    while         go to state 68
+    for           go to state 69
+    variaveis     go to state 70
+    atribuir_var  go to state 71
+    init_vars     go to state 72
+    tipo_var      go to state 73
+    nome_var      go to state 74
+
+
+State 148
+
+   22 ifelse: T_IF T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS linha T_ELSE . linha
+   23       | T_IF T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS linha T_ELSE . T_CHA_ESQ codigo T_CHA_DIR
+
+    T_PRINT      shift, and go to state 52
+    T_READ       shift, and go to state 53
+    T_FOR        shift, and go to state 54
+    T_IF         shift, and go to state 55
+    T_WHILE      shift, and go to state 56
+    T_DO         shift, and go to state 57
+    T_CHA_ESQ    shift, and go to state 154
+    T_IDENT      shift, and go to state 16
+    T_TIPO_INT   shift, and go to state 1
+    T_TIPO_REAL  shift, and go to state 2
+    T_TIPO_BOOL  shift, and go to state 3
+
     linha         go to state 155
     condicional   go to state 60
     ifelse        go to state 61
@@ -2082,13 +2102,9 @@ State 149
 
 State 150
 
-   14 codigo: linha .
-   40 while: T_WHILE T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS T_CHA_ESQ linha . T_CHA_DIR T_PONTO_VIRGULA
+   40 while: T_WHILE T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS linha T_PONTO_VIRGULA .
 
-    T_CHA_DIR  shift, and go to state 157
-
-    T_CHA_DIR  [reduce using rule 14 (codigo)]
-    $default   reduce using rule 14 (codigo)
+    $default  reduce using rule 40 (while)
 
 
 State 151
@@ -2097,7 +2113,7 @@ State 151
    43 condicao: condicao . T_OR condicao
    44         | condicao . T_AND condicao
 
-    T_PAR_DIR  shift, and go to state 158
+    T_PAR_DIR  shift, and go to state 157
     T_AND      shift, and go to state 119
     T_OR       shift, and go to state 120
 
@@ -2110,15 +2126,25 @@ State 152
     T_INT   shift, and go to state 27
     T_REAL  shift, and go to state 28
 
-    valor          go to state 159
+    valor          go to state 158
     valor_inteiro  go to state 36
     valor_float    go to state 37
 
 
 State 153
 
-   21 ifelse: T_IF T_PAR_ESQ condicao T_PAR_DIR T_CHA_ESQ codigo T_CHA_DIR T_ELSE . T_CHA_ESQ codigo T_CHA_DIR
-   24       | T_IF T_PAR_ESQ condicao T_PAR_DIR T_CHA_ESQ codigo T_CHA_DIR T_ELSE . linha
+   21 ifelse: T_IF T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS T_CHA_ESQ codigo T_CHA_DIR . T_ELSE T_CHA_ESQ codigo T_CHA_DIR
+   24       | T_IF T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS T_CHA_ESQ codigo T_CHA_DIR . T_ELSE linha
+   25 if: T_IF T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS T_CHA_ESQ codigo T_CHA_DIR .
+
+    T_ELSE  shift, and go to state 159
+
+    $default  reduce using rule 25 (if)
+
+
+State 154
+
+   23 ifelse: T_IF T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS linha T_ELSE T_CHA_ESQ . codigo T_CHA_DIR
 
     T_PRINT      shift, and go to state 52
     T_READ       shift, and go to state 53
@@ -2126,13 +2152,13 @@ State 153
     T_IF         shift, and go to state 55
     T_WHILE      shift, and go to state 56
     T_DO         shift, and go to state 57
-    T_CHA_ESQ    shift, and go to state 160
     T_IDENT      shift, and go to state 16
     T_TIPO_INT   shift, and go to state 1
     T_TIPO_REAL  shift, and go to state 2
     T_TIPO_BOOL  shift, and go to state 3
 
-    linha         go to state 161
+    codigo        go to state 160
+    linha         go to state 59
     condicional   go to state 60
     ifelse        go to state 61
     if            go to state 62
@@ -2150,10 +2176,39 @@ State 153
     nome_var      go to state 74
 
 
-State 154
+State 155
 
-   13 codigo: codigo . linha
-   23 ifelse: T_IF T_PAR_ESQ condicao T_PAR_DIR linha T_ELSE T_CHA_ESQ codigo . T_CHA_DIR
+   22 ifelse: T_IF T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS linha T_ELSE linha .
+
+    $default  reduce using rule 22 (ifelse)
+
+
+State 156
+
+   39 while: T_WHILE T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS T_CHA_ESQ codigo T_CHA_DIR . T_PONTO_VIRGULA
+
+    T_PONTO_VIRGULA  shift, and go to state 161
+
+
+State 157
+
+   38 do: T_DO T_CHA_ESQ codigo T_CHA_DIR T_WHILE T_PAR_ESQ condicao T_PAR_DIR . T_PONTO_VIRGULA
+
+    T_PONTO_VIRGULA  shift, and go to state 162
+
+
+State 158
+
+   41 for: T_FOR T_PAR_ESQ nome_var T_DOIS_PONTOS valor T_VIRGULA valor T_VIRGULA valor . T_PAR_DIR T_DOIS_PONTOS T_CHA_ESQ codigo T_CHA_DIR T_PONTO_VIRGULA
+   42    | T_FOR T_PAR_ESQ nome_var T_DOIS_PONTOS valor T_VIRGULA valor T_VIRGULA valor . T_PAR_DIR T_DOIS_PONTOS linha T_PONTO_VIRGULA
+
+    T_PAR_DIR  shift, and go to state 163
+
+
+State 159
+
+   21 ifelse: T_IF T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS T_CHA_ESQ codigo T_CHA_DIR T_ELSE . T_CHA_ESQ codigo T_CHA_DIR
+   24       | T_IF T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS T_CHA_ESQ codigo T_CHA_DIR T_ELSE . linha
 
     T_PRINT      shift, and go to state 52
     T_READ       shift, and go to state 53
@@ -2161,7 +2216,42 @@ State 154
     T_IF         shift, and go to state 55
     T_WHILE      shift, and go to state 56
     T_DO         shift, and go to state 57
-    T_CHA_DIR    shift, and go to state 162
+    T_CHA_ESQ    shift, and go to state 164
+    T_IDENT      shift, and go to state 16
+    T_TIPO_INT   shift, and go to state 1
+    T_TIPO_REAL  shift, and go to state 2
+    T_TIPO_BOOL  shift, and go to state 3
+
+    linha         go to state 165
+    condicional   go to state 60
+    ifelse        go to state 61
+    if            go to state 62
+    io            go to state 63
+    read          go to state 64
+    print         go to state 65
+    lacos         go to state 66
+    do            go to state 67
+    while         go to state 68
+    for           go to state 69
+    variaveis     go to state 70
+    atribuir_var  go to state 71
+    init_vars     go to state 72
+    tipo_var      go to state 73
+    nome_var      go to state 74
+
+
+State 160
+
+   13 codigo: codigo . linha
+   23 ifelse: T_IF T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS linha T_ELSE T_CHA_ESQ codigo . T_CHA_DIR
+
+    T_PRINT      shift, and go to state 52
+    T_READ       shift, and go to state 53
+    T_FOR        shift, and go to state 54
+    T_IF         shift, and go to state 55
+    T_WHILE      shift, and go to state 56
+    T_DO         shift, and go to state 57
+    T_CHA_DIR    shift, and go to state 166
     T_IDENT      shift, and go to state 16
     T_TIPO_INT   shift, and go to state 1
     T_TIPO_REAL  shift, and go to state 2
@@ -2185,49 +2275,31 @@ State 154
     nome_var      go to state 74
 
 
-State 155
+State 161
 
-   14 codigo: linha .
-   22 ifelse: T_IF T_PAR_ESQ condicao T_PAR_DIR linha T_ELSE T_CHA_ESQ linha . T_CHA_DIR
+   39 while: T_WHILE T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS T_CHA_ESQ codigo T_CHA_DIR T_PONTO_VIRGULA .
 
-    T_CHA_DIR  shift, and go to state 163
-
-    T_CHA_DIR  [reduce using rule 14 (codigo)]
-    $default   reduce using rule 14 (codigo)
+    $default  reduce using rule 39 (while)
 
 
-State 156
+State 162
 
-   39 while: T_WHILE T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS T_CHA_ESQ codigo T_CHA_DIR . T_PONTO_VIRGULA
+   38 do: T_DO T_CHA_ESQ codigo T_CHA_DIR T_WHILE T_PAR_ESQ condicao T_PAR_DIR T_PONTO_VIRGULA .
 
-    T_PONTO_VIRGULA  shift, and go to state 164
-
-
-State 157
-
-   40 while: T_WHILE T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS T_CHA_ESQ linha T_CHA_DIR . T_PONTO_VIRGULA
-
-    T_PONTO_VIRGULA  shift, and go to state 165
+    $default  reduce using rule 38 (do)
 
 
-State 158
+State 163
 
-   38 do: T_DO T_CHA_ESQ codigo T_CHA_DIR T_WHILE T_PAR_ESQ condicao T_PAR_DIR . T_PONTO_VIRGULA
+   41 for: T_FOR T_PAR_ESQ nome_var T_DOIS_PONTOS valor T_VIRGULA valor T_VIRGULA valor T_PAR_DIR . T_DOIS_PONTOS T_CHA_ESQ codigo T_CHA_DIR T_PONTO_VIRGULA
+   42    | T_FOR T_PAR_ESQ nome_var T_DOIS_PONTOS valor T_VIRGULA valor T_VIRGULA valor T_PAR_DIR . T_DOIS_PONTOS linha T_PONTO_VIRGULA
 
-    T_PONTO_VIRGULA  shift, and go to state 166
-
-
-State 159
-
-   41 for: T_FOR T_PAR_ESQ nome_var T_DOIS_PONTOS valor T_VIRGULA valor T_VIRGULA valor . T_PAR_DIR T_DOIS_PONTOS T_CHA_ESQ codigo T_CHA_DIR T_PONTO_VIRGULA
-   42    | T_FOR T_PAR_ESQ nome_var T_DOIS_PONTOS valor T_VIRGULA valor T_VIRGULA valor . T_PAR_DIR T_DOIS_PONTOS linha T_PONTO_VIRGULA
-
-    T_PAR_DIR  shift, and go to state 167
+    T_DOIS_PONTOS  shift, and go to state 167
 
 
-State 160
+State 164
 
-   21 ifelse: T_IF T_PAR_ESQ condicao T_PAR_DIR T_CHA_ESQ codigo T_CHA_DIR T_ELSE T_CHA_ESQ . codigo T_CHA_DIR
+   21 ifelse: T_IF T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS T_CHA_ESQ codigo T_CHA_DIR T_ELSE T_CHA_ESQ . codigo T_CHA_DIR
 
     T_PRINT      shift, and go to state 52
     T_READ       shift, and go to state 53
@@ -2259,60 +2331,24 @@ State 160
     nome_var      go to state 74
 
 
-State 161
+State 165
 
-   24 ifelse: T_IF T_PAR_ESQ condicao T_PAR_DIR T_CHA_ESQ codigo T_CHA_DIR T_ELSE linha .
+   24 ifelse: T_IF T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS T_CHA_ESQ codigo T_CHA_DIR T_ELSE linha .
 
     $default  reduce using rule 24 (ifelse)
 
 
-State 162
+State 166
 
-   23 ifelse: T_IF T_PAR_ESQ condicao T_PAR_DIR linha T_ELSE T_CHA_ESQ codigo T_CHA_DIR .
+   23 ifelse: T_IF T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS linha T_ELSE T_CHA_ESQ codigo T_CHA_DIR .
 
     $default  reduce using rule 23 (ifelse)
 
 
-State 163
-
-   22 ifelse: T_IF T_PAR_ESQ condicao T_PAR_DIR linha T_ELSE T_CHA_ESQ linha T_CHA_DIR .
-
-    $default  reduce using rule 22 (ifelse)
-
-
-State 164
-
-   39 while: T_WHILE T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS T_CHA_ESQ codigo T_CHA_DIR T_PONTO_VIRGULA .
-
-    $default  reduce using rule 39 (while)
-
-
-State 165
-
-   40 while: T_WHILE T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS T_CHA_ESQ linha T_CHA_DIR T_PONTO_VIRGULA .
-
-    $default  reduce using rule 40 (while)
-
-
-State 166
-
-   38 do: T_DO T_CHA_ESQ codigo T_CHA_DIR T_WHILE T_PAR_ESQ condicao T_PAR_DIR T_PONTO_VIRGULA .
-
-    $default  reduce using rule 38 (do)
-
-
 State 167
 
-   41 for: T_FOR T_PAR_ESQ nome_var T_DOIS_PONTOS valor T_VIRGULA valor T_VIRGULA valor T_PAR_DIR . T_DOIS_PONTOS T_CHA_ESQ codigo T_CHA_DIR T_PONTO_VIRGULA
-   42    | T_FOR T_PAR_ESQ nome_var T_DOIS_PONTOS valor T_VIRGULA valor T_VIRGULA valor T_PAR_DIR . T_DOIS_PONTOS linha T_PONTO_VIRGULA
-
-    T_DOIS_PONTOS  shift, and go to state 169
-
-
-State 168
-
-   13 codigo: codigo . linha
-   21 ifelse: T_IF T_PAR_ESQ condicao T_PAR_DIR T_CHA_ESQ codigo T_CHA_DIR T_ELSE T_CHA_ESQ codigo . T_CHA_DIR
+   41 for: T_FOR T_PAR_ESQ nome_var T_DOIS_PONTOS valor T_VIRGULA valor T_VIRGULA valor T_PAR_DIR T_DOIS_PONTOS . T_CHA_ESQ codigo T_CHA_DIR T_PONTO_VIRGULA
+   42    | T_FOR T_PAR_ESQ nome_var T_DOIS_PONTOS valor T_VIRGULA valor T_VIRGULA valor T_PAR_DIR T_DOIS_PONTOS . linha T_PONTO_VIRGULA
 
     T_PRINT      shift, and go to state 52
     T_READ       shift, and go to state 53
@@ -2320,7 +2356,42 @@ State 168
     T_IF         shift, and go to state 55
     T_WHILE      shift, and go to state 56
     T_DO         shift, and go to state 57
-    T_CHA_DIR    shift, and go to state 170
+    T_CHA_ESQ    shift, and go to state 169
+    T_IDENT      shift, and go to state 16
+    T_TIPO_INT   shift, and go to state 1
+    T_TIPO_REAL  shift, and go to state 2
+    T_TIPO_BOOL  shift, and go to state 3
+
+    linha         go to state 170
+    condicional   go to state 60
+    ifelse        go to state 61
+    if            go to state 62
+    io            go to state 63
+    read          go to state 64
+    print         go to state 65
+    lacos         go to state 66
+    do            go to state 67
+    while         go to state 68
+    for           go to state 69
+    variaveis     go to state 70
+    atribuir_var  go to state 71
+    init_vars     go to state 72
+    tipo_var      go to state 73
+    nome_var      go to state 74
+
+
+State 168
+
+   13 codigo: codigo . linha
+   21 ifelse: T_IF T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS T_CHA_ESQ codigo T_CHA_DIR T_ELSE T_CHA_ESQ codigo . T_CHA_DIR
+
+    T_PRINT      shift, and go to state 52
+    T_READ       shift, and go to state 53
+    T_FOR        shift, and go to state 54
+    T_IF         shift, and go to state 55
+    T_WHILE      shift, and go to state 56
+    T_DO         shift, and go to state 57
+    T_CHA_DIR    shift, and go to state 171
     T_IDENT      shift, and go to state 16
     T_TIPO_INT   shift, and go to state 1
     T_TIPO_REAL  shift, and go to state 2
@@ -2346,8 +2417,7 @@ State 168
 
 State 169
 
-   41 for: T_FOR T_PAR_ESQ nome_var T_DOIS_PONTOS valor T_VIRGULA valor T_VIRGULA valor T_PAR_DIR T_DOIS_PONTOS . T_CHA_ESQ codigo T_CHA_DIR T_PONTO_VIRGULA
-   42    | T_FOR T_PAR_ESQ nome_var T_DOIS_PONTOS valor T_VIRGULA valor T_VIRGULA valor T_PAR_DIR T_DOIS_PONTOS . linha T_PONTO_VIRGULA
+   41 for: T_FOR T_PAR_ESQ nome_var T_DOIS_PONTOS valor T_VIRGULA valor T_VIRGULA valor T_PAR_DIR T_DOIS_PONTOS T_CHA_ESQ . codigo T_CHA_DIR T_PONTO_VIRGULA
 
     T_PRINT      shift, and go to state 52
     T_READ       shift, and go to state 53
@@ -2355,13 +2425,13 @@ State 169
     T_IF         shift, and go to state 55
     T_WHILE      shift, and go to state 56
     T_DO         shift, and go to state 57
-    T_CHA_ESQ    shift, and go to state 171
     T_IDENT      shift, and go to state 16
     T_TIPO_INT   shift, and go to state 1
     T_TIPO_REAL  shift, and go to state 2
     T_TIPO_BOOL  shift, and go to state 3
 
-    linha         go to state 172
+    codigo        go to state 172
+    linha         go to state 59
     condicional   go to state 60
     ifelse        go to state 61
     if            go to state 62
@@ -2381,53 +2451,19 @@ State 169
 
 State 170
 
-   21 ifelse: T_IF T_PAR_ESQ condicao T_PAR_DIR T_CHA_ESQ codigo T_CHA_DIR T_ELSE T_CHA_ESQ codigo T_CHA_DIR .
+   42 for: T_FOR T_PAR_ESQ nome_var T_DOIS_PONTOS valor T_VIRGULA valor T_VIRGULA valor T_PAR_DIR T_DOIS_PONTOS linha . T_PONTO_VIRGULA
 
-    $default  reduce using rule 21 (ifelse)
+    T_PONTO_VIRGULA  shift, and go to state 173
 
 
 State 171
 
-   41 for: T_FOR T_PAR_ESQ nome_var T_DOIS_PONTOS valor T_VIRGULA valor T_VIRGULA valor T_PAR_DIR T_DOIS_PONTOS T_CHA_ESQ . codigo T_CHA_DIR T_PONTO_VIRGULA
+   21 ifelse: T_IF T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS T_CHA_ESQ codigo T_CHA_DIR T_ELSE T_CHA_ESQ codigo T_CHA_DIR .
 
-    T_PRINT      shift, and go to state 52
-    T_READ       shift, and go to state 53
-    T_FOR        shift, and go to state 54
-    T_IF         shift, and go to state 55
-    T_WHILE      shift, and go to state 56
-    T_DO         shift, and go to state 57
-    T_IDENT      shift, and go to state 16
-    T_TIPO_INT   shift, and go to state 1
-    T_TIPO_REAL  shift, and go to state 2
-    T_TIPO_BOOL  shift, and go to state 3
-
-    codigo        go to state 173
-    linha         go to state 59
-    condicional   go to state 60
-    ifelse        go to state 61
-    if            go to state 62
-    io            go to state 63
-    read          go to state 64
-    print         go to state 65
-    lacos         go to state 66
-    do            go to state 67
-    while         go to state 68
-    for           go to state 69
-    variaveis     go to state 70
-    atribuir_var  go to state 71
-    init_vars     go to state 72
-    tipo_var      go to state 73
-    nome_var      go to state 74
+    $default  reduce using rule 21 (ifelse)
 
 
 State 172
-
-   42 for: T_FOR T_PAR_ESQ nome_var T_DOIS_PONTOS valor T_VIRGULA valor T_VIRGULA valor T_PAR_DIR T_DOIS_PONTOS linha . T_PONTO_VIRGULA
-
-    T_PONTO_VIRGULA  shift, and go to state 174
-
-
-State 173
 
    13 codigo: codigo . linha
    41 for: T_FOR T_PAR_ESQ nome_var T_DOIS_PONTOS valor T_VIRGULA valor T_VIRGULA valor T_PAR_DIR T_DOIS_PONTOS T_CHA_ESQ codigo . T_CHA_DIR T_PONTO_VIRGULA
@@ -2438,7 +2474,7 @@ State 173
     T_IF         shift, and go to state 55
     T_WHILE      shift, and go to state 56
     T_DO         shift, and go to state 57
-    T_CHA_DIR    shift, and go to state 175
+    T_CHA_DIR    shift, and go to state 174
     T_IDENT      shift, and go to state 16
     T_TIPO_INT   shift, and go to state 1
     T_TIPO_REAL  shift, and go to state 2
@@ -2462,21 +2498,21 @@ State 173
     nome_var      go to state 74
 
 
-State 174
+State 173
 
    42 for: T_FOR T_PAR_ESQ nome_var T_DOIS_PONTOS valor T_VIRGULA valor T_VIRGULA valor T_PAR_DIR T_DOIS_PONTOS linha T_PONTO_VIRGULA .
 
     $default  reduce using rule 42 (for)
 
 
-State 175
+State 174
 
    41 for: T_FOR T_PAR_ESQ nome_var T_DOIS_PONTOS valor T_VIRGULA valor T_VIRGULA valor T_PAR_DIR T_DOIS_PONTOS T_CHA_ESQ codigo T_CHA_DIR . T_PONTO_VIRGULA
 
-    T_PONTO_VIRGULA  shift, and go to state 176
+    T_PONTO_VIRGULA  shift, and go to state 175
 
 
-State 176
+State 175
 
    41 for: T_FOR T_PAR_ESQ nome_var T_DOIS_PONTOS valor T_VIRGULA valor T_VIRGULA valor T_PAR_DIR T_DOIS_PONTOS T_CHA_ESQ codigo T_CHA_DIR T_PONTO_VIRGULA .
 

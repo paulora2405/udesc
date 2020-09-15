@@ -38,6 +38,10 @@ void yyerror(const char* s);
 %left T_AND
 %left T_OR
 
+%nonassoc THEN
+%nonassoc THEN_MULTILINE
+%nonassoc T_ELSE
+
 /*%type<ival> expr*/
 /*%type<fval> mixed_expr*/
 
@@ -45,10 +49,10 @@ void yyerror(const char* s);
 
 %%
 
-algoritmo: var_global funcao_main outras_funcoes {printf("AS1\n");}
-	| var_global funcao_main {printf("AS2\n");}
-	| funcao_main outras_funcoes {printf("AS3\n");}
-	| funcao_main {printf("AS4\n");}
+algoritmo: var_global funcao_main outras_funcoes {printf("Variaveis Globais; Funcao main; Outras funcoes\n");}
+	| var_global funcao_main {printf("Variaveis Globais; Funcao main\n");}
+	| funcao_main outras_funcoes {printf("Funcao main; Outras funcoes\n");}
+	| funcao_main {printf("Funcao main\n");}
 	;
 
 var_global: var_global init_vars
@@ -83,14 +87,14 @@ condicional: ifelse
 	| if
 	;
 
-ifelse: T_IF T_PAR_ESQ condicao T_PAR_DIR T_CHA_ESQ codigo T_CHA_DIR T_ELSE T_CHA_ESQ codigo T_CHA_DIR
-	| T_IF T_PAR_ESQ condicao T_PAR_DIR linha T_ELSE T_CHA_ESQ linha T_CHA_DIR
-	| T_IF T_PAR_ESQ condicao T_PAR_DIR linha T_ELSE T_CHA_ESQ codigo T_CHA_DIR
-	| T_IF T_PAR_ESQ condicao T_PAR_DIR T_CHA_ESQ codigo T_CHA_DIR T_ELSE linha
+ifelse: T_IF T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS T_CHA_ESQ codigo T_CHA_DIR T_ELSE T_CHA_ESQ codigo T_CHA_DIR
+	| T_IF T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS linha T_ELSE linha
+	| T_IF T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS linha T_ELSE T_CHA_ESQ codigo T_CHA_DIR
+	| T_IF T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS T_CHA_ESQ codigo T_CHA_DIR T_ELSE linha
 	;
 
-if: T_IF T_PAR_ESQ condicao T_PAR_DIR T_CHA_ESQ codigo T_CHA_DIR 
-	| T_IF T_PAR_ESQ condicao T_PAR_DIR linha
+if: T_IF T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS T_CHA_ESQ codigo T_CHA_DIR %prec THEN_MULTILINE
+	| T_IF T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS linha %prec THEN
 	;
 
 io: read
@@ -118,7 +122,7 @@ do: T_DO T_CHA_ESQ codigo T_CHA_DIR T_WHILE T_PAR_ESQ condicao T_PAR_DIR T_PONTO
 	;
 
 while: T_WHILE T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS T_CHA_ESQ codigo T_CHA_DIR T_PONTO_VIRGULA 
-	| T_WHILE T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS T_CHA_ESQ linha T_CHA_DIR T_PONTO_VIRGULA
+	| T_WHILE T_PAR_ESQ condicao T_PAR_DIR T_DOIS_PONTOS linha T_PONTO_VIRGULA
 	;
 
 for: T_FOR T_PAR_ESQ nome_var T_DOIS_PONTOS valor T_VIRGULA valor T_VIRGULA valor T_PAR_DIR 
@@ -151,8 +155,8 @@ variaveis: init_vars
 atribuir_var: nome_var T_ATRIBUICAO expressao T_PONTO_VIRGULA
 	;
 
-init_vars: tipo_var nome_var T_ATRIBUICAO expressao T_PONTO_VIRGULA
-	| tipo_var nome_var T_PONTO_VIRGULA
+init_vars: tipo_var nome_var T_ATRIBUICAO expressao T_PONTO_VIRGULA {printf("Var com atribuicao\n");}
+	| tipo_var nome_var T_PONTO_VIRGULA {printf("Var\n");}
 	;
 
 expressao: term T_PLUS expressao
