@@ -108,6 +108,30 @@ void Grafo::criaGrafoGn() {
   // Nao aparece pois todas as ligacoes ja foram feitas
 }
 
+void Grafo::minimosSucessivos(int id) {
+  // bool* visited = new bool[10];
+  std::list<int>* marcados = new std::list<int>;
+
+  // raiz
+  std::list<Vertice*>::iterator it = this->vertices->begin();
+  while((*it)->getId() != id) { it++; }
+
+  std::list<const Aresta*>::iterator aresIt = (*it)->arestas.begin();
+  int min = 2147483647;
+  const Vertice* outro;
+  for(; aresIt != (*it)->arestas.end(); aresIt++) {
+    outro = (*aresIt)->getVertice2();
+    if(outro == (*it))
+      outro = (*aresIt)->getVertice1();
+
+    std::list<int>::iterator marcIt = marcados->begin();
+
+    if(min > (*aresIt)->getWeight() && outro->getId())
+      min = (*aresIt)->getWeight();
+    break;
+  }
+}
+
 void Grafo::construirArvore(std::string raiz) {
   bool* visited = new bool[10];
 

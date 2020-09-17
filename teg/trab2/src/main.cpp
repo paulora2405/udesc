@@ -13,14 +13,11 @@
 int main() {
   Grafo* g{new Grafo()};
 
-  // FILE* f = fopen("melhorCaminho.txt", "w");
-  // fclose(f);
-
-  // std::cout << "Imprimindo grafo completo" << std::endl;
-  // g->imprimirGrafo();
+  // Construção de árvores
   g->construirArvore("Joinville");
-  // f = fopen("melhorCaminho.txt", "a");
+
+  // Minimos sucessivos
+  for(int i = 0; i < 10; i++) g->minimosSucessivos(i);
 
   delete g;
-  return 0;
 }

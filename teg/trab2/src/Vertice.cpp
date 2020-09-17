@@ -87,11 +87,8 @@ void Vertice::imprimirLigacoes() const {
   for(; it != arestas.end(); it++) {
     std::cout << std::endl << "\t" << this->name << "->";
     outro = (*it)->getVertice2();
-    // float peso;
     if(outro == this)
       outro = (*it)->getVertice1();
-    // peso = (*it)->weight;
-    // std::cout << "V" << outro->getId() << "(" << peso << ")" << "\t"; //imprime com a distancia
     std::cout << outro->getName() << "(" << (*it)->getWeight() << ")";  // imprime sem a distancia
   }
   std::cout << std::endl;

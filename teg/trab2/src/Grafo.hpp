@@ -30,8 +30,15 @@ public:
 
   /**
    * Começa a contrução da árvore a partir da raiz.
+   * @param[in] raiz Nome da cidade raiz do algoritmo.
    */
   void construirArvore(std::string raiz);
+
+  /**
+   * Começa o algoritmo dos minimos sucessivos a partir da raiz.
+   * @param[in] id Id da cidade raiz.
+   */
+  void minimosSucessivos(int id);
 
   /// Inicia o algoritomo de busca em profundidade.
   void iniciaDFS();
@@ -49,8 +56,16 @@ private:
 
   /**
    * PRIVATE - Construcao recursiva da arvore.
+   * @param[in] v Vertice atual.
+   * @param[in] visited Vetor booleano de vertices visitados.
+   * @param[in] marcados Lista encadeada dos ids visitados na ordem de visita.
    */
   void construirArvore(Vertice *v, bool visited[], std::list<int> *marcados);
+
+  /**
+   * PRIVATE - Algoritmo recursivo dos minimos sucessivos.
+   */
+  void minimosSucessivos();
 
   /**
    * Adiciona um vertice a lista de vertices do grafo de chamada.
