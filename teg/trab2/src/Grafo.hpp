@@ -19,6 +19,12 @@
 class Grafo {
   //-----------------------------public------------------------------//
 public:
+  typedef struct {
+    int peso;
+    Vertice *v1;
+    Vertice *v2;
+  } MicroAresta;
+
   /// Inicializa a lista de vertices.
   Grafo();
 
@@ -57,7 +63,7 @@ private:
    *  ciclico antes de visitar todas arestas.
    * @returns Retorna true caso seja ciclico, ou false caso não seja.
    */
-  bool ehCiclico();
+  bool ehCiclico(int idOrig, int idDest, std::list<MicroAresta> arestasMenorPeso);
 
   /**
    * RECURSIVA - Construcao recursiva da arvore.

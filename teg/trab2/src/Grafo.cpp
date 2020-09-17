@@ -99,7 +99,7 @@ void Grafo::criaGrafoGn() {
   this->adicionarAresta(6, 8, 185);
   this->adicionarAresta(6, 9, 204);
 
-  // Jaragua até aqui 2135
+  // Jaragua
   this->adicionarAresta(7, 8, 186);
   this->adicionarAresta(7, 9, 262);
 
@@ -131,12 +131,6 @@ void Grafo::algoritmos() {
 }
 
 void Grafo::ordenacaoPesoArestas() {
-  typedef struct {
-    int peso;
-    Vertice* v1;
-    Vertice* v2;
-  } MicroAresta;
-
   std::list<MicroAresta> arestasOrdenadas;
 
   std::list<Vertice*>::const_iterator itVertices = this->vertices->cbegin();
@@ -163,20 +157,53 @@ void Grafo::ordenacaoPesoArestas() {
   //             << " S:" << (*itArestasOrd).peso << std::endl;
   // }
 
-  // maos a obra
-  std::list<MicroAresta> arestasMenorPeso;
   int nArestasNoVertice[(int)this->vertices->size()] = {};
+  std::list<MicroAresta> arestasMenorPeso;
 
   std::list<MicroAresta>::const_iterator itArestasOrd = arestasOrdenadas.cbegin();
   for(; itArestasOrd != arestasOrdenadas.cend(); itArestasOrd++) {
     if(nArestasNoVertice[(*itArestasOrd).v1->getId()] < 2 &&
-       nArestasNoVertice[(*itArestasOrd).v2->getId()] < 2) {
-      // chamr função verificar ciclo
+       nArestasNoVertice[(*itArestasOrd).v2->getId()] < 2 &&
+       !ehCiclico((*itArestasOrd).v1->getId(), (*itArestasOrd).v2->getId(), arestasMenorPeso)) {
+      arestasMenorPeso.push_back((*itArestasOrd));
     }
+  }
+
+  std::list<MicroAresta>::const_iterator itArestasMenorPeso = arestasMenorPeso.cbegin();
+  for(; itArestasMenorPeso != arestasMenorPeso.cend(); itArestasMenorPeso++) {
+    std::cout << (*itArestasMenorPeso).v1->getId() << "->" << (*itArestasMenorPeso).v2->getId()
+              << "\tS:" << (*itArestasMenorPeso).peso << std::endl;
   }
 }
 
-bool Grafo::ehCiclico() {}
+bool Grafo::ehCiclico(int idOrig, int idDest, std::list<MicroAresta> arestasMenorPeso) {
+  std::list<MicroAresta>::const_iterator itArestasMenorPeso = arestasMenorPeso.cbegin();
+  if(itArestasMenorPeso == arestasMenorPeso.cend()) return false;
+
+  while((*itArestasMenorPeso).v1->getId() != idDest &&
+        (*itArestasMenorPeso).v2->getId() != idDest) {
+    itArestasMenorPeso++;
+    if(itArestasMenorPeso == arestasMenorPeso.end()) return false;
+  }
+
+  int outro;
+  int avancou = 1;
+  while(avancou == 1) {
+    avancou = 0;
+    itArestasMenorPeso = arestasMenorPeso.cbegin();
+    for(; itArestasMenorPeso != arestasMenorPeso.cend(); itArestasMenorPeso++) {
+      if((*itArestasMenorPeso).v1->getId() == idDest ||
+         (*itArestasMenorPeso).v2->getId() == idDest) {
+        outro = (*itArestasMenorPeso).v1->getId();
+        if(outro == idDest) outro = (*itArestasMenorPeso).v2->getId();
+        avancou = 1;
+        if(outro == idOrig) return true;
+      }
+    }
+    idDest = outro;
+  }
+  return false;
+}
 
 void Grafo::minimosSucessivos(int id) {
   bool* visited = new bool[this->vertices->size()];
