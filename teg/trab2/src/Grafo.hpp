@@ -47,14 +47,17 @@ private:
    */
   void minimosSucessivos(int id);
 
-  /// Imprime todas as ligacoes de todos os vertices do grafo de chamada.
-  void imprimirGrafo() const;
+  /**
+   * Começa o algoritmo de ordenação do peso das arestas.
+   */
+  void ordenacaoPesoArestas();
 
   /**
-   * Cria grafo completo com todas as cidades, e as arestas
-   * 	entre cada uma delas, com suas respectivas distancias.
+   * Verifica se o conjunto de arestas atual formam um grafo
+   *  ciclico antes de visitar todas arestas.
+   * @returns Retorna true caso seja ciclico, ou false caso não seja.
    */
-  void criaGrafoGn();
+  bool ehCiclico();
 
   /**
    * RECURSIVA - Construcao recursiva da arvore.
@@ -70,6 +73,15 @@ private:
    * @param[in] soma Soma do caminho atual.
    */
   void minimosSucessivos(int id, bool visited[], std::list<int> *marcados);
+
+  /// Imprime todas as ligacoes de todos os vertices do grafo de chamada.
+  void imprimirGrafo() const;
+
+  /**
+   * Cria grafo completo com todas as cidades, e as arestas
+   * 	entre cada uma delas, com suas respectivas distancias.
+   */
+  void criaGrafoGn();
 
   /**
    * Adiciona um vertice a lista de vertices do grafo de chamada.

@@ -22,8 +22,7 @@ Vertice::~Vertice() {
   Vertice* outro;
   for(; it != copia.end(); it++) {
     outro = (*it)->getVertice2();
-    if(outro == this)
-      outro = (*it)->getVertice1();
+    if(outro == this) outro = (*it)->getVertice1();
     outro->arestas.remove(*it);
     delete *it;
   }
@@ -35,16 +34,13 @@ int Vertice::getId() const { return this->id; }
 std::string Vertice::getName() const { return this->name; }
 
 Aresta* Vertice::adicionarAresta(Vertice* const v2, int distancia) {
-  if(v2 == this)
-    return nullptr;  // não aceitamos arestas em que os dois vértices são o mesmos
+  if(v2 == this) return nullptr;  // não aceitamos arestas em que os dois vértices são o mesmos
 
   // verificando se ligação já existe
   std::list<const Aresta*>::const_iterator it = arestas.begin();
   for(; it != arestas.end(); it++) {
-    if((*it)->getVertice1() == this && (*it)->getVertice2() == v2)
-      return nullptr;
-    if((*it)->getVertice1() == v2 && (*it)->getVertice2() == this)
-      return nullptr;
+    if((*it)->getVertice1() == this && (*it)->getVertice2() == v2) return nullptr;
+    if((*it)->getVertice1() == v2 && (*it)->getVertice2() == this) return nullptr;
   }
 
   Aresta* a{new Aresta{this, v2, distancia}};
@@ -64,8 +60,7 @@ void Vertice::removerAresta(Aresta* a) {
   }
   // podemos acessar arestas diretamente aqui, apesar de ser privado (mas pertence a classe Vertice)
   a->getVertice1()->arestas.remove(a);
-  if(a->getVertice1() != a->getVertice2())
-    a->getVertice2()->arestas.remove(a);
+  if(a->getVertice1() != a->getVertice2()) a->getVertice2()->arestas.remove(a);
 
   delete a;
 }
@@ -87,8 +82,7 @@ void Vertice::imprimirLigacoes() const {
   for(; it != arestas.end(); it++) {
     std::cout << std::endl << "\t" << this->name << "->";
     outro = (*it)->getVertice2();
-    if(outro == this)
-      outro = (*it)->getVertice1();
+    if(outro == this) outro = (*it)->getVertice1();
     std::cout << outro->getName() << "(" << (*it)->getWeight() << ")";  // imprime sem a distancia
   }
   std::cout << std::endl;

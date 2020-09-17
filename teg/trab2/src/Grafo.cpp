@@ -12,7 +12,9 @@ Grafo::Grafo() : vertices(new std::list<Vertice*>), ca_SomaMin{2147483647}, soma
 
 Grafo::~Grafo() {
   std::list<Vertice*>::iterator it = this->vertices->begin();
-  for(; it != this->vertices->end(); it++) { delete *it; }
+  for(; it != this->vertices->end(); it++) {
+    delete *it;
+  }
   delete vertices;
 }
 
@@ -109,9 +111,13 @@ void Grafo::criaGrafoGn() {
 }
 
 void Grafo::algoritmos() {
+  // arvores
   this->construirArvore("Joinville");
 
-  for(int i = 0; i < (int)this->vertices->size(); i++) { this->minimosSucessivos(i); }
+  // minimos sucessivos
+  for(int i = 0; i < (int)this->vertices->size(); i++) {
+    this->minimosSucessivos(i);
+  }
   std::ofstream file;
   file.open("minimos_sucessivos.txt");
   std::list<std::string>::const_iterator sit = ca_CaminhoMin.begin();
@@ -120,7 +126,57 @@ void Grafo::algoritmos() {
     sit++;
   }
   file.close();
+
+  ordenacaoPesoArestas();
 }
+
+void Grafo::ordenacaoPesoArestas() {
+  typedef struct {
+    int peso;
+    Vertice* v1;
+    Vertice* v2;
+  } MicroAresta;
+
+  std::list<MicroAresta> arestasOrdenadas;
+
+  std::list<Vertice*>::const_iterator itVertices = this->vertices->cbegin();
+  for(; itVertices != this->vertices->cend(); itVertices++) {
+    std::list<const Aresta*>::const_iterator itArestas = (*itVertices)->arestas.cbegin();
+    for(; itArestas != (*itVertices)->arestas.cend(); itArestas++) {
+      int pesoAresta = (*itArestas)->getWeight();
+      std::list<MicroAresta>::iterator itArestasOrd = arestasOrdenadas.begin();
+      while(itArestasOrd != arestasOrdenadas.end() && (*itArestasOrd).peso < pesoAresta) {
+        itArestasOrd++;
+      }
+      if(pesoAresta == (*itArestasOrd).peso) {
+        // std::cout << pesoAresta << " " << (*itArestasOrd).peso << std::endl;
+        continue;
+      }
+      MicroAresta temp = {pesoAresta, (*itArestas)->getVertice1(), (*itArestas)->getVertice2()};
+      arestasOrdenadas.insert(itArestasOrd, temp);
+    }
+  }
+
+  // std::list<MicroAresta>::const_iterator itArestasOrd = arestasOrdenadas.cbegin();
+  // for(; itArestasOrd != arestasOrdenadas.cend(); itArestasOrd++) {
+  //   std::cout << (*itArestasOrd).v1->getId() << "->" << (*itArestasOrd).v2->getId()
+  //             << " S:" << (*itArestasOrd).peso << std::endl;
+  // }
+
+  // maos a obra
+  std::list<MicroAresta> arestasMenorPeso;
+  int nArestasNoVertice[(int)this->vertices->size()] = {};
+
+  std::list<MicroAresta>::const_iterator itArestasOrd = arestasOrdenadas.cbegin();
+  for(; itArestasOrd != arestasOrdenadas.cend(); itArestasOrd++) {
+    if(nArestasNoVertice[(*itArestasOrd).v1->getId()] < 2 &&
+       nArestasNoVertice[(*itArestasOrd).v2->getId()] < 2) {
+      // chamr função verificar ciclo
+    }
+  }
+}
+
+bool Grafo::ehCiclico() {}
 
 void Grafo::minimosSucessivos(int id) {
   bool* visited = new bool[this->vertices->size()];
@@ -131,7 +187,9 @@ void Grafo::minimosSucessivos(int id) {
 
   // raiz
   std::list<Vertice*>::iterator it = this->vertices->begin();
-  while((*it)->getId() != id) { it++; }
+  while((*it)->getId() != id) {
+    it++;
+  }
 
   std::list<const Aresta*>::iterator aresIt = (*it)->arestas.begin();
   int min = 2147483647;
@@ -140,8 +198,7 @@ void Grafo::minimosSucessivos(int id) {
 
   for(; aresIt != (*it)->arestas.end(); aresIt++) {
     outro = (*aresIt)->getVertice2();
-    if(outro == (*it))
-      outro = (*aresIt)->getVertice1();
+    if(outro == (*it)) outro = (*aresIt)->getVertice1();
     // ok
     if(!visited[outro->getId()]) {
       if(min > (*aresIt)->getWeight()) {
@@ -180,7 +237,9 @@ void Grafo::minimosSucessivos(int id, bool visited[], std::list<int>* marcados) 
   visited[id] = true;
 
   std::list<Vertice*>::iterator it = this->vertices->begin();
-  while((*it)->getId() != id) { it++; }
+  while((*it)->getId() != id) {
+    it++;
+  }
 
   std::list<const Aresta*>::iterator aresIt = (*it)->arestas.begin();
   int min = 2147483647;
@@ -189,8 +248,7 @@ void Grafo::minimosSucessivos(int id, bool visited[], std::list<int>* marcados) 
 
   for(; aresIt != (*it)->arestas.end(); aresIt++) {
     outro = (*aresIt)->getVertice2();
-    if(outro == (*it))
-      outro = (*aresIt)->getVertice1();
+    if(outro == (*it)) outro = (*aresIt)->getVertice1();
 
     if(!visited[outro->getId()]) {
       if(min > (*aresIt)->getWeight()) {
@@ -208,8 +266,7 @@ void Grafo::minimosSucessivos(int id, bool visited[], std::list<int>* marcados) 
 
     for(; aresIt != verMin->arestas.end(); aresIt++) {
       outro = (*aresIt)->getVertice2();
-      if(outro == verMin)
-        outro = (*aresIt)->getVertice1();
+      if(outro == verMin) outro = (*aresIt)->getVertice1();
 
       if(outro->getId() == (int)marcados->front()) {
         soma += (*aresIt)->getWeight();
@@ -352,8 +409,7 @@ Aresta* Grafo::adicionarAresta(int id1, int id2, int distancia) {
       v2 = (*it);
       achado++;
     }
-    if(achado == 2)
-      break;
+    if(achado == 2) break;
   }
   if(v1 == nullptr || v2 == nullptr)  // verifica se algum dos dois nao encontra-se na lista
     return nullptr;
