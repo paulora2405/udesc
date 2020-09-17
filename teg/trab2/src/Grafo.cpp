@@ -156,12 +156,14 @@ void Grafo::construirArvore(Vertice* v, bool visited[], std::list<int>* marcados
         ca_CaminhoMin.clear();
         std::string s = "";
         for(; mit != marcados->end(); mit++) s += std::to_string((*mit)) + ",";
+        s += std::to_string(0) + ",";
         s += std::to_string(soma);
         ca_CaminhoMin.push_back(s);
 
       } else if(soma == ca_SomaMin) {
         std::string s = "";
         for(; mit != marcados->end(); mit++) s += std::to_string((*mit)) + ",";
+        s += std::to_string(0) + ",";
         s += std::to_string(soma);
         ca_CaminhoMin.push_back(s);
       }
