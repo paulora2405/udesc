@@ -164,16 +164,19 @@ void Grafo::ordenacaoPesoArestas() {
   for(; itArestasOrd != arestasOrdenadas.cend(); itArestasOrd++) {
     if(nArestasNoVertice[(*itArestasOrd).v1->getId()] < 2 &&
        nArestasNoVertice[(*itArestasOrd).v2->getId()] < 2 &&
-       !ehCiclico((*itArestasOrd).v1->getId(), (*itArestasOrd).v2->getId(), arestasMenorPeso)) {
+       (!ehCiclico((*itArestasOrd).v1->getId(), (*itArestasOrd).v2->getId(), arestasMenorPeso) ||
+        arestasMenorPeso.size() == this->vertices->size() - 1)) {
       arestasMenorPeso.push_back((*itArestasOrd));
+      nArestasNoVertice[(*itArestasOrd).v1->getId()]++;
+      nArestasNoVertice[(*itArestasOrd).v2->getId()]++;
     }
   }
-
-  std::list<MicroAresta>::const_iterator itArestasMenorPeso = arestasMenorPeso.cbegin();
-  for(; itArestasMenorPeso != arestasMenorPeso.cend(); itArestasMenorPeso++) {
-    std::cout << (*itArestasMenorPeso).v1->getId() << "->" << (*itArestasMenorPeso).v2->getId()
-              << "\tS:" << (*itArestasMenorPeso).peso << std::endl;
-  }
+  // para printar
+  // std::list<MicroAresta>::const_iterator itArestasMenorPeso = arestasMenorPeso.cbegin();
+  // for(; itArestasMenorPeso != arestasMenorPeso.cend(); itArestasMenorPeso++) {
+  //   std::cout << (*itArestasMenorPeso).v1->getId() << "->" << (*itArestasMenorPeso).v2->getId()
+  //             << "\tS:" << (*itArestasMenorPeso).peso << std::endl;
+  // }
 }
 
 bool Grafo::ehCiclico(int idOrig, int idDest, std::list<MicroAresta> arestasMenorPeso) {
@@ -187,19 +190,23 @@ bool Grafo::ehCiclico(int idOrig, int idDest, std::list<MicroAresta> arestasMeno
   }
 
   int outro;
+  int ultimo;
   int avancou = 1;
   while(avancou == 1) {
     avancou = 0;
     itArestasMenorPeso = arestasMenorPeso.cbegin();
     for(; itArestasMenorPeso != arestasMenorPeso.cend(); itArestasMenorPeso++) {
-      if((*itArestasMenorPeso).v1->getId() == idDest ||
-         (*itArestasMenorPeso).v2->getId() == idDest) {
+      if(((*itArestasMenorPeso).v1->getId() == idDest ||
+          (*itArestasMenorPeso).v2->getId() == idDest) &&
+         ((*itArestasMenorPeso).v1->getId() != ultimo &&
+          (*itArestasMenorPeso).v2->getId() != ultimo)) {
         outro = (*itArestasMenorPeso).v1->getId();
         if(outro == idDest) outro = (*itArestasMenorPeso).v2->getId();
         avancou = 1;
         if(outro == idOrig) return true;
       }
     }
+    ultimo = idDest;
     idDest = outro;
   }
   return false;
