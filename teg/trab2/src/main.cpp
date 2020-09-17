@@ -12,12 +12,6 @@
 
 int main() {
   Grafo* g{new Grafo()};
-
-  // Construção de árvores
-  g->construirArvore("Joinville");
-
-  // Minimos sucessivos
-  for(int i = 0; i < 10; i++) g->minimosSucessivos(i);
-
+  g->algoritmos();
   delete g;
 }

@@ -29,6 +29,13 @@ public:
   ~Grafo();
 
   /**
+   * Executa os algoritmos de construção das arvores, mínimos sucessivos e o outro la.
+   */
+  void algoritmos();
+
+  //------------------------------private-----------------------------//
+private:
+  /**
    * Começa a contrução da árvore a partir da raiz.
    * @param[in] raiz Nome da cidade raiz do algoritmo.
    */
@@ -40,14 +47,9 @@ public:
    */
   void minimosSucessivos(int id);
 
-  /// Inicia o algoritomo de busca em profundidade.
-  void iniciaDFS();
-
   /// Imprime todas as ligacoes de todos os vertices do grafo de chamada.
   void imprimirGrafo() const;
 
-  //------------------------------private-----------------------------//
-private:
   /**
    * Cria grafo completo com todas as cidades, e as arestas
    * 	entre cada uma delas, com suas respectivas distancias.
@@ -55,7 +57,7 @@ private:
   void criaGrafoGn();
 
   /**
-   * PRIVATE - Construcao recursiva da arvore.
+   * RECURSIVA - Construcao recursiva da arvore.
    * @param[in] v Vertice atual.
    * @param[in] visited Vetor booleano de vertices visitados.
    * @param[in] marcados Lista encadeada dos ids visitados na ordem de visita.
@@ -63,9 +65,11 @@ private:
   void construirArvore(Vertice *v, bool visited[], std::list<int> *marcados);
 
   /**
-   * PRIVATE - Algoritmo recursivo dos minimos sucessivos.
+   * RECURSIVA - Algoritmo recursivo dos minimos sucessivos.
+   * @param[in] id Id do vertice atual.
+   * @param[in] soma Soma do caminho atual.
    */
-  void minimosSucessivos();
+  void minimosSucessivos(int id, bool visited[], std::list<int> *marcados);
 
   /**
    * Adiciona um vertice a lista de vertices do grafo de chamada.

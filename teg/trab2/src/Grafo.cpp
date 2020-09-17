@@ -68,7 +68,7 @@ void Grafo::criaGrafoGn() {
   this->adicionarAresta(2, 5, 63);
   this->adicionarAresta(2, 6, 337);
   this->adicionarAresta(2, 7, 64);
-  this->adicionarAresta(2, 8, 153);
+  this->adicionarAresta(2, 8, 153);  // AAAAA
   this->adicionarAresta(2, 9, 224);
 
   // Sao Jose
@@ -76,7 +76,7 @@ void Grafo::criaGrafoGn() {
   this->adicionarAresta(3, 5, 62);
   this->adicionarAresta(3, 6, 337);
   this->adicionarAresta(3, 7, 60);
-  this->adicionarAresta(3, 8, 153);
+  this->adicionarAresta(3, 8, 153);  // AAAAA
   this->adicionarAresta(3, 9, 223);
 
   // Chapeco
@@ -108,9 +108,26 @@ void Grafo::criaGrafoGn() {
   // Nao aparece pois todas as ligacoes ja foram feitas
 }
 
+void Grafo::algoritmos() {
+  this->construirArvore("Joinville");
+
+  for(int i = 0; i < (int)this->vertices->size(); i++) { this->minimosSucessivos(i); }
+  std::ofstream file;
+  file.open("minimos_sucessivos.txt");
+  std::list<std::string>::const_iterator sit = ca_CaminhoMin.begin();
+  while(sit != ca_CaminhoMin.end()) {
+    file << (*sit) << std::endl;
+    sit++;
+  }
+  file.close();
+}
+
 void Grafo::minimosSucessivos(int id) {
-  // bool* visited = new bool[10];
+  bool* visited = new bool[this->vertices->size()];
   std::list<int>* marcados = new std::list<int>;
+  visited[id] = true;
+
+  marcados->push_back(id);
 
   // raiz
   std::list<Vertice*>::iterator it = this->vertices->begin();
@@ -119,21 +136,94 @@ void Grafo::minimosSucessivos(int id) {
   std::list<const Aresta*>::iterator aresIt = (*it)->arestas.begin();
   int min = 2147483647;
   const Vertice* outro;
+  const Vertice* verMin;
+
+  for(; aresIt != (*it)->arestas.end(); aresIt++) {
+    outro = (*aresIt)->getVertice2();
+    if(outro == (*it))
+      outro = (*aresIt)->getVertice1();
+    // ok
+    if(!visited[outro->getId()]) {
+      if(min > (*aresIt)->getWeight()) {
+        min = (*aresIt)->getWeight();
+        verMin = outro;
+      }
+    }
+  }
+  // dps do for
+  marcados->push_back(verMin->getId());
+  this->soma = min;
+  minimosSucessivos(verMin->getId(), visited, marcados);
+
+  std::list<int>::const_iterator mit = marcados->cbegin();
+  if(soma < ca_SomaMin) {
+    ca_SomaMin = soma;
+    ca_CaminhoMin.clear();
+    std::string s = "";
+    for(; mit != marcados->end(); mit++) s += std::to_string((*mit)) + ",";
+    s += std::to_string(soma);
+    ca_CaminhoMin.push_back(s);
+
+  } else if(soma == ca_SomaMin) {
+    std::string s = "";
+    for(; mit != marcados->end(); mit++) s += std::to_string((*mit)) + ",";
+    s += std::to_string(soma);
+    ca_CaminhoMin.push_back(s);
+  }
+
+  // std::list<int>::const_iterator mit = marcados->cbegin();
+  // for(; mit != marcados->cend(); mit++) { std::cout << (*mit) << ","; }
+  // std::cout << soma << std::endl;
+}
+
+void Grafo::minimosSucessivos(int id, bool visited[], std::list<int>* marcados) {
+  visited[id] = true;
+
+  std::list<Vertice*>::iterator it = this->vertices->begin();
+  while((*it)->getId() != id) { it++; }
+
+  std::list<const Aresta*>::iterator aresIt = (*it)->arestas.begin();
+  int min = 2147483647;
+  const Vertice* outro;
+  const Vertice* verMin;
+
   for(; aresIt != (*it)->arestas.end(); aresIt++) {
     outro = (*aresIt)->getVertice2();
     if(outro == (*it))
       outro = (*aresIt)->getVertice1();
 
-    std::list<int>::iterator marcIt = marcados->begin();
-
-    if(min > (*aresIt)->getWeight() && outro->getId())
-      min = (*aresIt)->getWeight();
-    break;
+    if(!visited[outro->getId()]) {
+      if(min > (*aresIt)->getWeight()) {
+        min = (*aresIt)->getWeight();
+        verMin = outro;
+      }
+    }
   }
+  marcados->push_back(verMin->getId());
+  this->soma += min;
+
+  if(marcados->size() == this->vertices->size()) {
+    std::list<const Aresta*>::const_iterator aresIt = verMin->arestas.begin();
+    // int min = 2147483647;
+
+    for(; aresIt != verMin->arestas.end(); aresIt++) {
+      outro = (*aresIt)->getVertice2();
+      if(outro == verMin)
+        outro = (*aresIt)->getVertice1();
+
+      if(outro->getId() == (int)marcados->front()) {
+        soma += (*aresIt)->getWeight();
+        marcados->push_back((int)marcados->front());
+        return;
+      }
+    }
+  }
+
+  minimosSucessivos(verMin->getId(), visited, marcados);
 }
 
 void Grafo::construirArvore(std::string raiz) {
-  bool* visited = new bool[10];
+  bool* visited = new bool[this->vertices->size()];
 
   std::list<int>* marcados = new std::list<int>;
 
@@ -143,7 +233,7 @@ void Grafo::construirArvore(std::string raiz) {
   construirArvore((*it), visited, marcados);  // chama a primeira vez, passando a raiz
 
   std::ofstream file;
-  file.open("melhorCaminho.txt");
+  file.open("construcao_arvore.txt");
   std::list<std::string>::const_iterator sit = ca_CaminhoMin.begin();
   while(sit != ca_CaminhoMin.end()) {
     file << (*sit) << std::endl;
@@ -151,9 +241,8 @@ void Grafo::construirArvore(std::string raiz) {
   }
   file.close();
 
-  delete visited;
-  marcados->clear();
-  delete marcados;
+  ca_SomaMin = 2147483647;
+  ca_CaminhoMin.clear();
 }
 
 void Grafo::construirArvore(Vertice* v, bool visited[], std::list<int>* marcados) {
