@@ -166,6 +166,7 @@ void Grafo::algoritmos() {
   for(int i = 0; i < (int)this->vertices->size(); i++) {
     this->minimosSucessivos(i);
   }
+
   std::ofstream file;
   file.open("minimos_sucessivos.txt");
   std::list<std::string>::const_iterator sit = ca_CaminhoMin.begin();
@@ -175,7 +176,16 @@ void Grafo::algoritmos() {
   }
   file.close();
 
-  // ordenacaoPesoArestas();
+  std::cout << "----------------------------" << std::endl;
+  std::cout << "Mínimos Sucessivos:" << std::endl;
+  std::cout << "----------------------------" << std::endl;
+  std::cout << "Melhores Caminhos Encontrados:" << std::endl;
+  sit = ca_CaminhoMin.begin();
+
+  for(; sit != ca_CaminhoMin.end(); sit++) {
+    std::cout << "" << (*sit) << std::endl;
+  }
+  ordenacaoPesoArestas();
 
   // adicionar } no final do arquivo
 }
@@ -216,11 +226,18 @@ void Grafo::ordenacaoPesoArestas() {
     }
   }
   // para printar
+  int soma = 0;
+  std::cout << "\n----------------------------" << std::endl;
+  std::cout << "Ordenação dos pesos das arestas:" << std::endl;
+  std::cout << "----------------------------" << std::endl;
+  std::cout << "Arestas Selecionadas:" << std::endl;
   std::list<MicroAresta>::const_iterator itArestasMenorPeso = arestasMenorPeso.cbegin();
   for(; itArestasMenorPeso != arestasMenorPeso.cend(); itArestasMenorPeso++) {
-    std::cout << (*itArestasMenorPeso).v1->getId() << "->" << (*itArestasMenorPeso).v2->getId()
-              << "\tS:" << (*itArestasMenorPeso).peso << std::endl;
+    std::cout << "v" << (*itArestasMenorPeso).v1->getId() << "-v"
+              << (*itArestasMenorPeso).v2->getId() << "\t";
+    soma += (*itArestasMenorPeso).peso;
   }
+  std::cout << std::endl << "Soma: " << soma << std::endl;
 }
 
 bool Grafo::ehCiclico(int idOrig, int idDest, std::list<MicroAresta> arestasMenorPeso) {
@@ -295,14 +312,17 @@ void Grafo::minimosSucessivos(int id) {
     ca_SomaMin = soma;
     ca_CaminhoMin.clear();
     std::string s = "";
-    for(; mit != marcados->end(); mit++) s += std::to_string((*mit)) + ",";
+    for(; mit != marcados->end(); mit++) s += "v" + std::to_string((*mit)) + "-";
+    s += "\nSoma: ";
     s += std::to_string(soma);
     ca_CaminhoMin.push_back(s);
 
   } else if(soma == ca_SomaMin) {
     std::string s = "";
-    for(; mit != marcados->end(); mit++) s += std::to_string((*mit)) + ",";
+    for(; mit != marcados->end(); mit++) s += "v" + std::to_string((*mit)) + "-";
+    s += "\nSoma: ";
     s += std::to_string(soma);
+    std::cout << std::endl;
     ca_CaminhoMin.push_back(s);
   }
 
@@ -376,6 +396,16 @@ void Grafo::construirArvore(std::string raiz) {
   }
   file.close();
 
+  std::cout << "----------------------------" << std::endl;
+  std::cout << "Construção de Árvores:" << std::endl;
+  std::cout << "----------------------------" << std::endl;
+  std::cout << "Melhores Caminhos Encontrados:" << std::endl;
+  sit = ca_CaminhoMin.begin();
+
+  for(; sit != ca_CaminhoMin.end(); sit++) {
+    std::cout << "" << (*sit) << std::endl;
+  }
+
   sit--;
   std::string caminhoOtimo = (*sit);
 
@@ -422,15 +452,15 @@ void Grafo::construirArvore(Vertice* v, bool visited[], std::list<int>* marcados
         ca_SomaMin = soma;
         ca_CaminhoMin.clear();
         std::string s = "";
-        for(; mit != marcados->end(); mit++) s += std::to_string((*mit)) + ",";
-        s += std::to_string(0) + ",";
+        for(; mit != marcados->end(); mit++) s += std::to_string((*mit)) + "-";
+        s += std::to_string(0) + "\nSoma: ";
         s += std::to_string(soma);
         ca_CaminhoMin.push_back(s);
 
       } else if(soma == ca_SomaMin) {
         std::string s = "";
-        for(; mit != marcados->end(); mit++) s += std::to_string((*mit)) + ",";
-        s += std::to_string(0) + ",";
+        for(; mit != marcados->end(); mit++) s += std::to_string((*mit)) + "-";
+        s += std::to_string(0) + "\nSoma: ";
         s += std::to_string(soma);
         ca_CaminhoMin.push_back(s);
       }
