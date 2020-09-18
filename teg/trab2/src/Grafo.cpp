@@ -19,20 +19,24 @@ Grafo::~Grafo() {
 }
 
 void Grafo::criaGrafoGn() {
+  std::ofstream f;
+  f.open("grafo.dot", std::ofstream::out | std::ofstream::trunc);
+  f << "strict graph G {" << std::endl;
+  // Adicionando cidades
+  f << "\tv0[label=\"Joinvile\"];" << std::endl;
+  f << "\tv1[label=\"Florianopolis\"];" << std::endl;
+  f << "\tv2[label=\"Blumenal\"];" << std::endl;
+  f << "\tv3[label=\"São José\"];" << std::endl;
+  f << "\tv4[label=\"Chapecó\"];" << std::endl;
+  f << "\tv5[label=\"Itajaí\"];" << std::endl;
+  f << "\tv6[label=\"Criciúma\"];" << std::endl;
+  f << "\tv7[label=\"Jaraguá\"];" << std::endl;
+  f << "\tv8[label=\"Palhoça\"];" << std::endl;
+  f << "\tv9[label=\"Lages\"];" << std::endl << std::endl;
   this->adicionarVertice("Joinville");
   this->adicionarVertice("Florianopolis");
   this->adicionarVertice("Blumenal");
   this->adicionarVertice("São José");
-  ///---------------------------------------
-  // this->adicionarAresta(0, 1, 1);
-  // this->adicionarAresta(0, 2, 2);
-  // this->adicionarAresta(0, 3, 4);
-
-  // this->adicionarAresta(1, 2, 8);
-  // this->adicionarAresta(1, 3, 16);
-
-  // this->adicionarAresta(2, 3, 32);
-  ///---------------------------------------
   this->adicionarVertice("Chapecó");
   this->adicionarVertice("Itajaí");
   this->adicionarVertice("Criciúma");
@@ -41,9 +45,17 @@ void Grafo::criaGrafoGn() {
   this->adicionarVertice("Lages");
 
   // Id cidade origem, Id cidade destino, distancia entre as cidades
-
   // Joinville
 
+  f << "\tv0--v1[label=182]" << std::endl;
+  f << "\tv0--v2[label=104]" << std::endl;
+  f << "\tv0--v3[label=176]" << std::endl;
+  f << "\tv0--v4[label=512]" << std::endl;
+  f << "\tv0--v5[label=93]" << std::endl;
+  f << "\tv0--v6[label=366]" << std::endl;
+  f << "\tv0--v7[label=46]" << std::endl;
+  f << "\tv0--v8[label=180]" << std::endl;
+  f << "\tv0--v9[label=312]" << std::endl << std::endl;
   this->adicionarAresta(0, 1, 182);
   this->adicionarAresta(0, 2, 104);
   this->adicionarAresta(0, 3, 176);
@@ -53,8 +65,16 @@ void Grafo::criaGrafoGn() {
   this->adicionarAresta(0, 7, 46);
   this->adicionarAresta(0, 8, 180);
   this->adicionarAresta(0, 9, 312);
-
   // Florianopolis
+
+  f << "\tv1--v2[label=148]" << std::endl;
+  f << "\tv1--v3[label=10]" << std::endl;
+  f << "\tv1--v4[label=553]" << std::endl;
+  f << "\tv1--v5[label=98]" << std::endl;
+  f << "\tv1--v6[label=203]" << std::endl;
+  f << "\tv1--v7[label=187]" << std::endl;
+  f << "\tv1--v8[label=20]" << std::endl;
+  f << "\tv1--v9[label=226]" << std::endl << std::endl;
   this->adicionarAresta(1, 2, 148);
   this->adicionarAresta(1, 3, 10);
   this->adicionarAresta(1, 4, 553);
@@ -63,55 +83,83 @@ void Grafo::criaGrafoGn() {
   this->adicionarAresta(1, 7, 187);
   this->adicionarAresta(1, 8, 20);
   this->adicionarAresta(1, 9, 226);
-
   // Blumenau
+
+  f << "\tv2--v3[label=146]" << std::endl;
+  f << "\tv2--v4[label=470]" << std::endl;
+  f << "\tv2--v5[label=63]" << std::endl;
+  f << "\tv2--v6[label=337]" << std::endl;
+  f << "\tv2--v7[label=64]" << std::endl;
+  f << "\tv2--v8[label=153]" << std::endl;
+  f << "\tv2--v9[label=224]" << std::endl << std::endl;
   this->adicionarAresta(2, 3, 146);
   this->adicionarAresta(2, 4, 470);
   this->adicionarAresta(2, 5, 63);
   this->adicionarAresta(2, 6, 337);
   this->adicionarAresta(2, 7, 64);
-  this->adicionarAresta(2, 8, 153);  // AAAAA
+  this->adicionarAresta(2, 8, 153);
   this->adicionarAresta(2, 9, 224);
-
   // Sao Jose
+
+  f << "\tv3--v4[label=477]" << std::endl;
+  f << "\tv3--v5[label=62]" << std::endl;
+  f << "\tv3--v6[label=337]" << std::endl;
+  f << "\tv3--v7[label=60]" << std::endl;
+  f << "\tv3--v8[label=154]" << std::endl;
+  f << "\tv3--v9[label=223]" << std::endl << std::endl;
   this->adicionarAresta(3, 4, 477);
   this->adicionarAresta(3, 5, 62);
   this->adicionarAresta(3, 6, 337);
   this->adicionarAresta(3, 7, 60);
-  this->adicionarAresta(3, 8, 153);  // AAAAA
+  this->adicionarAresta(3, 8, 154);
   this->adicionarAresta(3, 9, 223);
-
   // Chapeco
+  f << "\tv4--v5[label=530]" << std::endl;
+  f << "\tv4--v6[label=509]" << std::endl;
+  f << "\tv4--v7[label=487]" << std::endl;
+  f << "\tv4--v8[label=534]" << std::endl;
+  f << "\tv4--v9[label=331]" << std::endl << std::endl;
   this->adicionarAresta(4, 5, 530);
   this->adicionarAresta(4, 6, 509);
   this->adicionarAresta(4, 7, 487);
   this->adicionarAresta(4, 8, 534);
   this->adicionarAresta(4, 9, 331);
-
   // Itajai
+  f << "\tv5--v6[label=281]" << std::endl;
+  f << "\tv5--v7[label=97]" << std::endl;
+  f << "\tv5--v8[label=96]" << std::endl;
+  f << "\tv5--v9[label=275]" << std::endl << std::endl;
   this->adicionarAresta(5, 6, 281);
   this->adicionarAresta(5, 7, 97);
   this->adicionarAresta(5, 8, 96);
   this->adicionarAresta(5, 9, 275);
-
   // Criciúma
+  f << "\tv6--v7[label=371]" << std::endl;
+  f << "\tv6--v8[label=185]" << std::endl;
+  f << "\tv6--v9[label=204]" << std::endl << std::endl;
   this->adicionarAresta(6, 7, 371);
   this->adicionarAresta(6, 8, 185);
   this->adicionarAresta(6, 9, 204);
-
   // Jaragua
+  f << "\tv7--v8[label=186]" << std::endl;
+  f << "\tv7--v9[label=262]" << std::endl << std::endl;
   this->adicionarAresta(7, 8, 186);
   this->adicionarAresta(7, 9, 262);
-
   // Palhoca
+  f << "\tv8--v9[label=207]" << std::endl << std::endl;
   this->adicionarAresta(8, 9, 207);
-
   // Lages
   // Nao aparece pois todas as ligacoes ja foram feitas
+  // f << "}";
+  f.close();
 }
 
 void Grafo::algoritmos() {
   // arvores
+
+  std::ofstream f;
+  f.open("grafo.dot", std::ofstream::out | std::ofstream::app);
+
   this->construirArvore("Joinville");
 
   // minimos sucessivos
@@ -127,7 +175,9 @@ void Grafo::algoritmos() {
   }
   file.close();
 
-  ordenacaoPesoArestas();
+  // ordenacaoPesoArestas();
+
+  // adicionar } no final do arquivo
 }
 
 void Grafo::ordenacaoPesoArestas() {
@@ -151,12 +201,6 @@ void Grafo::ordenacaoPesoArestas() {
     }
   }
 
-  // std::list<MicroAresta>::const_iterator itArestasOrd = arestasOrdenadas.cbegin();
-  // for(; itArestasOrd != arestasOrdenadas.cend(); itArestasOrd++) {
-  //   std::cout << (*itArestasOrd).v1->getId() << "->" << (*itArestasOrd).v2->getId()
-  //             << " S:" << (*itArestasOrd).peso << std::endl;
-  // }
-
   int nArestasNoVertice[(int)this->vertices->size()] = {};
   std::list<MicroAresta> arestasMenorPeso;
 
@@ -172,11 +216,11 @@ void Grafo::ordenacaoPesoArestas() {
     }
   }
   // para printar
-  // std::list<MicroAresta>::const_iterator itArestasMenorPeso = arestasMenorPeso.cbegin();
-  // for(; itArestasMenorPeso != arestasMenorPeso.cend(); itArestasMenorPeso++) {
-  //   std::cout << (*itArestasMenorPeso).v1->getId() << "->" << (*itArestasMenorPeso).v2->getId()
-  //             << "\tS:" << (*itArestasMenorPeso).peso << std::endl;
-  // }
+  std::list<MicroAresta>::const_iterator itArestasMenorPeso = arestasMenorPeso.cbegin();
+  for(; itArestasMenorPeso != arestasMenorPeso.cend(); itArestasMenorPeso++) {
+    std::cout << (*itArestasMenorPeso).v1->getId() << "->" << (*itArestasMenorPeso).v2->getId()
+              << "\tS:" << (*itArestasMenorPeso).peso << std::endl;
+  }
 }
 
 bool Grafo::ehCiclico(int idOrig, int idDest, std::list<MicroAresta> arestasMenorPeso) {
@@ -331,6 +375,25 @@ void Grafo::construirArvore(std::string raiz) {
     sit++;
   }
   file.close();
+
+  sit--;
+  std::string caminhoOtimo = (*sit);
+
+  std::ofstream f;
+  f.open("grafo.dot", std::ofstream::out | std::ofstream::app);
+
+  char ori, des;
+  for(int i = 1; i < 20 - 1; i += 2) {
+    ori = caminhoOtimo[i - 1];
+    des = caminhoOtimo[i + 1];
+    f << "\tv" << ori << "--v" << des << "[color=blue,penwidth=3,fontcolor=red,fontsize=25];"
+      << std::endl;
+  }
+  f << "\tv" << des << "--v" << caminhoOtimo[0]
+    << "[color=blue,penwidth=3,fontcolor=red,fontsize=25];" << std::endl
+    << "}" << std::endl;
+
+  f.close();
 
   ca_SomaMin = 2147483647;
   ca_CaminhoMin.clear();
