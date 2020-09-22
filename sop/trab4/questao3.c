@@ -167,6 +167,11 @@ void removeReqDuplicada() {
           req[k] = req[k + 1];
         }
         req = realloc(req, sizeof(Requisicao) * --qntReq);
+        if(req == NULL) {
+          free(req);
+          perror("Erro na realocação de memória");
+          exit(EXIT_FAILURE);
+        }
         return;
       }
     }
