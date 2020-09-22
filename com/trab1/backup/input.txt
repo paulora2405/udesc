@@ -1,0 +1,26 @@
+int a;
+int main(){
+  a=3;
+  b=2;
+  for(a:0,4,2):{
+    a= a + b;
+  }
+  while(a=2):{
+    a= b+1;
+  }
+  do{
+    a=5;
+  }while(a = 5);
+
+  if(a=2):{
+    a=4;
+  }
+  else:{
+    a=8;
+  }
+  
+}
+
+int outra(int a){
+  a=4;
+}
