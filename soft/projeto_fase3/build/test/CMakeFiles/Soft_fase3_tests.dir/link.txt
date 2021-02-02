@@ -1,0 +1,1 @@
+/bin/g++-9  -g   CMakeFiles/Soft_fase3_tests.dir/AlunoUnitTest.cpp.o CMakeFiles/Soft_fase3_tests.dir/ProfessorUnitTest.cpp.o CMakeFiles/Soft_fase3_tests.dir/MateriaUnitTest.cpp.o  -o Soft_fase3_tests  ../lib/libgtest_maind.a ../libSoft_fase3.a ../lib/libgtestd.a -lpthread 

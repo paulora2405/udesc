@@ -1,0 +1,2 @@
+/bin/ar qc libSoft_fase3.a  CMakeFiles/Soft_fase3.dir/src/Professor.cpp.o CMakeFiles/Soft_fase3.dir/src/Aluno.cpp.o CMakeFiles/Soft_fase3.dir/src/Materia.cpp.o
+/bin/ranlib libSoft_fase3.a

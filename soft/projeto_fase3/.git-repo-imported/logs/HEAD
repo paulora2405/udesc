@@ -1,0 +1,6 @@
+0000000000000000000000000000000000000000 8588bd818a617966c25a5e4bdbdec9a84d61f040 paulora2405 <paulora2405@gmail.com> 1601247513 -0300	clone: from git@github.com:paulora2405/soft_fase3.git
+8588bd818a617966c25a5e4bdbdec9a84d61f040 72fa948feb4542d99926b231e1e41de8c72bf74b paulora2405 <paulora2405@gmail.com> 1601247591 -0300	commit: CP from another repo
+72fa948feb4542d99926b231e1e41de8c72bf74b a801fe11018630ef47e2904e9b80a48d680b6cd9 paulora2405 <paulora2405@gmail.com> 1601260815 -0300	commit: GTest integration
+a801fe11018630ef47e2904e9b80a48d680b6cd9 d0d4710b6e3ebd95505c5f68a96c95768f560fea paulora2405 <paulora2405@gmail.com> 1601260818 -0300	pull --tags origin master: Merge made by the 'recursive' strategy.
+d0d4710b6e3ebd95505c5f68a96c95768f560fea 682cfe94b5f5a28e9a3581b70de3bfb6f92dbebe paulora2405 <paulora2405@gmail.com> 1601267539 -0300	commit: MateriaUnitTest DONE
+682cfe94b5f5a28e9a3581b70de3bfb6f92dbebe 2fa24b807a7bb7e3d5c1bb23225c9dbe57299983 paulora2405 <paulora2405@gmail.com> 1601274204 -0300	commit: AlunoUnitTest DONE

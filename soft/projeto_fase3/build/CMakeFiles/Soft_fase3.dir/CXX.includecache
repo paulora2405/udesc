@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/paulo/git/soft_fase3/src/Aluno.cpp
+Aluno.hpp
+/home/paulo/git/soft_fase3/src/Aluno.hpp
+
+/home/paulo/git/soft_fase3/src/Aluno.hpp
+time.h
+-
+list
+-
+string
+-
+vector
+-
+Materia.hpp
+/home/paulo/git/soft_fase3/src/Materia.hpp
+
+/home/paulo/git/soft_fase3/src/Materia.hpp
+algorithm
+-
+cmath
+-
+string
+-
+

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Site BuildName="Linux-g++-9"
+	BuildStamp="20200928-0122-Experimental"
+	Name="linuxp"
+	Generator="ctest-3.16.3"
+	CompilerName="/bin/g++-9"
+	CompilerVersion="9.3.0"
+	OSName="Linux"
+	Hostname="linuxp"
+	OSRelease="5.4.0-48-generic"
+	OSVersion="#52-Ubuntu SMP Thu Sep 10 10:58:49 UTC 2020"
+	OSPlatform="x86_64"
+	Is64Bits="1"
+	VendorString="GenuineIntel"
+	VendorID="Intel Corporation"
+	FamilyID="6"
+	ModelID="158"
+	ProcessorCacheSize="6144"
+	NumberOfLogicalCPU="4"
+	NumberOfPhysicalCPU="4"
+	TotalVirtualMemory="2047"
+	TotalPhysicalMemory="19977"
+	LogicalProcessorsPerPhysical="1"
+	ProcessorClockFrequency="3315.47"
+	>
+	<Testing>
+		<StartDateTime>Sep 28 03:21 -03</StartDateTime>
+		<StartTestTime>1601274119</StartTestTime>
+		<TestList>
+			<Test>./test/Soft_fase3_tests</Test>
+		</TestList>
+		<Test Status="passed">
+			<Name>Soft_fase3_tests</Name>
+			<Path>./test</Path>
+			<FullName>./test/Soft_fase3_tests</FullName>
+			<FullCommandLine>/home/paulo/git/soft_fase3/build/test/Soft_fase3_tests</FullCommandLine>
+			<Results>
+				<NamedMeasurement type="numeric/double" name="Execution Time">
+					<Value>0.00205505</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="numeric/double" name="Processors">
+					<Value>1</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Completion Status">
+					<Value>Completed</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Command Line">
+					<Value>/home/paulo/git/soft_fase3/build/test/Soft_fase3_tests</Value>
+				</NamedMeasurement>
+				<Measurement>
+					<Value encoding="base64" compression="gzip">eJyNkjtvgzAQgHd+xY1hALfJ3AGpj6FKW5FmQihy4aCWjI/6kf798hKCiJDe4rPvu6cvdkoJVULFhdr4UGiqgH1ThazmThIrhWWGCnsquMEdK4lKiRaNnapGZ6xstVMbJswyL3kYJYV4yLGDljF9km13AeNEc4ZeEoySwoukLy57ANVZaFIVqgZGG7j6Ar7vuS5oJJ2ioxL2s3nyEoiPb9BJOjeFUa3pzHOKcVAauJf319swbO6gMv4/6+hpsGS59L2503Y6kj23qAVfrv/CGO4xF9zMy15mxmrXwj1r/HGospsxJ+DiGNY6WpvEtT+3yHWQ06+a79T1XQLNVTjP1DT0ER0OT49t54Nn6P0BkJrzBA==</Value>
+				</Measurement>
+			</Results>
+		</Test>
+		<EndDateTime>Sep 28 03:21 -03</EndDateTime>
+		<EndTestTime>1601274119</EndTestTime>
+		<ElapsedMinutes>0</ElapsedMinutes>
+	</Testing>
+</Site>

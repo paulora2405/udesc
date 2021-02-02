@@ -1,0 +1,36 @@
+Start testing: Sep 28 03:21 -03
+----------------------------------------------------------
+1/1 Testing: Soft_fase3_tests
+1/1 Test: Soft_fase3_tests
+Command: "/home/paulo/git/soft_fase3/build/test/Soft_fase3_tests"
+Directory: /home/paulo/git/soft_fase3/build/test
+"Soft_fase3_tests" start time: Sep 28 03:21 -03
+Output:
+----------------------------------------------------------
+Running main() from /home/paulo/git/soft_fase3/googletest/googletest/src/gtest_main.cc
+[==========] Running 3 tests from 2 test suites.
+[----------] Global test environment set-up.
+[----------] 1 test from AlunoUnitTest
+[ RUN      ] AlunoUnitTest.AprovadoReprovado
+[       OK ] AlunoUnitTest.AprovadoReprovado (0 ms)
+[----------] 1 test from AlunoUnitTest (0 ms total)
+
+[----------] 2 tests from MateriaUnitTest
+[ RUN      ] MateriaUnitTest.Medias
+[       OK ] MateriaUnitTest.Medias (0 ms)
+[ RUN      ] MateriaUnitTest.Frequencias
+[       OK ] MateriaUnitTest.Frequencias (0 ms)
+[----------] 2 tests from MateriaUnitTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 3 tests from 2 test suites ran. (0 ms total)
+[  PASSED  ] 3 tests.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"Soft_fase3_tests" end time: Sep 28 03:21 -03
+"Soft_fase3_tests" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Sep 28 03:21 -03

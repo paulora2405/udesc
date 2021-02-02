@@ -1,0 +1,52 @@
+[
+{
+  "directory": "/home/paulo/git/soft_fase3/build",
+  "command": "/bin/g++-9    -g -fPIC   -std=gnu++11 -o CMakeFiles/Soft_fase3.dir/src/Professor.cpp.o -c /home/paulo/git/soft_fase3/src/Professor.cpp",
+  "file": "/home/paulo/git/soft_fase3/src/Professor.cpp"
+},
+{
+  "directory": "/home/paulo/git/soft_fase3/build",
+  "command": "/bin/g++-9    -g -fPIC   -std=gnu++11 -o CMakeFiles/Soft_fase3.dir/src/Aluno.cpp.o -c /home/paulo/git/soft_fase3/src/Aluno.cpp",
+  "file": "/home/paulo/git/soft_fase3/src/Aluno.cpp"
+},
+{
+  "directory": "/home/paulo/git/soft_fase3/build",
+  "command": "/bin/g++-9    -g -fPIC   -std=gnu++11 -o CMakeFiles/Soft_fase3.dir/src/Materia.cpp.o -c /home/paulo/git/soft_fase3/src/Materia.cpp",
+  "file": "/home/paulo/git/soft_fase3/src/Materia.cpp"
+},
+{
+  "directory": "/home/paulo/git/soft_fase3/build/googletest/googlemock",
+  "command": "/bin/g++-9   -isystem /home/paulo/git/soft_fase3/googletest/googlemock/include -isystem /home/paulo/git/soft_fase3/googletest/googlemock -isystem /home/paulo/git/soft_fase3/googletest/googletest/include -isystem /home/paulo/git/soft_fase3/googletest/googletest  -g -fPIC   -Wall -Wshadow -Werror -Wno-error=dangling-else -DGTEST_HAS_PTHREAD=1 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -std=c++11 -o CMakeFiles/gmock_main.dir/src/gmock_main.cc.o -c /home/paulo/git/soft_fase3/googletest/googlemock/src/gmock_main.cc",
+  "file": "/home/paulo/git/soft_fase3/googletest/googlemock/src/gmock_main.cc"
+},
+{
+  "directory": "/home/paulo/git/soft_fase3/build/googletest/googlemock",
+  "command": "/bin/g++-9   -I/home/paulo/git/soft_fase3/googletest/googlemock/include -I/home/paulo/git/soft_fase3/googletest/googlemock -isystem /home/paulo/git/soft_fase3/googletest/googletest/include -isystem /home/paulo/git/soft_fase3/googletest/googletest  -g -fPIC   -Wall -Wshadow -Werror -Wno-error=dangling-else -DGTEST_HAS_PTHREAD=1 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -std=c++11 -o CMakeFiles/gmock.dir/src/gmock-all.cc.o -c /home/paulo/git/soft_fase3/googletest/googlemock/src/gmock-all.cc",
+  "file": "/home/paulo/git/soft_fase3/googletest/googlemock/src/gmock-all.cc"
+},
+{
+  "directory": "/home/paulo/git/soft_fase3/build/googletest/googletest",
+  "command": "/bin/g++-9   -isystem /home/paulo/git/soft_fase3/googletest/googletest/include -isystem /home/paulo/git/soft_fase3/googletest/googletest  -g -fPIC   -Wall -Wshadow -Werror -Wno-error=dangling-else -DGTEST_HAS_PTHREAD=1 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -std=c++11 -o CMakeFiles/gtest_main.dir/src/gtest_main.cc.o -c /home/paulo/git/soft_fase3/googletest/googletest/src/gtest_main.cc",
+  "file": "/home/paulo/git/soft_fase3/googletest/googletest/src/gtest_main.cc"
+},
+{
+  "directory": "/home/paulo/git/soft_fase3/build/googletest/googletest",
+  "command": "/bin/g++-9   -I/home/paulo/git/soft_fase3/googletest/googletest/include -I/home/paulo/git/soft_fase3/googletest/googletest  -g -fPIC   -Wall -Wshadow -Werror -Wno-error=dangling-else -DGTEST_HAS_PTHREAD=1 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -std=c++11 -o CMakeFiles/gtest.dir/src/gtest-all.cc.o -c /home/paulo/git/soft_fase3/googletest/googletest/src/gtest-all.cc",
+  "file": "/home/paulo/git/soft_fase3/googletest/googletest/src/gtest-all.cc"
+},
+{
+  "directory": "/home/paulo/git/soft_fase3/build/test",
+  "command": "/bin/g++-9   -isystem /home/paulo/git/soft_fase3/googletest/googletest/include -isystem /home/paulo/git/soft_fase3/googletest/googletest  -g -fPIE   -std=gnu++11 -o CMakeFiles/Soft_fase3_tests.dir/AlunoUnitTest.cpp.o -c /home/paulo/git/soft_fase3/test/AlunoUnitTest.cpp",
+  "file": "/home/paulo/git/soft_fase3/test/AlunoUnitTest.cpp"
+},
+{
+  "directory": "/home/paulo/git/soft_fase3/build/test",
+  "command": "/bin/g++-9   -isystem /home/paulo/git/soft_fase3/googletest/googletest/include -isystem /home/paulo/git/soft_fase3/googletest/googletest  -g -fPIE   -std=gnu++11 -o CMakeFiles/Soft_fase3_tests.dir/ProfessorUnitTest.cpp.o -c /home/paulo/git/soft_fase3/test/ProfessorUnitTest.cpp",
+  "file": "/home/paulo/git/soft_fase3/test/ProfessorUnitTest.cpp"
+},
+{
+  "directory": "/home/paulo/git/soft_fase3/build/test",
+  "command": "/bin/g++-9   -isystem /home/paulo/git/soft_fase3/googletest/googletest/include -isystem /home/paulo/git/soft_fase3/googletest/googletest  -g -fPIE   -std=gnu++11 -o CMakeFiles/Soft_fase3_tests.dir/MateriaUnitTest.cpp.o -c /home/paulo/git/soft_fase3/test/MateriaUnitTest.cpp",
+  "file": "/home/paulo/git/soft_fase3/test/MateriaUnitTest.cpp"
+}
+]

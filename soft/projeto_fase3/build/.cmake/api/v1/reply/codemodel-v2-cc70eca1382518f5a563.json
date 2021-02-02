@@ -1,0 +1,465 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						4
+					],
+					"hasInstallRule" : true,
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.8"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						28
+					]
+				},
+				{
+					"build" : "googletest",
+					"childIndexes" : 
+					[
+						2
+					],
+					"hasInstallRule" : true,
+					"minimumCMakeVersion" : 
+					{
+						"string" : "2.8.8"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 1,
+					"source" : "googletest"
+				},
+				{
+					"build" : "googletest/googlemock",
+					"childIndexes" : 
+					[
+						3
+					],
+					"hasInstallRule" : true,
+					"minimumCMakeVersion" : 
+					{
+						"string" : "2.6.4"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 2,
+					"source" : "googletest/googlemock",
+					"targetIndexes" : 
+					[
+						30,
+						31
+					]
+				},
+				{
+					"build" : "googletest/googletest",
+					"hasInstallRule" : true,
+					"minimumCMakeVersion" : 
+					{
+						"string" : "2.6.4"
+					},
+					"parentIndex" : 2,
+					"projectIndex" : 3,
+					"source" : "googletest/googletest",
+					"targetIndexes" : 
+					[
+						32,
+						33
+					]
+				},
+				{
+					"build" : "test",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.8"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "test",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17,
+						18,
+						19,
+						20,
+						21,
+						22,
+						23,
+						24,
+						25,
+						26,
+						27,
+						29
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"childIndexes" : 
+					[
+						1
+					],
+					"directoryIndexes" : 
+					[
+						0,
+						4
+					],
+					"name" : "Soft_fase3",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17,
+						18,
+						19,
+						20,
+						21,
+						22,
+						23,
+						24,
+						25,
+						26,
+						27,
+						28,
+						29
+					]
+				},
+				{
+					"childIndexes" : 
+					[
+						2
+					],
+					"directoryIndexes" : 
+					[
+						1
+					],
+					"name" : "googletest-distribution",
+					"parentIndex" : 0
+				},
+				{
+					"childIndexes" : 
+					[
+						3
+					],
+					"directoryIndexes" : 
+					[
+						2
+					],
+					"name" : "gmock",
+					"parentIndex" : 1,
+					"targetIndexes" : 
+					[
+						30,
+						31
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						3
+					],
+					"name" : "gtest",
+					"parentIndex" : 2,
+					"targetIndexes" : 
+					[
+						32,
+						33
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 4,
+					"id" : "Continuous::@36f028580bb02cc8272a",
+					"jsonFile" : "target-Continuous-Debug-5f9b01d68a987384c9bb.json",
+					"name" : "Continuous",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "ContinuousBuild::@36f028580bb02cc8272a",
+					"jsonFile" : "target-ContinuousBuild-Debug-dea349dc7ab30d59cfbb.json",
+					"name" : "ContinuousBuild",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "ContinuousConfigure::@36f028580bb02cc8272a",
+					"jsonFile" : "target-ContinuousConfigure-Debug-557410f25ea45ab29c0a.json",
+					"name" : "ContinuousConfigure",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "ContinuousCoverage::@36f028580bb02cc8272a",
+					"jsonFile" : "target-ContinuousCoverage-Debug-96cb7bc986525b938de6.json",
+					"name" : "ContinuousCoverage",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "ContinuousMemCheck::@36f028580bb02cc8272a",
+					"jsonFile" : "target-ContinuousMemCheck-Debug-d218adae83df7fd0b0b5.json",
+					"name" : "ContinuousMemCheck",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "ContinuousStart::@36f028580bb02cc8272a",
+					"jsonFile" : "target-ContinuousStart-Debug-2409986c09bfaae84192.json",
+					"name" : "ContinuousStart",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "ContinuousSubmit::@36f028580bb02cc8272a",
+					"jsonFile" : "target-ContinuousSubmit-Debug-c3a6c2aa8fe991571123.json",
+					"name" : "ContinuousSubmit",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "ContinuousTest::@36f028580bb02cc8272a",
+					"jsonFile" : "target-ContinuousTest-Debug-86aa96d7b0b2da489c14.json",
+					"name" : "ContinuousTest",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "ContinuousUpdate::@36f028580bb02cc8272a",
+					"jsonFile" : "target-ContinuousUpdate-Debug-75dc7bcc59fd16ea3994.json",
+					"name" : "ContinuousUpdate",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "Experimental::@36f028580bb02cc8272a",
+					"jsonFile" : "target-Experimental-Debug-0e076acd9b22f828fa93.json",
+					"name" : "Experimental",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "ExperimentalBuild::@36f028580bb02cc8272a",
+					"jsonFile" : "target-ExperimentalBuild-Debug-3affa29859ff77d2c77f.json",
+					"name" : "ExperimentalBuild",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "ExperimentalConfigure::@36f028580bb02cc8272a",
+					"jsonFile" : "target-ExperimentalConfigure-Debug-4e1def1561098a8350e4.json",
+					"name" : "ExperimentalConfigure",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "ExperimentalCoverage::@36f028580bb02cc8272a",
+					"jsonFile" : "target-ExperimentalCoverage-Debug-342c1e54a514ac1c3c25.json",
+					"name" : "ExperimentalCoverage",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "ExperimentalMemCheck::@36f028580bb02cc8272a",
+					"jsonFile" : "target-ExperimentalMemCheck-Debug-31c4d07ac598235a2bd3.json",
+					"name" : "ExperimentalMemCheck",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "ExperimentalStart::@36f028580bb02cc8272a",
+					"jsonFile" : "target-ExperimentalStart-Debug-9de1059f966285e6bd96.json",
+					"name" : "ExperimentalStart",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "ExperimentalSubmit::@36f028580bb02cc8272a",
+					"jsonFile" : "target-ExperimentalSubmit-Debug-fe14d63d3c34583ae3cb.json",
+					"name" : "ExperimentalSubmit",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "ExperimentalTest::@36f028580bb02cc8272a",
+					"jsonFile" : "target-ExperimentalTest-Debug-c78fb8c1c2a20d3d363c.json",
+					"name" : "ExperimentalTest",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "ExperimentalUpdate::@36f028580bb02cc8272a",
+					"jsonFile" : "target-ExperimentalUpdate-Debug-a6b558ef019b4f654983.json",
+					"name" : "ExperimentalUpdate",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "Nightly::@36f028580bb02cc8272a",
+					"jsonFile" : "target-Nightly-Debug-454894a81d2338fab4cc.json",
+					"name" : "Nightly",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "NightlyBuild::@36f028580bb02cc8272a",
+					"jsonFile" : "target-NightlyBuild-Debug-1c6b71a6e572aea5f8eb.json",
+					"name" : "NightlyBuild",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "NightlyConfigure::@36f028580bb02cc8272a",
+					"jsonFile" : "target-NightlyConfigure-Debug-b3502bcad9d21aa48d6a.json",
+					"name" : "NightlyConfigure",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "NightlyCoverage::@36f028580bb02cc8272a",
+					"jsonFile" : "target-NightlyCoverage-Debug-33b1cae9dfc195f15473.json",
+					"name" : "NightlyCoverage",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "NightlyMemCheck::@36f028580bb02cc8272a",
+					"jsonFile" : "target-NightlyMemCheck-Debug-2550923d1fb290485215.json",
+					"name" : "NightlyMemCheck",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "NightlyMemoryCheck::@36f028580bb02cc8272a",
+					"jsonFile" : "target-NightlyMemoryCheck-Debug-b1ba43bb75f415538547.json",
+					"name" : "NightlyMemoryCheck",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "NightlyStart::@36f028580bb02cc8272a",
+					"jsonFile" : "target-NightlyStart-Debug-a103197a565707317673.json",
+					"name" : "NightlyStart",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "NightlySubmit::@36f028580bb02cc8272a",
+					"jsonFile" : "target-NightlySubmit-Debug-b3dc451c235bb179ec6e.json",
+					"name" : "NightlySubmit",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "NightlyTest::@36f028580bb02cc8272a",
+					"jsonFile" : "target-NightlyTest-Debug-aa575b4517a43606c3ef.json",
+					"name" : "NightlyTest",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "NightlyUpdate::@36f028580bb02cc8272a",
+					"jsonFile" : "target-NightlyUpdate-Debug-183a36951895d4eadaf4.json",
+					"name" : "NightlyUpdate",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Soft_fase3::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Soft_fase3-Debug-473bd4dbd659cd17c6a6.json",
+					"name" : "Soft_fase3",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "Soft_fase3_tests::@36f028580bb02cc8272a",
+					"jsonFile" : "target-Soft_fase3_tests-Debug-663730905f7d313d8d4a.json",
+					"name" : "Soft_fase3_tests",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "gmock::@d68da25237a7ca2351af",
+					"jsonFile" : "target-gmock-Debug-d5a736b337524485e973.json",
+					"name" : "gmock",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "gmock_main::@d68da25237a7ca2351af",
+					"jsonFile" : "target-gmock_main-Debug-6c12660812396256ddf3.json",
+					"name" : "gmock_main",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "gtest::@f95b5c00bd49b3b4698d",
+					"jsonFile" : "target-gtest-Debug-1566094a347406fbb4e2.json",
+					"name" : "gtest",
+					"projectIndex" : 3
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "gtest_main::@f95b5c00bd49b3b4698d",
+					"jsonFile" : "target-gtest_main-Debug-708bc79671e6f3024a53.json",
+					"name" : "gtest_main",
+					"projectIndex" : 3
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/paulo/git/soft_fase3/build",
+		"source" : "/home/paulo/git/soft_fase3"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 0
+	}
+}
