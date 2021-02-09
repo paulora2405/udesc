@@ -1,0 +1,32 @@
+#Paulo Roberto Albuquerque
+*Esquema Relacional Gravadora*
+
+Endereço(#id_endereço, rua, num, cidade, cep, telefone)
+
+Musico(#num_registro, nome, id_endereço)
+id_endereço referencia Endereço
+
+Instrumento(#cod_instrumento, nome)
+
+MusicoInstrumento(#num_registro, #cod_instrumento)
+num_registro referencia Musico
+cod_instrumento referencia Instrumento
+
+Banda(#id_banda, nome)
+
+MusicoBanda(#id_banda, #num_registro)
+id_banda referencia Banda
+num_registro referencia Musico
+
+Produtor(#id_produtor, nome)
+
+Disco(#id_disco, titulo, data, formato, id_produtor, [#id_banda], [num_registro])
+id_produtor referencia Produtor
+id_banda referencia Banda
+num_registro referencia Musico
+
+Musica(#id_musica, nome, formato, [#id_banda], [num_registro])
+id_banda referencia Banda
+num_registro referencia Musico
+
+MusicaDisco(#id_disco, #id_musica)

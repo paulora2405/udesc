@@ -1,0 +1,29 @@
+1)
+	a) atualização perdida
+	b) atualização temporária
+	c) sumário incorreto
+
+2)
+	a)
+		x1 = SPIDERMAN
+		x2 = SPIDERMAN
+
+	b)
+		x1 = SPIDERMAN
+		x2 = 100
+		x3 = PETER PARKER
+		x4 = 100
+		x5 = PETER PARKER
+
+3)
+									Leitura suja		Leitura não repetível		Fantasma
+	READ_UNCOMMITED			SIM 								SIM 							SIM
+	READ_COMMITED 			NAO									SIM								SIM
+	REPEATABLE_READ			NAO									NAO								SIM
+	SERIALIZABLE				NAO									NAO								NAO
+
+4) Atomicidade (letra A)
+
+5) Dirty Read (letra A)
+
+6) letra A
