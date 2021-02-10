@@ -1,0 +1,35 @@
+Escolhido: Algoritmo do Anel
+Observações:
+O id de cada processo é único e é gerado a partir de uma variável estática à classe Processo.
+A palavra chave 'eu.' representa a chamada da própria instância de um objeto (ex: 'self.' ou 'this.').
+
+
+classe Processo
+	Inteiro id = ids++
+	Booleano participante = Falso
+	Processo proximo
+
+	começaEleição():
+		eu.participante = Verdadeiro
+		enviaMensagemEleição()
+		fim
+
+	enviaMensagemEleição():
+		eu.próximo.recebeMensagem( eu.id )
+		fim
+
+	recebeMensagem( Inteiro id ):
+		se id menor que eu.id:
+			eu.proximo.recebeMensagem( id )
+			fim
+		se não
+			eu.participante = Verdadeiro
+			eu.proximo.recebeMensagem( eu.id )
+			fim
+		fim
+
+
+execução main:
+	Processo processos = [n]
+	processos[aleatorio].começaEleição()
+	fim
