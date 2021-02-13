@@ -3,7 +3,7 @@ from random import randint
 
 
 class Boid:
-    max_velocity = 12
+    max_velocity = 11
     min_distance = 20
     close_distance = 150
     border = 25

@@ -18,7 +18,7 @@ def init():
 def show_boids():
     global boids
     for b in boids:
-        glLineWidth(2.0)
+        glLineWidth(3.0)
         glBegin(GL_LINES)
         glVertex3f(b.x, b.y, 0)
         off_x = b.vel_x
@@ -43,19 +43,19 @@ def boid_interaction():
 
         if boid.x < Boid.border and boid.vel_x < 0:
             boid.vel_x *= - randint(1, 10) / 5.0
-            boid.vel_y *= 1 + randint(1, 10) / 10.0
+            boid.vel_y *= 1 + randint(1, 10) / 5.0
 
         if boid.x > width - Boid.border and boid.vel_x > 0:
             boid.vel_x *= - randint(1, 10) / 5.0
-            boid.vel_y *= 1 + randint(1, 10) / 10.0
+            boid.vel_y *= 1 + randint(1, 10) / 5.0
 
         if boid.y < Boid.border and boid.vel_y < 0:
             boid.vel_y *= - randint(1, 10) / 5.0
-            boid.vel_x *= 1 + randint(1, 10) / 10.0
+            boid.vel_x *= 1 + randint(1, 10) / 5.0
 
         if boid.y > height - Boid.border and boid.vel_y > 0:
             boid.vel_y *= - randint(1, 10) / 5.0
-            boid.vel_x *= 1 + randint(1, 10) / 10.0
+            boid.vel_x *= 1 + randint(1, 10) / 5.0
 
         boid.move()
 
@@ -63,6 +63,7 @@ def boid_interaction():
 def draw_scene():
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
     glClearColor(0/255, 153/255, 255/255, 1)
+    glEnable(GL_LINE_SMOOTH)  # anti-aliasing
     # glClearColor(0, 0, 0, 1)
     glMatrixMode(GL_MODELVIEW)
     glColor3f(255/255, 20/255, 0/255)
