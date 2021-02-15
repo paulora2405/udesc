@@ -29,9 +29,12 @@ def show_boids():
 def boid_interaction():
     for boid in boids:
         close_boids = boid.get_close_boids(boids)
-        boid.move_closer(close_boids)
-        boid.move_with(close_boids)
-        boid.move_away(close_boids)
+        # separation: steer to avoid crowding local flockmates
+        # alignment: steer towards the average heading of local flockmates
+        # cohesion: steer to move towards the average position (center of mass) of local flockmates
+        boid.cohesion(close_boids)
+        boid.alignment(close_boids)
+        boid.separation(close_boids)
         boid.move(width, height)
 
 

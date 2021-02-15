@@ -37,7 +37,7 @@ class Boid:
         self.y = y
         return self
 
-    def move_away(self, boids):
+    def separation(self, boids):
         if len(boids) < 1:
             return
 
@@ -74,7 +74,7 @@ class Boid:
         self.vel_x -= dis_x/5
         self.vel_y -= dis_y/5
 
-    def move_closer(self, boids):
+    def cohesion(self, boids):
         if len(boids) < 1:
             return
 
@@ -94,7 +94,7 @@ class Boid:
         self.vel_x -= avg_x / 100
         self.vel_y -= avg_y / 100
 
-    def move_with(self, boids):
+    def alignment(self, boids):
         if len(boids) < 1:
             return
 
