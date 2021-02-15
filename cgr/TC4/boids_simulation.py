@@ -28,14 +28,7 @@ def show_boids():
 
 def boid_interaction():
     for boid in boids:
-        close_boids = []
-        for other in boids:
-            if other is boid:
-                continue
-            distance = boid.distance_to(other)
-            if distance < Boid.close_distance:
-                close_boids.append(other)
-
+        close_boids = boid.get_close_boids(boids)
         boid.move_closer(close_boids)
         boid.move_with(close_boids)
         boid.move_away(close_boids)
@@ -63,15 +56,16 @@ def reshape(w, h):
 
 
 def keyboard(key, x, y):
-    global anti_aliasing
     key = ord(key)
     if key == ord(' '):
         boids.clear()
     elif key == ord('m'):
-        boids.append(Boid(width, height))
+        for _ in range(10):
+            boids.append(Boid(width, height))
     elif key == ord('n'):
         try:
-            boids.pop()
+            for _ in range(10):
+                boids.pop()
         except IndexError:
             pass
     elif key == ord('s'):

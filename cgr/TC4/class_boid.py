@@ -4,7 +4,7 @@ from random import randint
 
 
 class Boid:
-    max_velocity = 12
+    max_velocity = 10
     min_distance = 20
     close_distance = 150
     border = 25
@@ -26,9 +26,9 @@ class Boid:
         self.vel_x = randint(1, 5) + 3
         self.vel_y = randint(1, 5) + 3
         # custom color
-        self.red = randint(20, 100) / 100.0
-        self.green = randint(20, 100) / 100.0
-        self.blue = randint(20, 100) / 250.0
+        self.red = randint(30, 100) / 100.0
+        self.green = randint(30, 100) / 100.0
+        self.blue = randint(30, 100) / 250.0
 
     @classmethod
     def from_pos(cls, x, y):
@@ -138,6 +138,16 @@ class Boid:
 
         self.x += self.vel_x
         self.y += self.vel_y
+
+    def get_close_boids(self, boids):
+        close_boids = []
+        for other in boids:
+            if other is self:
+                continue
+            distance = self.distance_to(other)
+            if distance < Boid.close_distance:
+                close_boids.append(other)
+        return close_boids
 
     def distance_to(self, boid):
         dist_x = self.x - boid.x
