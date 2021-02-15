@@ -1,5 +1,5 @@
-# Trabalho complementar 4 de CGR
-  *Paulo roberto Albuquerque*
+# Trabalho Complementar 4 de CGR
+  *Paulo Roberto Albuquerque*
 
 ## Simulação de Steering Behaviours
 
