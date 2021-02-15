@@ -1,3 +1,4 @@
+from ctypes import ArgumentError
 import math
 from random import randint
 
@@ -8,16 +9,25 @@ class Boid:
     close_distance = 150
     border = 25
 
-    def __init__(self, width, height):
-        if width % 2 != 0:
-            width += 1
-        if height % 2 != 0:
-            height += 1
+    def __init__(self, *args):
+        if len(args) != 2 and len(args) != 4:
+            raise ArgumentError
 
-        self.x = randint(0, width/2) + width/4
-        self.y = randint(0, height/2) + height/4
-        self.vel_x = randint(1, 10) / 10.0
-        self.vel_y = randint(1, 10) / 10.0
+        if len(args) == 2:
+            width, height = args[0], args[1]
+            if width % 2 != 0:
+                width += 1
+            if height % 2 != 0:
+                height += 1
+            self.x = randint(0, width/2) + width/4
+            self.y = randint(0, height/2) + height/4
+
+        elif len(args) == 4:
+            self.x = args[2]
+            self.y = args[1] - args[3]
+
+        self.vel_x = randint(1, 5) + 3
+        self.vel_y = randint(1, 5) + 3
 
     def move_away(self, boids):
         if len(boids) < 1:

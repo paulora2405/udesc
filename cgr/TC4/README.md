@@ -8,6 +8,16 @@ Para executar faça:
 python3 boids-simulation.py
 ```
 
+### Teclas de atalho
+
+- Para excluir todas as entidades de uma vez, use `barra de espaço`.
+- Para adicionar uma entidade clique em algum lugar da janela com o `botão esquerdo` do mouse.
+- Para remover a entidade mais recente, clique com o `botão direito` do mouse.
+- Para aumentar e diminuir a quantidade de entidades, use `m` e `n`.
+- Para sair do programa, use `s`.
+
+### Variáveis
+
 A classe `Boid` tem algumas variáveis estáticas importantes:
 - `max_velocity`
 - `min_distance`
@@ -28,4 +38,4 @@ O arquivo `requirements.txt` contém as dependências necessárias, e basta faze
 $ sudo apt install freeglut3-dev
 $ pip3 install -r requirements.txt
 ```
-para intala-las automaticamente.
+para as instalar automaticamente.

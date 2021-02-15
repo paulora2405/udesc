@@ -3,7 +3,7 @@ from OpenGL.GL import *
 from OpenGL.GLU import *
 from OpenGL.GLUT import *
 
-width, height = 1920, 1080
+width, height = 1600, 900
 QNT_BOIDS = 150
 boids = []
 
@@ -64,6 +64,35 @@ def reshape(w, h):
     glLoadIdentity()
 
 
+def keyboard(key, x, y):
+    global anti_aliasing
+    key = ord(key)
+    if key == ord(' '):
+        boids.clear()
+    elif key == ord('m'):
+        boids.append(Boid(width, height))
+    elif key == ord('n'):
+        try:
+            boids.pop()
+        except IndexError:
+            pass
+    elif key == ord('s'):
+        glutDestroyWindow(glutGetWindow())
+
+
+def mouse(button, state, x, y):
+    if button == GLUT_LEFT_BUTTON:
+        if state == GLUT_DOWN:
+            boids.append(Boid(width, height, x, y))
+
+    elif button == GLUT_RIGHT_BUTTON:
+        if state == GLUT_DOWN:
+            try:
+                boids.pop()
+            except IndexError:
+                pass
+
+
 glutInit()
 glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE)
 glutInitWindowSize(width, height)
@@ -72,4 +101,6 @@ init()
 glutDisplayFunc(draw_scene)
 glutReshapeFunc(reshape)
 glutIdleFunc(draw_scene)
+glutKeyboardFunc(keyboard)
+glutMouseFunc(mouse)
 glutMainLoop()
