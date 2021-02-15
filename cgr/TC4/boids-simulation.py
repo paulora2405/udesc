@@ -2,7 +2,6 @@ from class_boid import Boid
 from OpenGL.GL import *
 from OpenGL.GLU import *
 from OpenGL.GLUT import *
-from random import randint
 
 width, height = 1920, 1080
 QNT_BOIDS = 150
@@ -11,8 +10,7 @@ boids = []
 
 def init():
     global boids
-    boids = [Boid(randint(0, width/2) + width/4, randint(0, height/2) + height/4)
-             for _ in range(QNT_BOIDS)]
+    boids = [Boid(width, height) for _ in range(QNT_BOIDS)]
 
 
 def show_boids():

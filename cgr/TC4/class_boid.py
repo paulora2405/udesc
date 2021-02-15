@@ -8,9 +8,14 @@ class Boid:
     close_distance = 150
     border = 25
 
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
+    def __init__(self, width, height):
+        if width % 2 != 0:
+            width += 1
+        if height % 2 != 0:
+            height += 1
+
+        self.x = randint(0, width/2) + width/4
+        self.y = randint(0, height/2) + height/4
         self.vel_x = randint(1, 10) / 10.0
         self.vel_y = randint(1, 10) / 10.0
 
@@ -68,8 +73,6 @@ class Boid:
         avg_x /= len(boids)
         avg_y /= len(boids)
 
-        # distance = math.sqrt(avg_x**2 + avg_y**2) * -1.0
-
         self.vel_x -= avg_x / 100
         self.vel_y -= avg_y / 100
 
@@ -81,6 +84,8 @@ class Boid:
         avg_y = 0
 
         for boid in boids:
+            if boid is self:
+                continue
             avg_x += boid.vel_x
             avg_y += boid.vel_y
 
