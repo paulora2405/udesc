@@ -16,6 +16,7 @@ def init():
 def show_boids():
     global boids
     for b in boids:
+        glColor3f(b.red, b.green, b.blue)
         glLineWidth(8.0)
         glBegin(GL_LINES)
         glVertex3f(b.x, b.y, 0)
@@ -46,10 +47,7 @@ def draw_scene():
     glClearColor(0/255, 153/255, 255/255, 1)
     # glEnable(GL_LINE_SMOOTH)  # anti-aliasing
     glDisable(GL_LINE_SMOOTH)  # no anti-aliasing
-    # glClearColor(0, 0, 0, 1)
     glMatrixMode(GL_MODELVIEW)
-    glColor3f(255/255, 20/255, 0/255)
-    # glColor3f(1, 1, 1)
     show_boids()
     boid_interaction()
     glutSwapBuffers()
@@ -83,7 +81,7 @@ def keyboard(key, x, y):
 def mouse(button, state, x, y):
     if button == GLUT_LEFT_BUTTON:
         if state == GLUT_DOWN:
-            boids.append(Boid(width, height, x, y))
+            boids.append(Boid.from_pos(x, height - y))
 
     elif button == GLUT_RIGHT_BUTTON:
         if state == GLUT_DOWN:
