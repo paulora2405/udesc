@@ -3,7 +3,7 @@ from random import randint
 
 
 class Boid:
-    max_velocity = 11
+    max_velocity = 12
     min_distance = 20
     close_distance = 150
     border = 25
@@ -90,7 +90,23 @@ class Boid:
         self.vel_x += avg_x / 40
         self.vel_y += avg_y / 40
 
-    def move(self):
+    def move(self, width, height):
+        if self.x < Boid.border and self.vel_x < 0:
+            self.vel_x *= - randint(1, 10) / 5.0
+            self.vel_y *= 1 + randint(1, 10) / 5.0
+
+        if self.x > width - Boid.border and self.vel_x > 0:
+            self.vel_x *= - randint(1, 10) / 5.0
+            self.vel_y *= 1 + randint(1, 10) / 5.0
+
+        if self.y < Boid.border and self.vel_y < 0:
+            self.vel_y *= - randint(1, 10) / 5.0
+            self.vel_x *= 1 + randint(1, 10) / 5.0
+
+        if self.y > height - Boid.border and self.vel_y > 0:
+            self.vel_y *= - randint(1, 10) / 5.0
+            self.vel_x *= 1 + randint(1, 10) / 5.0
+
         if abs(self.vel_x) > Boid.max_velocity or abs(self.vel_y) > Boid.max_velocity:
             scale_factor = Boid.max_velocity / \
                 max(abs(self.vel_x), abs(self.vel_y))
