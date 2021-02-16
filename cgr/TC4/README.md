@@ -1,7 +1,10 @@
 # Trabalho Complementar 4 de CGR
   *Paulo Roberto Albuquerque*
-
 ## Simulação de Steering Behaviours
+
+Para visualizar melhor este README, visite o repositório do projeto: [github](https://github.com/paulora2405/udesc/tree/master/cgr/TC4)
+
+### Execução
 
 Para executar faça:
 ```sh
