@@ -93,8 +93,9 @@ menorValor :: Ord a => [a] -> a
 -- base
 menorValor [x] = x
 -- recursivo
-menorValor (x : xs) =
-  min x (menorValor xs)
+menorValor (x : y : xs)
+  | x < y = menorValor $ x : xs
+  | otherwise = menorValor $ y : xs
 -- erro
 menorValor [] = error "Lista nao pode ser vazia"
 
