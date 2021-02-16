@@ -1,6 +1,6 @@
 from ctypes import ArgumentError
 import math
-from random import randint
+from random import randint, uniform
 
 
 class Boid:
@@ -23,12 +23,10 @@ class Boid:
         elif args:
             raise ArgumentError
 
-        self.vel_x = randint(1, 5) + 3
-        self.vel_y = randint(1, 5) + 3
+        self.vel_x = randint(4, 8)
+        self.vel_y = randint(4, 8)
         # custom color
-        self.red = randint(30, 100) / 100.0
-        self.green = randint(30, 100) / 100.0
-        self.blue = randint(30, 100) / 250.0
+        self.rgb = (uniform(0.3, 1.0), uniform(0.3, 1.0), uniform(0.12, 0.4))
 
     @classmethod
     def from_pos(cls, x, y):

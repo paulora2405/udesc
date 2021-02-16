@@ -3,7 +3,10 @@ from OpenGL.GL import *
 from OpenGL.GLU import *
 from OpenGL.GLUT import *
 
+# --MUDE A RESOLUÇÃO AQUI--
 width, height = 1600, 900
+# --------------^^^^--^^^--
+bg_rgba = (0/255, 153/255, 255/255, 1)
 QNT_BOIDS = 150
 boids = []
 
@@ -16,7 +19,7 @@ def init():
 def show_boids():
     global boids
     for b in boids:
-        glColor3f(b.red, b.green, b.blue)
+        glColor3f(*b.rgb)
         glLineWidth(8.0)
         glBegin(GL_LINES)
         glVertex3f(b.x, b.y, 0)
@@ -40,7 +43,7 @@ def boid_interaction():
 
 def draw_scene():
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
-    glClearColor(0/255, 153/255, 255/255, 1)
+    glClearColor(*bg_rgba)
     # glEnable(GL_LINE_SMOOTH)  # anti-aliasing
     glDisable(GL_LINE_SMOOTH)  # no anti-aliasing
     glMatrixMode(GL_MODELVIEW)
