@@ -10,7 +10,7 @@ LDFLAGS = -lglut -lGL
 # Makefile settings - Can be customized.
 APPNAME = main
 EXT = .cpp
-SRCDIR = .
+SRCDIR = src
 OBJDIR = obj
 
 ############## Do not change anything from here downwards! #############
@@ -25,7 +25,7 @@ DELOBJ = $(OBJ)
 ####################### Targets beginning here #########################
 ########################################################################
 
-all: $(APPNAME)
+all: mkdirs $(APPNAME)
 
 # Builds the app
 $(APPNAME): $(OBJ)
@@ -42,6 +42,13 @@ $(APPNAME): $(OBJ)
 # Building rule for .o files and its .c/.cpp in combination with all .h
 $(OBJDIR)/%.o: $(SRCDIR)/%$(EXT)
 	$(CC) $(CXXFLAGS) -o $@ -c $<
+
+# Building OBJ and SRC dir if they don't exist yet
+.PHONY: mkdirs
+mkdirs: $(OBJDIR)/
+
+$(OBJDIR)/:
+	mkdir -p $@
 
 ################### Cleaning rules for Unix-based OS ###################
 # Cleans complete project
