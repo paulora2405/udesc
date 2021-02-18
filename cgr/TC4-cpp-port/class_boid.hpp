@@ -208,6 +208,13 @@ double Boid::distance_to(Boid other) {
   return sqrt(dist_x + dist_y);
 }
 
-bool operator==(Boid &b1, Boid &b2) { return (b1.rgb == b2.rgb); }
+bool operator==(Boid &b1, Boid &b2) {
+  if(b1.rgb == b2.rgb)
+    if(b1.x == b2.x && b1.y == b2.y) {
+      return true;
+    }
+
+  return false;
+}
 
 #endif

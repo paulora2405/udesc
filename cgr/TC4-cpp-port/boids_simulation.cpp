@@ -2,6 +2,7 @@
 #include <GL/gl.h>
 
 #include <iostream>
+#include <string>
 #include <tuple>
 #include <vector>
 
@@ -64,6 +65,11 @@ void reshape(int w, int h) {
   glLoadIdentity();
 }
 
+void idle() {
+  glutPostRedisplay();
+  //
+}
+
 void keyboard(unsigned char key, int x, int y) {
   if(key == ' ')
     boids.clear();
@@ -95,6 +101,12 @@ void mouse(int button, int state, int x, int y) {
       }
 }
 
+void update_info(int) {
+  std::string s = "Boids = " + std::to_string(boids.size());
+  std::cout << s << "\t\r" << std::flush;
+  glutTimerFunc(100, update_info, 0);
+}
+
 int main(int argc, char* argv[]) {
   glutInit(&argc, argv);
   glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE);
@@ -103,9 +115,13 @@ int main(int argc, char* argv[]) {
   init();
   glutDisplayFunc(draw_scene);
   glutReshapeFunc(reshape);
-  glutIdleFunc(draw_scene);
+  glutIdleFunc(idle);
   glutKeyboardFunc(keyboard);
   glutMouseFunc(mouse);
+
+  update_info(0);
+  // glutTimerFunc(100, update_info, 0);
+
   glutMainLoop();
 
   return 0;
