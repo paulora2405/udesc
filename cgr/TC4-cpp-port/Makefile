@@ -4,7 +4,8 @@
 
 # Compiler settings - Can be customized.
 CC = g++
-CXXFLAGS = -std=c++14 -Wall -g
+WALLFLAGS = -Wall #-Wextra -Wpedantic
+CXXFLAGS = -std=c++14 -g $(WALLFLAGS)
 LDFLAGS = -lglut -lGL
 
 # Makefile settings - Can be customized.
@@ -19,6 +20,7 @@ OBJ = $(SRC:$(SRCDIR)/%$(EXT)=$(OBJDIR)/%.o)
 DEP = $(OBJ:$(OBJDIR)/%.o=%.d)
 # UNIX-based OS variables & settings
 RM = rm
+RMDIR = rm -r
 DELOBJ = $(OBJ)
 
 ########################################################################
@@ -55,6 +57,7 @@ $(OBJDIR)/:
 .PHONY: clean
 clean:
 	$(RM) $(DELOBJ) $(DEP) $(APPNAME)
+	$(RMDIR) $(OBJDIR)
 
 # Cleans only all files with the extension .d
 .PHONY: cleandep
