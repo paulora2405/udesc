@@ -103,7 +103,7 @@ void mouse(int button, int state, int x, int y) {
 
 void update_info(int) {
   std::string s = "Boids = " + std::to_string(boids.size());
-  std::cout << s << "\t\r" << std::flush;
+  std::cout << s << " \t\r" << std::flush;
   glutTimerFunc(100, update_info, 0);
 }
 
