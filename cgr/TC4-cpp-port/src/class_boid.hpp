@@ -1,24 +1,15 @@
-#ifndef CLASS_BOID
-#define CLASS_BOID
+#ifndef CLASS_BOID_H
+#define CLASS_BOID_H
 
 #include <algorithm>
 #include <random>
 #include <tuple>
 #include <vector>
 
-/*
-typedef struct {
-  const static int max_velocity = 10;
-  const static int min_distance = 20;
-  const static int close_distance = 150;
-  const static int border = 25;
-
-  double x, y, vel_x, vel_y;
-  double red, green, blue;
-} boid; */
 std::default_random_engine generator;
 std::uniform_real_distribution<double> uniform_real(0.3, 1.0);
 std::uniform_int_distribution<int> uniform_int_vel(4, 8 + 1);
+std::uniform_int_distribution<int> uniform_int_1to10(1, 10 + 1);
 std::uniform_int_distribution<int> choice(0, 2);
 
 // ####### BEGIN-CLASS #######
@@ -158,23 +149,22 @@ void Boid::alignment(std::vector<Boid *> boids) {
 }
 
 void Boid::move(int width, int height) {
-  std::uniform_int_distribution<int> uniform_int(1, 10 + 1);
   if(this->x < this->border && this->vel_x < 0) {
-    this->vel_x *= -uniform_int(generator) / 5.0;
-    this->vel_y *= 1 + uniform_int(generator) / 5.0;
+    this->vel_x *= -uniform_int_1to10(generator) / 5.0;
+    this->vel_y *= 1 + uniform_int_1to10(generator) / 5.0;
   }
   if(this->x > width - this->border && this->vel_x > 0) {
-    this->vel_x *= -uniform_int(generator) / 5.0;
-    this->vel_y *= 1 + uniform_int(generator) / 5.0;
+    this->vel_x *= -uniform_int_1to10(generator) / 5.0;
+    this->vel_y *= 1 + uniform_int_1to10(generator) / 5.0;
   }
 
   if(this->y < this->border && this->vel_y < 0) {
-    this->vel_y *= -uniform_int(generator) / 5.0;
-    this->vel_x *= 1 + uniform_int(generator) / 5.0;
+    this->vel_y *= -uniform_int_1to10(generator) / 5.0;
+    this->vel_x *= 1 + uniform_int_1to10(generator) / 5.0;
   }
   if(this->y > height - this->border && this->vel_y > 0) {
-    this->vel_y *= -uniform_int(generator) / 5.0;
-    this->vel_x *= 1 + uniform_int(generator) / 5.0;
+    this->vel_y *= -uniform_int_1to10(generator) / 5.0;
+    this->vel_x *= 1 + uniform_int_1to10(generator) / 5.0;
   }
 
   if(abs(this->vel_x) > this->max_velocity || abs(this->vel_y) > this->max_velocity) {

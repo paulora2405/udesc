@@ -52,7 +52,6 @@ void draw_scene() {
   glDisable(GL_LINE_SMOOTH);
   glMatrixMode(GL_MODELVIEW);
   show_boids();
-  boid_interaction();
   glutSwapBuffers();
 }
 
@@ -66,8 +65,8 @@ void reshape(int w, int h) {
 }
 
 void idle() {
+  boid_interaction();
   glutPostRedisplay();
-  //
 }
 
 void keyboard(unsigned char key, int x, int y) {
@@ -101,10 +100,10 @@ void mouse(int button, int state, int x, int y) {
       }
 }
 
-void update_info(int) {
+void info_update(int) {
   std::string s = "Boids = " + std::to_string(boids.size());
   std::cout << s << " \t\r" << std::flush;
-  glutTimerFunc(100, update_info, 0);
+  glutTimerFunc(16, info_update, 0);
 }
 
 int main(int argc, char* argv[]) {
@@ -119,9 +118,7 @@ int main(int argc, char* argv[]) {
   glutKeyboardFunc(keyboard);
   glutMouseFunc(mouse);
 
-  update_info(0);
-  // glutTimerFunc(100, update_info, 0);
-
+  info_update(0);
   glutMainLoop();
 
   return 0;

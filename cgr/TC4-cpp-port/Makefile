@@ -5,8 +5,8 @@
 # Compiler settings - Can be customized.
 CC = g++
 WALLFLAGS = -Wall #-Wextra -Wpedantic
-CXXFLAGS = -std=c++14 -g $(WALLFLAGS)
-LDFLAGS = -lglut -lGL
+CXXFLAGS = -std=c++14 -g $(WALLFLAGS) #-pthread
+LDFLAGS = -lglut -lGL #-lGLU
 
 # Makefile settings - Can be customized.
 APPNAME = main
@@ -21,6 +21,7 @@ DEP = $(OBJ:$(OBJDIR)/%.o=%.d)
 # UNIX-based OS variables & settings
 RM = rm
 RMDIR = rm -r
+TEST = test -s
 DELOBJ = $(OBJ)
 
 ########################################################################
@@ -28,11 +29,11 @@ DELOBJ = $(OBJ)
 ########################################################################
 
 all: mkdirs $(APPNAME)
+	! ($(TEST) $(DEP)) || $(RM) $(DEP)
 
 # Builds the app
 $(APPNAME): $(OBJ)
 	$(CC) $(CXXFLAGS) -o $@ $^ $(LDFLAGS)
-	$(RM) $(DEP)
 
 # Creates the dependecy rules
 %.d: $(SRCDIR)/%$(EXT)
@@ -56,8 +57,8 @@ $(OBJDIR)/:
 # Cleans complete project
 .PHONY: clean
 clean:
-	$(RM) $(DELOBJ) $(DEP) $(APPNAME)
-	$(RMDIR) $(OBJDIR)
+	-$(RM) $(DELOBJ) $(DEP) $(APPNAME)
+	-$(RMDIR) $(OBJDIR)
 
 # Cleans only all files with the extension .d
 .PHONY: cleandep
