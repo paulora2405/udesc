@@ -61,6 +61,10 @@ def reshape(w, h):
     glLoadIdentity()
 
 
+def idle():
+    glutPostRedisplay()
+
+
 def keyboard(key, x, y):
     key = ord(key)
     if key == ord(' '):
@@ -91,14 +95,23 @@ def mouse(button, state, x, y):
                 pass
 
 
-glutInit()
-glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE)
-glutInitWindowSize(width, height)
-glutCreateWindow("TC4 - Paulo Albuquerque")
-init()
-glutDisplayFunc(draw_scene)
-glutReshapeFunc(reshape)
-glutIdleFunc(draw_scene)
-glutKeyboardFunc(keyboard)
-glutMouseFunc(mouse)
-glutMainLoop()
+def update_info(_):
+    s = f"Boids = {len(boids)}"
+    print(s, " \t\r", end='')
+    glutTimerFunc(100, update_info, 0)
+
+
+if __name__ == "__main__":
+    glutInit()
+    glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE)
+    glutInitWindowSize(width, height)
+    glutCreateWindow("TC4 - Paulo Albuquerque")
+    init()
+    glutDisplayFunc(draw_scene)
+    glutReshapeFunc(reshape)
+    glutIdleFunc(idle)
+    glutKeyboardFunc(keyboard)
+    glutMouseFunc(mouse)
+
+    update_info(0)
+    glutMainLoop()
