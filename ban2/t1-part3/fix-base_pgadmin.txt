@@ -1,0 +1,4 @@
+id_musico
+num_registro
+e outros em campos que nao deveriam
+por exemplo disco possui num_registro
