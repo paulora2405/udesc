@@ -106,8 +106,8 @@ void Boid::separation(std::vector<Boid *> boids) {
 
   if(num_close == 0) return;
 
-  this->vel_x -= dis_x / 5;
-  this->vel_y -= dis_y / 5;
+  this->vel_x -= dis_x / 5.0;
+  this->vel_y -= dis_y / 5.0;
 }
 
 void Boid::cohesion(std::vector<Boid *> boids) {

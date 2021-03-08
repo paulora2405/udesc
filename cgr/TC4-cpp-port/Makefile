@@ -4,14 +4,14 @@
 
 # Compiler settings - Can be customized.
 CC = g++
-WALLFLAGS = -Wall #-Wextra -Wpedantic
+WALLFLAGS = -Wall -Wextra -Wpedantic -Wno-unused-parameter
 CXXFLAGS = -std=c++14 -g $(WALLFLAGS) #-pthread
 LDFLAGS = -lglut -lGL #-lGLU
 
 # Makefile settings - Can be customized.
 APPNAME = main
 EXT = .cpp
-SRCDIR = src
+SRCDIR = src_dod
 OBJDIR = obj
 
 ############## Do not change anything from here downwards! #############
