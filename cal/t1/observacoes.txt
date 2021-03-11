@@ -1,0 +1,5 @@
+lib de bit int
+
+usar mod_pow, algoritmo nao pode ser exponencial
+
+nos graficos, nao usar escala logaritmica
