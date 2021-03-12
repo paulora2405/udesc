@@ -1,0 +1,5 @@
+.venv/
+.postg/
+.vscode/
+__pycache__/
+.parte4/
