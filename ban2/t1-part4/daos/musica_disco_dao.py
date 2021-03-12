@@ -18,7 +18,7 @@ class Musica_DiscoDAO:
         musicas_discos = []
         for i in resul:
             musicas_discos.append(Musica_Disco().fromTupla(i))
-        con.close()
+
         return musicas_discos
 
     def checkConstraints(self, musica_disco):
@@ -35,7 +35,7 @@ class Musica_DiscoDAO:
         resul = cursor.fecthone()
         if int(resul) == 0:
             return 'Este id_musico não existe'
-        con.close()
+
         return None
 
     def insertMusica_Disco(self, musica_disco):
@@ -49,5 +49,5 @@ class Musica_DiscoDAO:
         print(sql)
         cursor.execute(sql)
         con.commit()
-        con.close()
+
         return None

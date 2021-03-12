@@ -18,7 +18,7 @@ class MusicoDAO:
         musicos = []
         for i in resul:
             musicos.append(Musico().fromTupla(i))
-        con.close()
+
         return musicos
 
     def checkConstraints(self, musico):
@@ -49,5 +49,5 @@ class MusicoDAO:
         print(sql)
         cursor.execute(sql)
         con.commit()
-        con.close()
+
         return None

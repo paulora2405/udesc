@@ -17,7 +17,7 @@ class ProdutorDAO:
         produtores = []
         for i in resul:
             produtores.append(Produtor().fromTupla(i))
-        con.close()
+
         return produtores
 
     def checkConstraints(self, produtor):
@@ -28,7 +28,7 @@ class ProdutorDAO:
         resul = cursor.fecthone()
         if int(resul) > 0:
             return 'Este id_produtor já existe'
-        con.close()
+
         return None
 
     def insertProdutor(self, produtor):
@@ -42,5 +42,5 @@ class ProdutorDAO:
         print(sql)
         cursor.execute(sql)
         con.commit()
-        con.close()
+
         return None

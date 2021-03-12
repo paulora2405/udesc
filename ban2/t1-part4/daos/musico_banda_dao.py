@@ -18,7 +18,7 @@ class Musico_BandaDAO:
         musicos_bandas = []
         for i in resul:
             musicos_bandas.append(Musico_Banda().fromTupla(i))
-        con.close()
+
         return musicos_bandas
 
     def checkConstraints(self, musico_banda):
@@ -35,7 +35,7 @@ class Musico_BandaDAO:
         resul = cursor.fecthone()
         if int(resul) == 0:
             return 'Este num_registro não existe'
-        con.close()
+
         return None
 
     def insertMusico_Banda(self, musico_banda):
@@ -49,5 +49,5 @@ class Musico_BandaDAO:
         print(sql)
         cursor.execute(sql)
         con.commit()
-        con.close()
+
         return None

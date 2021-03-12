@@ -193,19 +193,11 @@ def insertValues():
         print('Opção não válida')
 
 
-def testes():
-    dao = BandaDAO()
-    bandas = dao.selectAll()
-    for banda in bandas:
-        print(banda)
-
-
 def validCommands():
     print(
         '\nComandos válidos:\n',
         '1- Ver uma tabela\n',
         '2- Inserir em uma tabela\n',
-        '3- Testes\n',
         '0- Sair\n',
         sep='  ',
         end=''
@@ -224,8 +216,6 @@ if __name__ == "__main__":
             viewTables()
         elif i == '2':
             insertValues()
-        elif i == '3':
-            testes()
         elif i == '0':
             exit(0)
         else:

@@ -17,7 +17,7 @@ class EnderecoDAO:
         enderecos = []
         for i in resul:
             enderecos.append(Endereco().fromTupla(i))
-        con.close()
+
         return enderecos
 
     def checkConstraints(self, endereco):
@@ -42,5 +42,5 @@ class EnderecoDAO:
         print(sql)
         cursor.execute(sql)
         con.commit()
-        con.close()
+
         return None

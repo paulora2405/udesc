@@ -17,7 +17,7 @@ class BandaDAO:
         bandas = []
         for i in resul:
             bandas.append(Banda().fromTupla(i))
-        con.close()
+
         return bandas
 
     def checkConstraints(self, banda):
@@ -27,7 +27,7 @@ class BandaDAO:
         resul = cursor.fecthone()
         if int(resul) > 0:
             return 'Este id_banda já existe'
-        con.close()
+
         return None
 
     def insertBanda(self, banda):
@@ -42,5 +42,5 @@ class BandaDAO:
         print(sql)
         cursor.execute(sql)
         con.commit()
-        con.close()
+
         return None

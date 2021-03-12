@@ -43,7 +43,6 @@ class MusicaDAO:
         if int(resul) == 0:
             return 'Este num_registro não existe'
 
-        con.close()
         return None
 
     def insertMusica(self, musica):
@@ -58,5 +57,5 @@ class MusicaDAO:
         print(sql)
         cursor.execute(sql)
         con.commit()
-        con.close()
+
         return None

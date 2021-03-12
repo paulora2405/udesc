@@ -19,7 +19,7 @@ class Musico_InstrumentoDAO:
         for i in resul:
             musicos_instrumentos.append(
                 Musico_Instrumento().fromTupla(i))
-        con.close()
+
         return musicos_instrumentos
 
     def checkConstraints(self, musico_instrumento):
@@ -36,7 +36,7 @@ class Musico_InstrumentoDAO:
         resul = cursor.fecthone()
         if int(resul) == 0:
             return 'Este cod_instrumento não existe'
-        con.close()
+
         return None
 
     def insertMusico_Instrumento(self, musico_instrumento):
@@ -50,5 +50,5 @@ class Musico_InstrumentoDAO:
         print(sql)
         cursor.execute(sql)
         con.commit()
-        con.close()
+
         return None

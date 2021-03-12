@@ -17,7 +17,7 @@ class InstrumentoDAO:
         instrumentos = []
         for i in resul:
             instrumentos.append(Instrumento().fromTupla(i))
-        con.close()
+
         return instrumentos
 
     def checkConstraints(self, instrumento):
@@ -41,5 +41,5 @@ class InstrumentoDAO:
         print(sql)
         cursor.execute(sql)
         con.commit()
-        con.close()
+
         return None
