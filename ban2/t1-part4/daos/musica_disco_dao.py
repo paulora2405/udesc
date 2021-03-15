@@ -25,15 +25,15 @@ class Musica_DiscoDAO:
         con = Connection()
         cursor = con.cursor()
         cursor.execute(self.__sqlCheckIdBanda.format(
-            musica_disco.__id_banda))
-        resul = cursor.fecthone()
-        if int(resul) == 0:
+            musica_disco.getAllAtt[0]))
+        resul = cursor.fetchone()
+        if int(resul[0]) == 0:
             return 'Este id_banda não existe'
 
         cursor.execute(self.__sqlCheckIdMusico.format(
-            musica_disco.__id_musico))
-        resul = cursor.fecthone()
-        if int(resul) == 0:
+            musica_disco.getAllAtt[1]))
+        resul = cursor.fetchone()
+        if int(resul[0]) == 0:
             return 'Este id_musico não existe'
 
         return None

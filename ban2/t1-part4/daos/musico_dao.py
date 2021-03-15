@@ -25,15 +25,15 @@ class MusicoDAO:
         con = Connection()
         cursor = con.cursor()
         cursor.execute(
-            self.__sqlCheckReg.format(musico.__num_registro))
-        resul = cursor.fecthone()
-        if int(resul) > 0:
+            self.__sqlCheckReg.format(musico.getAllAtt[0]))
+        resul = cursor.fetchone()
+        if int(resul[0]) > 0:
             return 'Este num_registro já existe'
 
         cursor.execute(
-            self.__sqlCheckIdEnd.format(musico.__id_endereco))
-        resul = cursor.fecthone()
-        if int(resul) == 0:
+            self.__sqlCheckIdEnd.format(musico.getAllAtt[2]))
+        resul = cursor.fetchone()
+        if int(resul[0]) == 0:
             return 'Este id_endereco não existe'
         return None
 

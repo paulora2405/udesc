@@ -120,7 +120,8 @@ def insertValues():
             for i in range(len(attributes)):
                 attributes[i].strip()
             attributes = tuple(attributes)
-            new_obj = globals()[table.__class__.__name__](attributes)
+            new_obj = globals()[str(table.__class__.__name__)
+                                ]().fromTupla(attributes)
             return new_obj
         except:
             return None
@@ -131,8 +132,11 @@ def insertValues():
         table = Banda()
         keysListing(table)
         ret = inputAttributes(table)
+        print(ret)
         if ret is not None:
-            BandaDAO().insertBanda(ret)
+            ret = BandaDAO().insertBanda(ret)
+            if ret is not None:
+                print(ret)
     elif i == '2':
         table = Disco()
         keysListing(table)

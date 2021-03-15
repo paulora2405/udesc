@@ -23,9 +23,9 @@ class BandaDAO:
     def checkConstraints(self, banda):
         con = Connection()
         cursor = con.cursor()
-        cursor.execute(self.__sqlCheckIdBanda.format(banda.__id_banda))
-        resul = cursor.fecthone()
-        if int(resul) > 0:
+        cursor.execute(self.__sqlCheckIdBanda.format(banda.getIdBanda()))
+        resul = cursor.fetchone()
+        if int(resul[0]) > 0:
             return 'Este id_banda já existe'
 
         return None

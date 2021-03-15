@@ -24,9 +24,9 @@ class InstrumentoDAO:
         con = Connection()
         cursor = con.cursor()
         cursor.execute(self.__sqlCheckIdInst.format(
-            instrumento.__id_instrumento))
-        resul = cursor.fecthone()
-        if int(resul) > 0:
+            instrumento.getAllAtt[0]))
+        resul = cursor.fetchone()
+        if int(resul[0]) > 0:
             return 'Este id_instrumento já existe'
         return None
 
