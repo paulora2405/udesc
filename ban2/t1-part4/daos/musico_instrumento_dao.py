@@ -26,13 +26,13 @@ class Musico_InstrumentoDAO:
         con = Connection()
         cursor = con.cursor()
         cursor.execute(self.__sqlCheckReg.format(
-            musico_instrumento.getAllAtt[0]))
+            musico_instrumento.getAllAtt()[0]))
         resul = cursor.fetchone()
         if int(resul[0]) == 0:
             return 'Este num_registro não existe'
 
         cursor.execute(self.__sqlCheckCod.format(
-            musico_instrumento.getAllAtt[1]))
+            musico_instrumento.getAllAtt()[1]))
         resul = cursor.fetchone()
         if int(resul[0]) == 0:
             return 'Este cod_instrumento não existe'

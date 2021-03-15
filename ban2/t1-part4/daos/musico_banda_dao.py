@@ -25,13 +25,13 @@ class Musico_BandaDAO:
         con = Connection()
         cursor = con.cursor()
         cursor.execute(self.__sqlCheckIdBanda.format(
-            musico_banda.getAllAtt[0]))
+            musico_banda.getAllAtt()[0]))
         resul = cursor.fetchone()
         if int(resul[0]) == 0:
             return 'Este id_banda não existe'
 
         cursor.execute(self.__sqlCheckReg.format(
-            musico_banda.getAllAtt[1]))
+            musico_banda.getAllAtt()[1]))
         resul = cursor.fetchone()
         if int(resul[0]) == 0:
             return 'Este num_registro não existe'

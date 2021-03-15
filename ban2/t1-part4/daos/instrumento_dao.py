@@ -6,7 +6,7 @@ class InstrumentoDAO:
 
     def __init__(self) -> None:
         self.__sqlSelectAll = 'select * from instrumento'
-        self.__sqlCheckIdInst = 'select count(id_instrumento) from instrumento where id_instrumento = {}'
+        self.__sqlCheckIdInst = 'select count(cod_instrumento) from instrumento where cod_instrumento = {}'
         self.__sqlInsert = "insert into instrumento values ({}, '{}')"
 
     def selectAll(self):
@@ -24,10 +24,10 @@ class InstrumentoDAO:
         con = Connection()
         cursor = con.cursor()
         cursor.execute(self.__sqlCheckIdInst.format(
-            instrumento.getAllAtt[0]))
+            instrumento.getAllAtt()[0]))
         resul = cursor.fetchone()
         if int(resul[0]) > 0:
-            return 'Este id_instrumento já existe'
+            return 'Este cod_instrumento já existe'
         return None
 
     def insertInstrumento(self, instrumento):
@@ -38,7 +38,7 @@ class InstrumentoDAO:
         con = Connection()
         cursor = con.cursor()
         sql = self.__sqlInsert.format(*instrumento.getAllAtt())
-        print(sql)
+        print(f'Executando o seguinte comando: "{sql}"')
         cursor.execute(sql)
         con.commit()
 

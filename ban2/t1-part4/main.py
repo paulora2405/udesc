@@ -25,8 +25,8 @@ tables = [
 
 def viewTables():
     print(
-        '\n\nDigite qual tabela voce deseja consultar:\n',
-        'banda(1)',
+        '\n\nDigite qual tabela voce deseja consultar:',
+        '\nbanda(1)',
         'disco(2)',
         'endereco(3)',
         'instrumento(4)',
@@ -38,7 +38,7 @@ def viewTables():
         'produtor(10)',
         'CANCELAR(0)',
         sep=' ',
-        end='\n\n'
+        end='\n'
     )
 
     def foreach(entrys):
@@ -46,6 +46,7 @@ def viewTables():
             print(entry)
 
     i = input()
+    print('\n')
     if i == '1':
         entrys = BandaDAO().selectAll()
         foreach(entrys)
@@ -97,7 +98,7 @@ def insertValues():
         'produtor(10)',
         'CANCELAR(0)',
         sep=' ',
-        end='\n\t'
+        end='\n'
     )
 
     def keysListing(table):
@@ -118,7 +119,7 @@ def insertValues():
             return None
         try:
             for i in range(len(attributes)):
-                attributes[i].strip()
+                attributes[i] = attributes[i].strip(' ')
             attributes = tuple(attributes)
             new_obj = globals()[str(table.__class__.__name__)
                                 ]().fromTupla(attributes)
@@ -127,7 +128,7 @@ def insertValues():
             return None
 
     i = input()
-    print('\n\n')
+    print('\n')
     if i == '1':
         table = Banda()
         keysListing(table)
@@ -143,54 +144,72 @@ def insertValues():
         ret = inputAttributes(table)
         if ret is not None:
             DiscoDAO().insertDisco(ret)
+            if ret is not None:
+                print(ret)
     elif i == '3':
         table = Endereco()
         keysListing(table)
         ret = inputAttributes(table)
         if ret is not None:
             EnderecoDAO().insertEndereco(ret)
+            if ret is not None:
+                print(ret)
     elif i == '4':
         table = Instrumento()
         keysListing(table)
         ret = inputAttributes(table)
         if ret is not None:
             InstrumentoDAO().insertInstrumento(ret)
+            if ret is not None:
+                print(ret)
     elif i == '5':
         table = Musica_Disco()
         keysListing(table)
         ret = inputAttributes(table)
         if ret is not None:
             Musica_DiscoDAO().insertMusica_Disco(ret)
+            if ret is not None:
+                print(ret)
     elif i == '6':
         table = Musica()
         keysListing(table)
         ret = inputAttributes(table)
         if ret is not None:
             MusicaDAO().insertMusica(ret)
+            if ret is not None:
+                print(ret)
     elif i == '7':
         table = Musico_Banda()
         keysListing(table)
         ret = inputAttributes(table)
         if ret is not None:
             Musico_BandaDAO().insertMusico_Banda(ret)
+            if ret is not None:
+                print(ret)
     elif i == '8':
         table = Musico_Instrumento()
         keysListing(table)
         ret = inputAttributes(table)
         if ret is not None:
             Musico_InstrumentoDAO().insertMusico_Instrumento(ret)
+            if ret is not None:
+                print(ret)
     elif i == '9':
         table = Musico()
         keysListing(table)
         ret = inputAttributes(table)
         if ret is not None:
             MusicoDAO().insertMusico(ret)
+            if ret is not None:
+                print(ret)
     elif i == '10':
         table = Produtor()
         keysListing(table)
         ret = inputAttributes(table)
         if ret is not None:
             ProdutorDAO().insertProdutor(ret)
+            if ret is not None:
+                print(ret)
     elif i == '0':
         pass
     else:

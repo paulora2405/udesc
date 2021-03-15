@@ -24,7 +24,7 @@ class EnderecoDAO:
         con = Connection()
         cursor = con.cursor()
         cursor.execute(self.__sqlCheckIdEnd.format(
-            endereco.getAllAtt[0]))
+            endereco.getAllAtt()[0]))
         resul = cursor.fetchone()
         if int(resul[0]) > 0:
             return 'Este id_endereco já existe'

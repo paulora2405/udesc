@@ -26,26 +26,26 @@ class DiscoDAO:
     def checkConstraints(self, disco):
         con = Connection()
         cursor = con.cursor()
-        cursor.execute(self.__sqlCheckIdDisco.format(disco.getAllAtt[0]))
+        cursor.execute(self.__sqlCheckIdDisco.format(disco.getAllAtt()[0]))
         resul = cursor.fetchone()
         if int(resul[0]) > 0:
             return 'Este id_disco já existe'
 
         cursor.execute(
-            self.__sqlCheckIdProd.format(disco.getAllAtt[4]))
+            self.__sqlCheckIdProd.format(disco.getAllAtt()[4]))
         resul = cursor.fetchone()
         if int(resul[0]) == 0:
             return 'Este id_produtor não existe'
 
         cursor.execute(
-            self.__sqlCheckIdBanda.format(disco.getAllAtt[5]))
+            self.__sqlCheckIdBanda.format(disco.getAllAtt()[5]))
         resul = cursor.fetchone()
         # if resul != '':
         if int(resul[0]) == 0:
             return 'Este id_banda não existe'
 
         cursor.execute(
-            self.__sqlCheckReg.format(disco.getAllAtt[6]))
+            self.__sqlCheckReg.format(disco.getAllAtt()[6]))
         resul = cursor.fetchone()
         # if resul != '':
         if int(resul[0]) == 0:

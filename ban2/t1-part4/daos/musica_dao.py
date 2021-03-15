@@ -26,19 +26,19 @@ class MusicaDAO:
         con = Connection()
         cursor = con.cursor()
         cursor.execute(
-            self.__sqlCheckIdMusica.format(musica.getAllAtt[0]))
+            self.__sqlCheckIdMusica.format(musica.getAllAtt()[0]))
         resul = cursor.fetchone()
         if int(resul[0]) > 0:
             return 'Este id_musica já existe'
 
         cursor.execute(
-            self.__sqlCheckIdBanda.format(musica.getAllAtt[3]))
+            self.__sqlCheckIdBanda.format(musica.getAllAtt()[3]))
         resul = cursor.fetchone()
         if int(resul[0]) == 0:
             return 'Este id_banda não existe'
 
         cursor.execute(self.__sqlCheckReg.format(
-            musica.getAllAtt[4]))
+            musica.getAllAtt()[4]))
         resul = cursor.fetchone()
         if int(resul[0]) == 0:
             return 'Este num_registro não existe'
