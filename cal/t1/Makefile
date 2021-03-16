@@ -4,7 +4,7 @@
 
 # Compiler settings - Can be customized.
 CC = g++
-WALLFLAGS = -Wall -Wextra -Wpedantic -Wno-unused-parameter
+WALLFLAGS = -Wall -Wextra -Wpedantic -Wno-unused-parameter -Wno-unused-variable
 CXXFLAGS = -std=c++14 -g $(WALLFLAGS) #-pthread
 LDFLAGS = -lgmp
 
