@@ -66,6 +66,7 @@ int main(int argc, char const* argv[]) {
 
   int x, y;
   cout << gcdExtended(95, 10, &x, &y) << endl;
+  cout << x << ' ' << y << endl;
 
   // write_test();
   // read_test();

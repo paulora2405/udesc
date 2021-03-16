@@ -17,3 +17,6 @@
 
 - Algoritimos do brute para testes de primalidade
   - https://github.com/BRUTEUdesc/AlmanaqueBrute/tree/master/Matem%C3%A1tica/Primos
+
+- Exemplo RSA em Java
+  - https://stackoverflow.com/questions/15920739/rsa-implementation-using-java
