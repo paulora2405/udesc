@@ -1,13 +1,4 @@
-from tables.disco import Disco
-from tables.produtor import Produtor
-from tables.musico import Musico
-from tables.musico_instrumento import Musico_Instrumento
-from tables.musico_banda import Musico_Banda
-from tables.musica import Musica
-from tables.musica_disco import Musica_Disco
-from tables.instrumento import Instrumento
-from tables.endereco import Endereco
-from tables.banda import Banda
+from tables import *
 from daos import *
 
 tables = [
