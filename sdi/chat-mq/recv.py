@@ -1,12 +1,13 @@
-# #
-# ##!/usr/bin/env python
 import pika
 
-# connection = pika.BlockingConnection(pika.ConnectionParameters(
-#        host='localhost'))
-connection = pika.BlockingConnection(pika.ConnectionParameters(
-    host='sdi-1',
-    credentials=pika.PlainCredentials(username="sdi", password="sdi")))
+
+parameters = pika.ConnectionParameters(
+    credentials=pika.PlainCredentials(
+        'username',
+        'password'
+    )
+)
+connection = pika.BlockingConnection(parameters)
 channel = connection.channel()
 
 
