@@ -9,11 +9,7 @@ CREATE TABLE endereco
 	cep character varying(50),
 	telefone character varying(50),
 	constraint endereco_pkey primary key (id_endereco)
-)
-WITH (
-  OIDS=FALSE
 );
-ALTER TABLE endereco OWNER TO postgres;
 
 
 -- Table: musico
@@ -27,11 +23,7 @@ CREATE TABLE musico
 	constraint musico_id_endereco_fkey foreign key (id_endereco)
 	references endereco (id_endereco) match simple
 	on update cascade on delete set NULL
-)
-WITH (
-  OIDS=FALSE
 );
-ALTER TABLE musico OWNER TO postgres;
 
 
 -- Table: instrumento
@@ -41,11 +33,7 @@ CREATE TABLE instrumento
 	cod_instrumento integer not NULL,
 	nome character varying(50),
 	constraint instrumento_pkey primary key (cod_instrumento)
-)
-WITH (
-  OIDS=FALSE
 );
-ALTER TABLE instrumento OWNER TO postgres;
 
 
 -- Table: musico_instrumento
@@ -61,11 +49,7 @@ CREATE TABLE musico_instrumento
 	constraint musico_instrumento_cod_instrumento_fkey foreign key (cod_instrumento)
 		references instrumento (cod_instrumento) match simple
 		on update cascade on delete set NULL
-)
-WITH (
-  OIDS=FALSE
 );
-ALTER TABLE musico_instrumento OWNER TO postgres;
 
 
 -- Table: banda
@@ -75,11 +59,7 @@ CREATE TABLE banda
 	id_banda integer not NULL,
 	nome character varying(50),
 	constraint banda_pkey primary key (id_banda)
-)
-WITH (
-  OIDS=FALSE
 );
-ALTER TABLE banda OWNER TO postgres;
 
 
 -- Table: musico_banda
@@ -95,11 +75,7 @@ CREATE TABLE musico_banda
 	constraint musico_banda_id_banda_fkey foreign key (id_banda)
 		references banda (id_banda) match simple
 		on update cascade on delete set NULL
-)
-WITH (
-  OIDS=FALSE
 );
-ALTER TABLE musico_banda OWNER TO postgres;
 
 
 -- Table: produtor
@@ -109,11 +85,7 @@ CREATE TABLE produtor
 	id_produtor integer not NULL,
 	nome character varying(50),
 	constraint produtor_pkey primary key (id_produtor)
-)
-WITH (
-  OIDS=FALSE
 );
-ALTER TABLE produtor OWNER TO postgres;
 
 
 -- Table: disco
@@ -137,11 +109,7 @@ CREATE TABLE disco
 	constraint disco_num_registro_fkey foreign key (num_registro)
 		references musico (num_registro) match simple
 		on update cascade on delete set NULL
-)
-WITH (
-  OIDS=FALSE
 );
-ALTER TABLE disco OWNER TO postgres;
 
 
 -- Table: musica
@@ -160,11 +128,7 @@ CREATE TABLE musica
 	constraint musica_num_registro_fkey foreign key (num_registro)
 		references musico (num_registro) match simple
 		on update cascade on delete set NULL
-)
-WITH (
-  OIDS=FALSE
 );
-ALTER TABLE musica OWNER TO postgres;
 
 
 -- Table: musica_disco
@@ -180,8 +144,4 @@ CREATE TABLE musica_disco
 	constraint musica_disco_id_musica_fkey foreign key (id_musica)
 		references musica (id_musica) match simple
 		on update cascade on delete set NULL
-)
-WITH (
-  OIDS=FALSE
 );
-ALTER TABLE musica_disco OWNER TO postgres;
