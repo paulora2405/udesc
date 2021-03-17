@@ -59,6 +59,7 @@ $(OBJDIR)/:
 clean:
 	-$(RM) $(DELOBJ) $(DEP) $(APPNAME)
 	-$(RMDIR) $(OBJDIR)
+	-$(RM) *.bin
 
 # Cleans only all files with the extension .d
 .PHONY: cleandep

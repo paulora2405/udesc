@@ -5,15 +5,16 @@
 #include <iostream>
 #include <string>
 
-#include "rsa_encription.hpp"
+#include "encryption.hpp"
+#include "key_generator.hpp"
 
 using std::cin;
 using std::cout;
 using std::endl;
 using std::string;
 
-void read_test() {
-  std::ifstream is("og.bin", std::ifstream::binary);
+void print_file(std::string file_name) {
+  std::ifstream is(file_name, std::ifstream::binary);
   if(!is) {
     cout << "Erro ao abrir o arquivo de entrada" << endl;
     exit(EXIT_FAILURE);
@@ -32,23 +33,20 @@ void read_test() {
     exit(EXIT_FAILURE);
   }
 
-  cout << buffer << endl;
+  cout << "Conteudo " << file_name << "{\n" << buffer << "\n}" << endl;
 
-  is.close();
   delete[] buffer;
+  is.close();
 }
 
-void write_test() {
-  std::ofstream ws("og.bin", std::ofstream::binary);
+void write_in_file(std::string file_name, std::string content) {
+  std::ofstream ws(file_name, std::ios::out | std::ios::binary);
   if(!ws) {
-    cout << "Erro ao abrir o arquivo de saida" << endl;
+    std::cerr << "Erro ao abrir o arquivo de saida" << std::endl;
     exit(EXIT_FAILURE);
   }
 
-  char *buffer = new char[1000];
-  string s = "teste binário";
-
-  ws.write(s.c_str(), 17);
+  ws.write(content.c_str(), content.length());
 
   ws.close();
 }
@@ -56,12 +54,18 @@ void write_test() {
 int main(int argc, char const *argv[]) {
   // o nome do arquivo será passado via parametro
   if(argc != 1) {
-    cout << "Quantidade de argumentos errada\n";
-    exit(1);
+    std::cerr << "Quantidade de argumentos errada" << std::endl;
+    exit(EXIT_FAILURE);
   }
 
-  initialize_ll();
+  // initialize_ll();
 
-  write_test();
-  read_test();
+  std::string s = "Olá pessoas, tudo bem?\nEu vou bem também.";
+
+  write_in_file("og.bin", s);
+  print_file("og.bin");
+  encrypt_file("og.bin", "out.bin");
+  print_file("out.bin");
+  decrypt_file("out.bin", "dec.bin");
+  print_file("dec.bin");
 }
