@@ -5,7 +5,7 @@
 #include <iostream>
 #include <string>
 
-#include "biblioteca.hpp"
+#include "rsa_encription.hpp"
 
 using std::cin;
 using std::cout;
@@ -23,7 +23,7 @@ void read_test() {
   int len_is = is.tellg();
   is.seekg(0, is.beg);
 
-  char* buffer = new char[len_is];
+  char *buffer = new char[len_is];
   cout << "Arquivo tem " << len_is << " caracteres" << endl;
 
   is.read(buffer, len_is);
@@ -45,15 +45,15 @@ void write_test() {
     exit(EXIT_FAILURE);
   }
 
-  char* buffer = new char[1000];
-  string s = "teste binario";
+  char *buffer = new char[1000];
+  string s = "teste binário";
 
   ws.write(s.c_str(), 17);
 
   ws.close();
 }
 
-int main(int argc, char const* argv[]) {
+int main(int argc, char const *argv[]) {
   // o nome do arquivo será passado via parametro
   if(argc != 1) {
     cout << "Quantidade de argumentos errada\n";
@@ -62,14 +62,6 @@ int main(int argc, char const* argv[]) {
 
   initialize_ll();
 
-  // cout << gcd(10, 93) << endl;
-  // cout << gcd(10, 95) << endl;
-  // cout << gcd(95, 10) << endl;
-
-  // ll x, y;
-  // cout << gcd_extended(17, 120, &x, &y) << endl;
-  // cout << x << ' ' << y << endl;
-
-  // write_test();
-  // read_test();
+  write_test();
+  read_test();
 }

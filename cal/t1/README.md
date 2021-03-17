@@ -8,6 +8,11 @@
 1. Achar um e tal que gcd(e, ø(n)) = 1 ; 1 < e < ø(n)
 1. Calcular d tal que e*d = 1 (mod ø(n))
 
+### Observações do Professor
+- lib de bit int
+- usar mod_pow, algoritmo nao pode ser exponencial
+- nos graficos, nao usar escala logaritmica
+
 ### Links importantes
 - Paper sobre implementação de RSA em C
   - https://www.academia.edu/40465824/RSA_Implementation_using_C_
@@ -35,3 +40,6 @@
 
 - Calculadora rsa
   - https://www.cs.drexel.edu/~jpopyack/IntroCS/HW/RSAWorksheet.html
+
+- RSA prático
+  - https://www.cs.drexel.edu/~jpopyack/Courses/CSP/Fa17/notes/10.1_Cryptography/RSA_Express_EncryptDecrypt_v2.html
