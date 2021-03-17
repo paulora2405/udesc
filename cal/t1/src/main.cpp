@@ -60,13 +60,15 @@ int main(int argc, char const* argv[]) {
     exit(1);
   }
 
-  cout << gcd(10, 93) << endl;
-  cout << gcd(10, 95) << endl;
-  cout << gcd(95, 10) << endl;
+  initialize_ll();
 
-  int x, y;
-  cout << gcdExtended(95, 10, &x, &y) << endl;
-  cout << x << ' ' << y << endl;
+  // cout << gcd(10, 93) << endl;
+  // cout << gcd(10, 95) << endl;
+  // cout << gcd(95, 10) << endl;
+
+  // ll x, y;
+  // cout << gcd_extended(17, 120, &x, &y) << endl;
+  // cout << x << ' ' << y << endl;
 
   // write_test();
   // read_test();
