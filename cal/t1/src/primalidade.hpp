@@ -38,8 +38,11 @@ bool miller_rabin(long long n) {
   return true;
 }
 
-long long random_prime(long long upperbound) {
-  std::uniform_int_distribution<int> rand_int(2, upperbound);
+/*
+ * Gera um número primo aleatório no intervalo [lowerbound, upperbound].
+ */
+long long random_prime(long long lowerbound, long long upperbound) {
+  std::uniform_int_distribution<int> rand_int(lowerbound, upperbound);
   long long candidate;
   do {
     candidate = rand_int(generator);

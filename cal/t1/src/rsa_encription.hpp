@@ -31,13 +31,17 @@ void print_keys(long long &p, long long &q, long long &n, long long &phin, long 
   std::cout << "D = " << d << std::endl;
 }
 
+/*
+ * Gera os valores de p, q, n, Phi(n), e, d.
+ */
 void initialize_ll() {
   long long p, q, n, phin, e, d;
-  long long upper_bound = 50;
+  long long upper_bound = 100;
+  long long lower_bound = 20;
   // Passo 1: Selecionar dois numeros primos aleatorios grandes p e q
-  p = random_prime(upper_bound);
+  p = random_prime(lower_bound, upper_bound);
   do {
-    q = random_prime(upper_bound);
+    q = random_prime(lower_bound, upper_bound);
   } while(q == p);
 
   // Passo 2: Calcular n = p * q
