@@ -31,13 +31,29 @@ void print_keys(long long &p, long long &q, long long &n, long long &phin, long 
   std::cout << "D = " << d << std::endl;
 }
 
+struct Public_key {
+  long long n;
+  long long e;
+};
+
+struct Private_key {
+  long long n;
+  long long d;
+};
+
+struct Key_pair {
+  struct Public_key pub_key;
+  struct Private_key priv_key;
+};
+
 /*
  * Gera os valores de p, q, n, Phi(n), e, d.
+ * @returns Um par de chaves, contendo uma chave pública e uma chave privada.
  */
-void initialize_ll() {
+struct Key_pair initialize_ll(long long lowerbound, long long upperbound) {
   long long p, q, n, phin, e, d;
-  long long upper_bound = 100;
-  long long lower_bound = 20;
+  long long lower_bound = lowerbound;
+  long long upper_bound = upperbound;
   // Passo 1: Selecionar dois numeros primos aleatorios grandes p e q
   p = random_prime(lower_bound, upper_bound);
   do {
@@ -64,6 +80,12 @@ void initialize_ll() {
 
   // Imprimir os resultados
   print_keys(p, q, n, phin, e, d);
+
+  struct Public_key pub = {n, e};
+  struct Private_key priv = {n, d};
+  struct Key_pair pair = {pub, priv};
+
+  return pair;
 }
 
 void initialize_mpz() {

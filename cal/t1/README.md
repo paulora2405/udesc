@@ -8,6 +8,12 @@
 1. Achar um e tal que gcd(e, ø(n)) = 1 ; 1 < e < ø(n)
 1. Calcular d tal que e*d = 1 (mod ø(n))
 
+### Problemas não resolvidos
+- Números de magnitude maior que 10000 na upperbound das chaves quebram as funções de cripografia.
+
+### Possíveis soluções
+- A pesquisar
+
 ### Observações do Professor
 - lib de bit int
 - usar mod_pow, algoritmo nao pode ser exponencial
