@@ -3,21 +3,11 @@
 
 #include <algorithm>
 
-#include "gerador_aleatorio.hpp"
-
-long long power(long long base, long long e, long long mod) {
-  long long result = 1;
-  base %= mod;
-  while(e) {
-    if(e & 1) result = (long long)result * base % mod;
-    base = (long long)base * base % mod;
-    e >>= 1;
-  }
-  return result;
-}
+#include "mod_exponentiation.hpp"
+#include "random_generator_seed.hpp"
 
 bool is_composite(long long n, long long a, long long d, int s) {
-  long long x = power(a, d, n);
+  long long x = mod_pow_const_time_and_cond_copy(a, d, n);
   if(x == 1 || x == n - 1) return false;
   for(int r = 1; r < s; r++) {
     x = (long long)x * x % n;
@@ -44,9 +34,13 @@ bool miller_rabin(long long n) {
 long long random_prime(long long lowerbound, long long upperbound) {
   std::uniform_int_distribution<int> rand_int(lowerbound, upperbound);
   long long candidate;
-  do {
-    candidate = rand_int(generator);
-  } while(!miller_rabin(candidate));
+  candidate = rand_int(generator);
+
+  if(!(candidate & 1)) candidate++;
+
+  while(!miller_rabin(candidate)) {
+    candidate += 2;
+  }
   return candidate;
 }
 

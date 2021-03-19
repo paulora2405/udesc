@@ -12,31 +12,31 @@ int gcd(long long a, long long b) {
 }
 
 int gcd_iter(int num1, int num2) {
-  int resto;
+  int r;
 
   do {
-    resto = num1 % num2;
+    r = num1 % num2;
 
     num1 = num2;
-    num2 = resto;
+    num2 = r;
 
-  } while(resto != 0);
+  } while(r != 0);
 
   return num1;
 }
 
-long long euclides_extended(long long m, long long n, long long *a, long long *b) {
+long long euclides_extended(long long m, long long n, long long &a, long long &b) {
   if(n == 0) {
-    *a = 1;
-    *b = 0;
+    a = 1;
+    b = 0;
     return m;
   } else {
     long long e, f, d;
 
-    d = euclides_extended(n, m % n, &e, &f);
+    d = euclides_extended(n, m % n, e, f);
 
-    *a = f;
-    *b = e - f * (m / n);
+    a = f;
+    b = e - f * (m / n);
 
     return d;
   }

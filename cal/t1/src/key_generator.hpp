@@ -8,8 +8,23 @@
 #include <random>
 
 #include "euclidean.hpp"
-#include "gerador_aleatorio.hpp"
-#include "primalidade.hpp"
+#include "primality.hpp"
+#include "random_generator_seed.hpp"
+
+struct Public_key {
+  long long n;
+  long long e;
+};
+
+struct Private_key {
+  long long n;
+  long long d;
+};
+
+struct Key_pair {
+  struct Public_key pub_key;
+  struct Private_key priv_key;
+};
 
 long long get_e_value(long long phin) {
   std::uniform_int_distribution<int> rand_int(2, phin - 1);
@@ -30,21 +45,6 @@ void print_keys(long long &p, long long &q, long long &n, long long &phin, long 
   std::cout << "E = " << e << std::endl;
   std::cout << "D = " << d << std::endl;
 }
-
-struct Public_key {
-  long long n;
-  long long e;
-};
-
-struct Private_key {
-  long long n;
-  long long d;
-};
-
-struct Key_pair {
-  struct Public_key pub_key;
-  struct Private_key priv_key;
-};
 
 /*
  * Gera os valores de p, q, n, Phi(n), e, d.
@@ -75,7 +75,7 @@ struct Key_pair initialize_ll(long long lowerbound, long long upperbound) {
   // Passo 5: Calcular d tal que e*d = 1 (mod ø(n))
   // IMPLEMENTAR ALGORITMO EUCLIDIANO EXTENDIDO AQUI
   long long tmp;
-  euclides_extended(e, phin, &d, &tmp);
+  euclides_extended(e, phin, d, tmp);
   if(d < 0) d += phin;
 
   // Imprimir os resultados

@@ -18,7 +18,7 @@ int main(int argc, char const *argv[]) {
   write_file("original.bin", texto);
 
   // valores maiores que este quebram a criptografia
-  struct Key_pair keys = initialize_ll(1000, 100000);
+  struct Key_pair keys = initialize_ll(1000, 10000);
   encrypt_file("original.bin", "encriptado.bin", keys.pub_key);
   decrypt_file("encriptado.bin", "decriptado.bin", keys.priv_key);
 
