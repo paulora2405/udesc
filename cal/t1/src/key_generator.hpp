@@ -1,5 +1,5 @@
-#ifndef BIBLIOTECA_HPP
-#define BIBLIOTECA_HPP
+#ifndef KEY_GENERATOR_HPP
+#define KEY_GENERATOR_HPP
 
 #include <gmp.h>
 
