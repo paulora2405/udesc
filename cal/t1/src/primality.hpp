@@ -1,5 +1,5 @@
-#ifndef PRIMALIDADE_HPP
-#define PRIMALIDADE_HPP
+#ifndef PRIMALITY_HPP
+#define PRIMALITY_HPP
 
 #include <algorithm>
 
