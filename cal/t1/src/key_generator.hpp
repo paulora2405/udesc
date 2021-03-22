@@ -1,9 +1,7 @@
 #ifndef BIBLIOTECA_HPP
 #define BIBLIOTECA_HPP
 
-#include <gmp.h>
-
-#include <cstdint>
+#include <boost/multiprecision/cpp_int.hpp>
 #include <iostream>
 #include <random>
 
@@ -12,13 +10,13 @@
 #include "random_generator_seed.hpp"
 
 struct Public_key {
-  long long n;
-  long long e;
+  boost::multiprecision::int128_t n;
+  boost::multiprecision::int128_t e;
 };
 
 struct Private_key {
-  long long n;
-  long long d;
+  boost::multiprecision::int128_t n;
+  boost::multiprecision::int128_t d;
 };
 
 struct Key_pair {
@@ -26,17 +24,18 @@ struct Key_pair {
   struct Private_key priv_key;
 };
 
-long long get_e_value(long long phin) {
-  std::uniform_int_distribution<int> rand_int(2, phin - 1);
-  long long e;
+boost::multiprecision::int128_t get_e_value(boost::multiprecision::int128_t phin) {
+  // boost::random::uniform_int_distribution<boost::multiprecision::int128_t> rand_128(2, phin - 1);
+  boost::multiprecision::int128_t e;
   do {
-    e = abs(rand_int(generator));
-  } while(gcd(e, phin) != 1);
+    // e = abs(rand_128(gen_128));
+  } while(gcd_iter(e, phin) != 1);
   return e;
 }
 
-void print_keys(long long &p, long long &q, long long &n, long long &phin, long long &e,
-                long long &d) {
+void print_keys(boost::multiprecision::int128_t &p, boost::multiprecision::int128_t &q,
+                boost::multiprecision::int128_t &n, boost::multiprecision::int128_t &phin,
+                boost::multiprecision::int128_t &e, boost::multiprecision::int128_t &d) {
   std::cout << "The values calculated were:" << std::endl;
   std::cout << "P = " << p << std::endl;
   std::cout << "Q = " << q << std::endl;
@@ -50,14 +49,50 @@ void print_keys(long long &p, long long &q, long long &n, long long &phin, long 
  * Gera os valores de p, q, n, Phi(n), e, d.
  * @returns Um par de chaves, contendo uma chave pública e uma chave privada.
  */
-struct Key_pair initialize_ll(long long lowerbound, long long upperbound) {
-  long long p, q, n, phin, e, d;
-  long long lower_bound = lowerbound;
-  long long upper_bound = upperbound;
+// struct Key_pair initialize_ll(long long lowerbound, long long upperbound) {
+//   long long p, q, n, phin, e, d;
+
+//   // Passo 1: Selecionar dois numeros primos aleatorios grandes p e q
+//   p = random_prime(lowerbound, upperbound);
+//   do {
+//     q = random_prime(lowerbound, upperbound);
+//   } while(q == p);
+
+//   // Passo 2: Calcular n = p * q
+//   n = p * q;
+
+//   // Passo 3
+//   phin = (p - 1) * (q - 1);
+
+//   // Passo 4: Achar um e tal que gcd(e, ø(n)) = 1 ; 1 < e < ø(n)
+//   e = get_e_value(phin);
+
+//   // Passo 5: Calcular d tal que e*d = 1 (mod ø(n))
+//   // IMPLEMENTAR ALGORITMO EUCLIDIANO EXTENDIDO AQUI
+//   long long tmp;
+//   euclides_extended(e, phin, d, tmp);
+//   if(d < 0) d += phin;
+
+//   // Imprimir os resultados
+//   print_keys(p, q, n, phin, e, d);
+
+//   struct Public_key pub = {n, e};
+//   struct Private_key priv = {n, d};
+//   struct Key_pair pair = {pub, priv};
+
+//   return pair;
+// }
+
+/*
+ * Gera os valores de p, q, n, Phi(n), e, d.
+ * @returns Um par de chaves, contendo uma chave pública e uma chave privada.
+ */
+struct Key_pair initialize_128(boost::multiprecision::int128_t upperbound) {
+  boost::multiprecision::int128_t p, q, n, phin, e, d;
   // Passo 1: Selecionar dois numeros primos aleatorios grandes p e q
-  p = random_prime(lower_bound, upper_bound);
+  p = random_prime(upperbound);
   do {
-    q = random_prime(lower_bound, upper_bound);
+    q = random_prime(upperbound);
   } while(q == p);
 
   // Passo 2: Calcular n = p * q
@@ -67,14 +102,11 @@ struct Key_pair initialize_ll(long long lowerbound, long long upperbound) {
   phin = (p - 1) * (q - 1);
 
   // Passo 4: Achar um e tal que gcd(e, ø(n)) = 1 ; 1 < e < ø(n)
-  do {
-    // implementar valor de e
-    e = get_e_value(phin);
-  } while(e > phin || gcd(e, phin) != 1);
+  e = get_e_value(phin);
 
   // Passo 5: Calcular d tal que e*d = 1 (mod ø(n))
   // IMPLEMENTAR ALGORITMO EUCLIDIANO EXTENDIDO AQUI
-  long long tmp;
+  boost::multiprecision::int128_t tmp;
   euclides_extended(e, phin, d, tmp);
   if(d < 0) d += phin;
 
@@ -86,36 +118,6 @@ struct Key_pair initialize_ll(long long lowerbound, long long upperbound) {
   struct Key_pair pair = {pub, priv};
 
   return pair;
-}
-
-void initialize_mpz() {
-  mpz_t p, q, n, phin, e, d, aux;
-  mpz_inits(p, q, n, phin, e, d, aux);
-
-  // Passo 1: Selecionar dois numeros primos aleatorios grandes p e q
-  mpz_set_ui(p, 2);
-  mpz_set_ui(q, 7);
-
-  // Passo 2: Calcular n = p * q
-  mpz_mul(n, p, n);
-
-  // Passo 3: Calcular ø(n) = (p - 1)*(q - 1)
-  mpz_sub_ui(aux, p, 1);
-  mpz_set(phin, aux);
-  mpz_sub_ui(aux, q, 1);
-  mpz_mul(phin, aux, phin);
-
-  // Passo 4: Achar um e tal que gcd(e, ø(n)) = 1 ; 1 < e < ø(n)
-  do {
-    mpz_set_ui(e, 5);
-    mpz_gcd(aux, e, phin);
-  } while(mpz_cmp(e, phin) <= 0 || mpz_cmp_ui(aux, 1) != 0);
-
-  // Passo 5: Calcular d tal que e*d = 1 (mod ø(n))
-  // IMPLEMENTAR ALGORITMO EUCLIDIANO EXTENDIDO AQUI
-  mpz_invert(d, e, phin);
-
-  mpz_clears(p, q, n, phin, e, d, aux);
 }
 
 #endif

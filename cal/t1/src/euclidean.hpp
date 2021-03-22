@@ -1,7 +1,9 @@
 #ifndef EUCLIDEAN_HPP
 #define EUCLIDEAN_HPP
 
-int gcd(long long a, long long b) {
+#include <boost/multiprecision/cpp_int.hpp>
+
+long long gcd(long long a, long long b) {
   if(b > a) (a ^= b), (b ^= a), (a ^= b);
 
   long long r = a % b;
@@ -11,9 +13,11 @@ int gcd(long long a, long long b) {
     return gcd(b, r);
 }
 
-int gcd_iter(int num1, int num2) {
-  int r;
+boost::multiprecision::int128_t gcd_iter(boost::multiprecision::int128_t num1,
+                                         boost::multiprecision::int128_t num2) {
+  if(num2 > num1) (num1 ^= num2), (num2 ^= num1), (num1 ^= num2);
 
+  boost::multiprecision::int128_t r;
   do {
     r = num1 % num2;
 
@@ -25,13 +29,16 @@ int gcd_iter(int num1, int num2) {
   return num1;
 }
 
-long long euclides_extended(long long m, long long n, long long &a, long long &b) {
+boost::multiprecision::int128_t euclides_extended(boost::multiprecision::int128_t m,
+                                                  boost::multiprecision::int128_t n,
+                                                  boost::multiprecision::int128_t &a,
+                                                  boost::multiprecision::int128_t &b) {
   if(n == 0) {
     a = 1;
     b = 0;
     return m;
   } else {
-    long long e, f, d;
+    boost::multiprecision::int128_t e, f, d;
 
     d = euclides_extended(n, m % n, e, f);
 
