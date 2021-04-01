@@ -1,6 +1,7 @@
 #ifndef ENCRYPTION_HPP
 #define ENCRYPTION_HPP
 
+#include <boost/multiprecision/cpp_int.hpp>
 #include <cstring>
 #include <fstream>
 #include <iostream>
@@ -13,6 +14,8 @@
  * Encrypts a source file to a destination file.
  */
 void encrypt_file(std::string src_path, std::string dst_path, struct Public_key pub_key) {
+  using namespace boost::multiprecision;
+
   std::ifstream src(src_path, std::ios::in | std::ios::binary);
   if(!src.is_open()) {
     std::cerr << "Arquivo não pode ser aberto com sucesso" << std::endl;
@@ -31,22 +34,12 @@ void encrypt_file(std::string src_path, std::string dst_path, struct Public_key 
 
   // Transformar cada caracter da string em um inteiro
 
-  // for(unsigned long int i = 0; i < strlen(string_c); i++) {
-  //   std::cout << string_c[i];
-  // }
-  // std::cout << std::endl;
-
   long long *output = new long long[len_file];
 
   for(long long i = 0; i < len_file; i++) {
     output[i] = mod_pow_const_time_and_cond_copy(string_c[i], pub_key.e, pub_key.n);
   }
   delete[] string_c;
-
-  // for(int i = 0; i < len_file; i++) {
-  //   std::cout << output[i] << ' ';
-  // }
-  // std::cout << std::endl;
 
   std::ofstream dst(dst_path, std::ios::out | std::ios::binary);
   if(!dst.is_open()) {
@@ -83,11 +76,6 @@ void decrypt_file(std::string src_path, std::string dst_path, struct Private_key
     src.read(reinterpret_cast<char *>(&input[i]), sizeof(long long));
   }
   src.close();
-
-  // for(unsigned long int i = 0; i < len_file / sizeof(long long); i++) {
-  //   std::cout << input[i] << ' ';
-  // }
-  // std::cout << std::endl;
 
   // Transformar cada inteiro em um char
 

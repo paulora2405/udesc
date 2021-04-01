@@ -37,29 +37,30 @@ bool miller_rabin(boost::multiprecision::int128_t n) {
  * Gera um número primo aleatório no intervalo [lowerbound, upperbound].
  */
 boost::multiprecision::int128_t random_prime(boost::multiprecision::int128_t upperbound) {
+  using namespace boost::multiprecision;
   int casas = 0;
   while(upperbound > 1) {
     casas++;
     upperbound = upperbound / 10;
   }
 
-  boost::random::uniform_int_distribution<long long> rand_ll(2, (long long)pow(10, casas / 2) - 1);
+  boost::random::uniform_int_distribution<int64_t> rand_64(2, (int64_t)pow(10, casas / 2) - 1);
 
-  long long int_left = rand_ll(gen_128);
-  long long int_right = rand_ll(gen_128);
-  boost::multiprecision::int128_t candidate;
-  candidate = int_left * (long long)pow(10, casas / 2) + int_right;
+  int128_t int_left = rand_64(gen_128);
+  int128_t int_right = rand_64(gen_128);
+  int128_t candidate;
+  candidate = int_left * (int64_t)pow(10, casas / 2) + int_right;
 
-  if(!(candidate & 1)) candidate++;
+  candidate += !(candidate & 1);
 
   while(!miller_rabin(candidate)) {
     candidate += 2;
     if(candidate > upperbound) {
-      int_left = rand_ll(gen_128);
-      int_right = rand_ll(gen_128);
-      candidate = int_left * (long long)pow(10, casas / 2) + int_right;
+      int_left = rand_64(gen_128);
+      int_right = rand_64(gen_128);
+      candidate = int_left * (int64_t)pow(10, casas / 2) + int_right;
+      candidate += !(candidate & 1);
     }
-    candidate += !(candidate & 1);
   }
   return candidate;
 }

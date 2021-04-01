@@ -31,9 +31,9 @@ Dada uma mensagem `m` e uma mensagem cifrada `c`
   - Função para decriptar um arquivo usando uma chave privada.
 
 ##### `euclidean.hpp`
-- `int gcd(long long a, long long b)`
+- `long long gcd(long long a, long long b)`
   - Função do algoritmo euclidiano recursivo para calcular o Máximo Divisor Comum.
-- `int gcd_iter(int num1, int num2)`
+- `long longong long gcd_iter(long long num1, long long num2)`
   - Função do algoritmo euclidiano iterativo para calcular o MDC
 - `long long euclides_extended(long long m, long long n, long long *a, long long *b)`
   - Função do algoritmo euclidiano estendido para calcular o MDC e os coeficientes da Identidade de Bézout.
