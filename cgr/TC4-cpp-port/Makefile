@@ -11,7 +11,7 @@ LDFLAGS = -lglut -lGL #-lGLU
 # Makefile settings - Can be customized.
 APPNAME = main
 EXT = .cpp
-SRCDIR = src_dod
+SRCDIR = src
 OBJDIR = obj
 
 ############## Do not change anything from here downwards! #############
