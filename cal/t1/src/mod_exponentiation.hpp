@@ -40,9 +40,14 @@ long long mod_pow_const_time(long long base, long long power, long long n) {
 }
 
 boost::multiprecision::int128_t mod_pow_const_time_and_cond_copy(
-    boost::multiprecision::int128_t base, boost::multiprecision::int128_t power,
-    boost::multiprecision::int128_t n) {
-  boost::multiprecision::int128_t result = 1;
+    boost::multiprecision::int128_t base_, boost::multiprecision::int128_t power_,
+    boost::multiprecision::int128_t n_) {
+  using namespace boost::multiprecision;
+
+  cpp_int result = 1;
+  cpp_int base(base_);
+  cpp_int power(power_);
+  cpp_int n(n_);
 
   while(power > 0) {
     bool sBit = power % 2 == 1;
@@ -54,7 +59,8 @@ boost::multiprecision::int128_t mod_pow_const_time_and_cond_copy(
     base = (base * base) % n;
   }
 
-  return result;
+  int128_t ret(result);
+  return ret;
 }
 
 #endif

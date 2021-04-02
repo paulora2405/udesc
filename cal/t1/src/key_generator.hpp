@@ -70,7 +70,7 @@ void print_keys(boost::multiprecision::int128_t &p, boost::multiprecision::int12
  * Gera os valores de p, q, n, Phi(n), e, d.
  * @returns Um par de chaves, contendo uma chave pública e uma chave privada.
  */
-struct Key_pair initialize_128(boost::multiprecision::int128_t upperbound) {
+struct Key_pair initialize_128(boost::multiprecision::int128_t upperbound, bool print) {
   boost::multiprecision::int128_t p, q, n, phin, e, d;
   // Passo 1: Selecionar dois numeros primos aleatorios grandes p e q
   p = random_prime(upperbound);
@@ -94,7 +94,7 @@ struct Key_pair initialize_128(boost::multiprecision::int128_t upperbound) {
   if(d < 0) d += phin;
 
   // Imprimir os resultados
-  print_keys(p, q, n, phin, e, d);
+  if(print) print_keys(p, q, n, phin, e, d);
 
   struct Public_key pub = {n, e};
   struct Private_key priv = {n, d};

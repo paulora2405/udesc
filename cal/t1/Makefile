@@ -6,7 +6,7 @@
 CC = g++
 WALLFLAGS = -Wall -Wextra -Wpedantic -Wno-unused-parameter -Wno-unused-variable
 CXXFLAGS = -std=c++14 -g $(WALLFLAGS) #-pthread
-LDFLAGS = -lgmp
+LDFLAGS = #-lgmp
 
 # Makefile settings - Can be customized.
 APPNAME = main
@@ -29,7 +29,7 @@ DELOBJ = $(OBJ)
 ########################################################################
 
 all: mkdirs $(APPNAME)
-	! ($(TEST) $(DEP)) || $(RM) $(DEP)
+#! ($(TEST) $(DEP)) || $(RM) $(DEP)
 
 # Builds the app
 $(APPNAME): $(OBJ)

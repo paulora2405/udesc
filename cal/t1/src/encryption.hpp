@@ -33,15 +33,19 @@ void encrypt_file(std::string src_path, std::string dst_path, struct Public_key 
   /*
   40 / 32 = 1
   len_file / sizeof(uint128_t)
-  40 % 32 = 6
+  40 % 32 = 8
   len_file % sizeof(uint128_t)
   */
   src.seekg(0, src.end);
-  size_t custom_size = sizeof(int128_t) / 16;
+  size_t custom_size = sizeof(int128_t) / 2;
   size_t len_file = src.tellg();
   size_t int_len = len_file / custom_size;
   size_t rem_len = len_file % custom_size;
   src.seekg(0, src.beg);
+
+  // std::cout << "Len_file (bytes): " << len_file << std::endl;
+  // std::cout << "Int_len (blocks): " << int_len << std::endl;
+  // std::cout << "Rem_len (bytes): " << rem_len << std::endl;
 
   for(size_t i = 0; i < int_len; i++) {
     src.read(reinterpret_cast<char *>(&buffer), custom_size);
@@ -61,6 +65,16 @@ void encrypt_file(std::string src_path, std::string dst_path, struct Public_key 
     output[i] = mod_pow_const_time_and_cond_copy(input[i], pub_key.e, pub_key.n);
   }
 
+  // TESTS
+  // for(auto i : input) {
+  //   std::cout << i << std::endl;
+  //   std::cout << reinterpret_cast<const char *>(&i) << std::endl;
+  // }
+  // for(auto i : output) {
+  //   std::cout << i << std::endl;
+  //   std::cout << reinterpret_cast<const char *>(&i) << std::endl;
+  // }
+
   // WRITE TO ENCYPTED FILE
   std::ofstream dst(dst_path, std::ios::binary);
   if(!dst.is_open()) {
@@ -74,7 +88,13 @@ void encrypt_file(std::string src_path, std::string dst_path, struct Public_key 
   }
   if(rem_len != 0) {
     buffer = output.back();
-    dst.write(reinterpret_cast<const char *>(&buffer), rem_len);
+    int n = 0;
+    while(buffer != 0) {
+      buffer >>= 8;
+      n++;
+    }
+    buffer = output.back();
+    dst.write(reinterpret_cast<const char *>(&buffer), n);
   }
 
   dst.close();
@@ -103,11 +123,15 @@ void decrypt_file(std::string src_path, std::string dst_path, struct Private_key
   len_file % sizeof(uint128_t)
   */
   src.seekg(0, src.end);
-  size_t custom_size = sizeof(int128_t) / 16;
+  size_t custom_size = sizeof(int128_t) / 2;
   size_t len_file = src.tellg();
   size_t int_len = len_file / custom_size;
   size_t rem_len = len_file % custom_size;
   src.seekg(0, src.beg);
+
+  // std::cout << "Len_file (bytes): " << len_file << std::endl;
+  // std::cout << "Int_len (blocks): " << int_len << std::endl;
+  // std::cout << "Rem_len (bytes): " << rem_len << std::endl;
 
   for(size_t i = 0; i < int_len; i++) {
     src.read(reinterpret_cast<char *>(&buffer), custom_size);
@@ -127,6 +151,16 @@ void decrypt_file(std::string src_path, std::string dst_path, struct Private_key
     output[i] = mod_pow_const_time_and_cond_copy(input[i], priv_key.d, priv_key.n);
   }
 
+  // TESTS
+  // for(auto i : input) {
+  //   std::cout << i << std::endl;
+  //   std::cout << reinterpret_cast<const char *>(&i) << std::endl;
+  // }
+  // for(auto i : output) {
+  //   std::cout << i << std::endl;
+  //   std::cout << reinterpret_cast<const char *>(&i) << std::endl;
+  // }
+
   // WRITE TO ENCYPTED FILE
   std::ofstream dst(dst_path, std::ios::binary);
   if(!dst.is_open()) {
@@ -140,7 +174,13 @@ void decrypt_file(std::string src_path, std::string dst_path, struct Private_key
   }
   if(rem_len != 0) {
     buffer = output.back();
-    dst.write(reinterpret_cast<const char *>(&buffer), rem_len);
+    int n = 0;
+    while(buffer != 0) {
+      buffer >>= 8;
+      n++;
+    }
+    buffer = output.back();
+    dst.write(reinterpret_cast<const char *>(&buffer), n);
   }
 
   dst.close();

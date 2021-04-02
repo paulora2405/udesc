@@ -15,33 +15,38 @@ int main(int argc, char const *argv[]) {
     exit(EXIT_FAILURE);
   }
 
-  std::string texto = "Este é um texto de teste!";
+  // std::string texto = "abcdefghijklmnopqrstuvwxyz";
+  std::string texto = "abcdef";
   write_file("original.bin", texto);
-  struct Key_pair keys = initialize_128(100000000LL);
+  struct Key_pair keys = initialize_128(10000000000000LL, false);
   encrypt_file("original.bin", "encriptado.bin", keys.pub_key);
   decrypt_file("encriptado.bin", "decriptado.bin", keys.priv_key);
 
-  print_file("original.bin");
-  print_file("encriptado.bin");
-  print_file("decriptado.bin");
+  // print_file("original.bin");
+  // print_file("encriptado.bin");
+  // print_file("decriptado.bin");
 
   // encrypt_test();
 
   // 74719769323023431933 quebra
+  // 174826128581491075408507 NAO ESTA MAIS QUEBRANDO COM ESTE NUMERO
   // 5360825248451044571 nao quebra
-  // 9805467456659889323 nq
-  // 37633746138219895883 q
-  // 5774889990524933347 nq
-  // 24,290,033,684,151,547,057 q
+  // 24,290,033,684,151,547,057 quebra (20 algarismos)
   //  9,223,372,036,854,775,807 maior signed long long
   // 18,446,744,073,709,551,615 maior unsigned long long
-  // struct Key_pair keys = initialize_128(100000000LL);
 
-  //   int128_t a = 1000000000000LL;
-  //   int128_t enc = mod_pow_const_time_and_cond_copy(a, keys.pub_key.e, keys.pub_key.n);
-
-  //   std::cout << a << std::endl;
-  //   std::cout << enc << std::endl;
-  //   std::cout << mod_pow_const_time_and_cond_copy(enc, keys.priv_key.d, keys.priv_key.n) <<
-  //   std::endl;
+  // The values calculated were:
+  // P = 12207809
+  // Q = 4592683
+  // N = 56066596861547
+  //     112585661964897
+  // Phi(N) = 56066580061056
+  // E = 170217850973
+  // D = 24811004278901
+  // int128_t a(112585661964897);
+  // std::cout << a << std::endl;
+  // int128_t enc = mod_pow_const_time_and_cond_copy(a, 170217850973, 56066596861547);
+  // std::cout << enc << std::endl;
+  // std::cout << mod_pow_const_time_and_cond_copy(enc, 24811004278901, 56066596861547) <<
+  // std::endl;
 }
