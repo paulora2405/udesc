@@ -1,3 +1,18 @@
+### Anotações
+
+##### Para transformar uma MT com fita DI para Sipser:
+
+1. Ao inicio da execução, move o cabeçote para a direita e marca com um símbolo especial, delimitando a fita para a esquerda.
+1. Sempre que o cabeçote fizer um movimento para a esquerda, verificar se a célula contém o símbolo especial.
+    1. Se sim, movimentar novamente para a direita e continuar a execução.
+
+##### Para transformar uma MT Sipser para DI:
+
+
+
+---
+
+### Enunciado
 O objetivo deste trabalho é demonstrar a equivalência de duas variantes disponíveis no simulador online de máquinas de Turing em http://morphett.info/turing/turing.html
 
 Mais especificamente: será possível notar que a variante de fita duplamente infinita e a variante de fita semi-infinita (modelo de Sipser) podem simular uma à outra.
