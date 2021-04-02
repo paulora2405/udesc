@@ -12,45 +12,71 @@
 
 /*
  * Encrypts a source file to a destination file.
+ if(!src.is_open()) {
+    std::cerr << "Arquivo não pode ser aberto com sucesso" << std::endl;
+    exit(EXIT_FAILURE);
+  }
  */
 void encrypt_file(std::string src_path, std::string dst_path, struct Public_key pub_key) {
   using namespace boost::multiprecision;
 
-  std::ifstream src(src_path, std::ios::in | std::ios::binary);
+  // READ FROM OG FILE
+  std::ifstream src(src_path, std::ios::binary);
   if(!src.is_open()) {
     std::cerr << "Arquivo não pode ser aberto com sucesso" << std::endl;
     exit(EXIT_FAILURE);
   }
 
-  // Ler arquivo original e colocar em uma string
+  int128_t buffer;
+  std::vector<int128_t> input;
 
+  /*
+  40 / 32 = 1
+  len_file / sizeof(uint128_t)
+  40 % 32 = 6
+  len_file % sizeof(uint128_t)
+  */
   src.seekg(0, src.end);
-  const long long len_file = src.tellg();
+  size_t custom_size = sizeof(int128_t) / 16;
+  size_t len_file = src.tellg();
+  size_t int_len = len_file / custom_size;
+  size_t rem_len = len_file % custom_size;
   src.seekg(0, src.beg);
 
-  char *string_c = new char[len_file];
-  src.read(string_c, len_file);
+  for(size_t i = 0; i < int_len; i++) {
+    src.read(reinterpret_cast<char *>(&buffer), custom_size);
+    input.push_back(buffer);
+  }
+  if(rem_len != 0) {
+    src.read(reinterpret_cast<char *>(&buffer), rem_len);
+    input.push_back(buffer);
+  }
   src.close();
 
-  // Transformar cada caracter da string em um inteiro
+  // DATA MANIPULATION HERE
+  std::vector<int128_t> output(input.size(), 0);
 
-  long long *output = new long long[len_file];
-
-  for(long long i = 0; i < len_file; i++) {
-    output[i] = mod_pow_const_time_and_cond_copy(string_c[i], pub_key.e, pub_key.n);
+  for(size_t i = 0; i < input.size(); i++) {
+    // output[i] = input[i] + 1;
+    output[i] = mod_pow_const_time_and_cond_copy(input[i], pub_key.e, pub_key.n);
   }
-  delete[] string_c;
 
-  std::ofstream dst(dst_path, std::ios::out | std::ios::binary);
+  // WRITE TO ENCYPTED FILE
+  std::ofstream dst(dst_path, std::ios::binary);
   if(!dst.is_open()) {
     std::cerr << "Arquivo não pode ser aberto com sucesso" << std::endl;
     exit(EXIT_FAILURE);
   }
-  for(long long i = 0; i < len_file; i++) {
-    dst.write(reinterpret_cast<const char *>(&output[i]), sizeof(output[0]));
+
+  for(size_t i = 0; i < int_len; i++) {
+    buffer = output[i];
+    dst.write(reinterpret_cast<const char *>(&buffer), custom_size);
+  }
+  if(rem_len != 0) {
+    buffer = output.back();
+    dst.write(reinterpret_cast<const char *>(&buffer), rem_len);
   }
 
-  delete[] output;
   dst.close();
 }
 
@@ -58,48 +84,65 @@ void encrypt_file(std::string src_path, std::string dst_path, struct Public_key 
  * Decrypts a source file to a destination file.
  */
 void decrypt_file(std::string src_path, std::string dst_path, struct Private_key priv_key) {
-  std::ifstream src(src_path, std::ios::in | std::ios::binary);
+  using namespace boost::multiprecision;
+
+  // READ FROM OG FILE
+  std::ifstream src(src_path, std::ios::binary);
   if(!src.is_open()) {
     std::cerr << "Arquivo não pode ser aberto com sucesso" << std::endl;
     exit(EXIT_FAILURE);
   }
 
-  // Ler arquivo encriptado em inteiros
+  int128_t buffer;
+  std::vector<int128_t> input;
 
+  /*
+  40 / 32 = 1
+  len_file / sizeof(uint128_t)
+  40 % 32 = 6
+  len_file % sizeof(uint128_t)
+  */
   src.seekg(0, src.end);
-  const long long len_file = src.tellg();
+  size_t custom_size = sizeof(int128_t) / 16;
+  size_t len_file = src.tellg();
+  size_t int_len = len_file / custom_size;
+  size_t rem_len = len_file % custom_size;
   src.seekg(0, src.beg);
 
-  long long *input = new long long[len_file / sizeof(long long)];
-
-  for(unsigned long int i = 0; i < len_file / sizeof(long long); i++) {
-    src.read(reinterpret_cast<char *>(&input[i]), sizeof(long long));
+  for(size_t i = 0; i < int_len; i++) {
+    src.read(reinterpret_cast<char *>(&buffer), custom_size);
+    input.push_back(buffer);
+  }
+  if(rem_len != 0) {
+    src.read(reinterpret_cast<char *>(&buffer), rem_len);
+    input.push_back(buffer);
   }
   src.close();
 
-  // Transformar cada inteiro em um char
+  // DATA MANIPULATION HERE
+  std::vector<int128_t> output(input.size(), 0);
 
-  char *string_c = new char[len_file / sizeof(long long)];
-
-  for(unsigned long int i = 0; i < len_file / sizeof(long long); i++) {
-    string_c[i] = mod_pow_const_time_and_cond_copy(input[i], priv_key.d, priv_key.n);
+  for(size_t i = 0; i < input.size(); i++) {
+    // output[i] = input[i] - 1;
+    output[i] = mod_pow_const_time_and_cond_copy(input[i], priv_key.d, priv_key.n);
   }
-  delete[] input;
 
-  // for(unsigned long int i = 0; i < strlen(string_c); i++) {
-  //   std::cout << string_c[i];
-  // }
-  // std::cout << std::endl;
-
-  std::ofstream dst(dst_path, std::ios::out | std::ios::binary);
+  // WRITE TO ENCYPTED FILE
+  std::ofstream dst(dst_path, std::ios::binary);
   if(!dst.is_open()) {
     std::cerr << "Arquivo não pode ser aberto com sucesso" << std::endl;
     exit(EXIT_FAILURE);
   }
 
-  dst.write(string_c, strlen(string_c));
+  for(size_t i = 0; i < int_len; i++) {
+    buffer = output[i];
+    dst.write(reinterpret_cast<const char *>(&buffer), custom_size);
+  }
+  if(rem_len != 0) {
+    buffer = output.back();
+    dst.write(reinterpret_cast<const char *>(&buffer), rem_len);
+  }
 
-  delete[] string_c;
   dst.close();
 }
 

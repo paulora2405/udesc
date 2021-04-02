@@ -13,15 +13,15 @@
 void encrypt_test() {
   using namespace boost::multiprecision;
 
-  std::string msg = "123456789\n987654321\n123456789\n987654321\n";
+  std::string msg = "abcdefghijklmnopqrstuvwxyz123456";
   std::string srcname = "tests.bin";
   write_file(srcname, msg);
 
   // READ FROM OG FILE
   std::ifstream src(srcname, std::ios::binary);
 
-  uint128_t buffer;
-  std::vector<uint128_t> input;
+  int128_t buffer;
+  std::vector<int128_t> input;
 
   /*
   40 / 32 = 1
@@ -30,30 +30,37 @@ void encrypt_test() {
   len_file % sizeof(uint128_t)
   */
   src.seekg(0, src.end);
+  size_t custom_size = sizeof(int128_t) / 4;
   size_t len_file = src.tellg();
-  size_t int_len = len_file / sizeof(uint128_t);
-  size_t rem_len = len_file % sizeof(uint128_t);
+  size_t int_len = len_file / custom_size;
+  size_t rem_len = len_file % custom_size;
   src.seekg(0, src.beg);
 
   std::cout << len_file << std::endl;
   std::cout << int_len << std::endl;
   std::cout << rem_len << std::endl;
 
-  src.read(reinterpret_cast<char *>(&buffer), sizeof(uint128_t));
-  input.push_back(buffer);
-
+  for(size_t i = 0; i < int_len; i++) {
+    src.read(reinterpret_cast<char *>(&buffer), custom_size);
+    input.push_back(buffer);
+  }
   if(rem_len != 0) {
     src.read(reinterpret_cast<char *>(&buffer), rem_len);
     input.push_back(buffer);
   }
   src.close();
 
+  for(auto i : input) {
+    std::cout << i << std::endl;
+    std::cout << reinterpret_cast<const char *>(&i) << std::endl;
+  }
+
   // DATA MANIPULATION HERE
-  std::vector<uint128_t> output(input.size(), 0);
+  std::vector<int128_t> output(input.size(), 0);
 
   for(size_t i = 0; i < input.size(); i++) {
-    uint128_t a = 2;
-    output[i] = input[i] * a;
+    // output[i] = input[i];
+    output[i] = mod_pow_const_time_and_cond_copy(input[i], 91777883971757, 2107446121771421);
   }
 
   // WRITE TO ENCYPTED FILE
@@ -62,11 +69,16 @@ void encrypt_test() {
 
   for(size_t i = 0; i < int_len; i++) {
     buffer = output[i];
-    dst.write(reinterpret_cast<const char *>(&buffer), sizeof(uint128_t));
+    dst.write(reinterpret_cast<const char *>(&buffer), custom_size);
   }
   if(rem_len != 0) {
     buffer = output.back();
     dst.write(reinterpret_cast<const char *>(&buffer), rem_len);
+  }
+
+  for(auto i : output) {
+    std::cout << i << std::endl;
+    std::cout << reinterpret_cast<const char *>(&i) << std::endl;
   }
 
   dst.close();
