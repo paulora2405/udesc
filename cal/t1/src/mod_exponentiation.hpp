@@ -3,6 +3,8 @@
 
 #include <boost/multiprecision/cpp_int.hpp>
 
+#include "big_int_type.hpp"
+
 /*
  * Para ser realmente segura, a potenciação modular não deve deixar rastros da chave.
  * https://crypto.stackexchange.com/questions/75408/efficient-function-algorithm-method-to-do-modular-exponentiation
@@ -39,12 +41,10 @@ long long mod_pow_const_time(long long base, long long power, long long n) {
   return result;
 }
 
-boost::multiprecision::int128_t mod_pow_const_time_and_cond_copy(
-    boost::multiprecision::int128_t base_, boost::multiprecision::int128_t power_,
-    boost::multiprecision::int128_t n_) {
+big_int mod_pow_const_time_and_cond_copy(big_int base_, big_int power_, big_int n_) {
   using namespace boost::multiprecision;
 
-  cpp_int result = 1;
+  cpp_int result(1);
   cpp_int base(base_);
   cpp_int power(power_);
   cpp_int n(n_);
@@ -59,7 +59,7 @@ boost::multiprecision::int128_t mod_pow_const_time_and_cond_copy(
     base = (base * base) % n;
   }
 
-  int128_t ret(result);
+  big_int ret(result);
   return ret;
 }
 

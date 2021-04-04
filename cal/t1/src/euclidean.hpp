@@ -3,6 +3,8 @@
 
 #include <boost/multiprecision/cpp_int.hpp>
 
+#include "big_int_type.hpp"
+
 long long gcd(long long a, long long b) {
   if(b > a) (a ^= b), (b ^= a), (a ^= b);
 
@@ -13,11 +15,10 @@ long long gcd(long long a, long long b) {
     return gcd(b, r);
 }
 
-boost::multiprecision::int128_t gcd_iter(boost::multiprecision::int128_t num1,
-                                         boost::multiprecision::int128_t num2) {
+big_int gcd_iter(big_int num1, big_int num2) {
   if(num2 > num1) (num1 ^= num2), (num2 ^= num1), (num1 ^= num2);
 
-  boost::multiprecision::int128_t r;
+  big_int r;
   do {
     r = num1 % num2;
 
@@ -29,16 +30,13 @@ boost::multiprecision::int128_t gcd_iter(boost::multiprecision::int128_t num1,
   return num1;
 }
 
-boost::multiprecision::int128_t euclides_extended(boost::multiprecision::int128_t m,
-                                                  boost::multiprecision::int128_t n,
-                                                  boost::multiprecision::int128_t &a,
-                                                  boost::multiprecision::int128_t &b) {
+big_int euclides_extended(big_int m, big_int n, big_int &a, big_int &b) {
   if(n == 0) {
     a = 1;
     b = 0;
     return m;
   } else {
-    boost::multiprecision::int128_t e, f, d;
+    big_int e, f, d;
 
     d = euclides_extended(n, m % n, e, f);
 
