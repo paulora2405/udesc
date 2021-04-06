@@ -4,7 +4,7 @@
 
 # Compiler settings - Can be customized.
 CC = g++
-WALLFLAGS = -Wall -Wextra -Wpedantic -Wno-unused-parameter -Wno-unused-variable
+WALLFLAGS = -Wall -Wextra -Wpedantic
 CXXFLAGS = -std=c++14 -g $(WALLFLAGS) #-pthread
 LDFLAGS =
 
@@ -13,6 +13,7 @@ APPNAME = main
 EXT = .cpp
 SRCDIR = src
 OBJDIR = obj
+DOTDIR = dot
 
 ############## Do not change anything from here downwards! #############
 SRC = $(wildcard $(SRCDIR)/*$(EXT))
@@ -23,13 +24,16 @@ RM = rm
 RMDIR = rm -r
 TEST = test -s
 DELOBJ = $(OBJ)
+# GRAPHVIZ
+IMG_IN = entrada
+IMG_OUT = saida
+
 
 ########################################################################
 ####################### Targets beginning here #########################
 ########################################################################
 
 all: mkdirs $(APPNAME)
-	! ($(TEST) $(DEP)) || $(RM) $(DEP)
 
 # Builds the app
 $(APPNAME): $(OBJ)
@@ -48,9 +52,12 @@ $(OBJDIR)/%.o: $(SRCDIR)/%$(EXT)
 
 # Building OBJ and SRC dir if they don't exist yet
 .PHONY: mkdirs
-mkdirs: $(OBJDIR)/
+mkdirs: $(OBJDIR)/ $(DOTDIR)/
 
 $(OBJDIR)/:
+	mkdir -p $@
+
+$(DOTDIR)/:
 	mkdir -p $@
 
 ################### Cleaning rules for Unix-based OS ###################
@@ -58,10 +65,18 @@ $(OBJDIR)/:
 .PHONY: clean
 clean:
 	-$(RM) $(DELOBJ) $(DEP) $(APPNAME)
-	-$(RMDIR) $(OBJDIR)
-	-$(RM) *.bin
+	-$(RMDIR) $(OBJDIR) $(DOTDIR)
+	-$(RM) output.txt
 
 # Cleans only all files with the extension .d
 .PHONY: cleandep
 cleandep:
-	$(RM) $(DEP)
+	-$(RM) $(DEP)
+
+# Generates GraphViz Image
+.PHONY: dot
+dot:
+	-dot -Tpng $(DOTDIR)/$(IMG_IN).dot -o $(DOTDIR)/$(IMG_IN).png
+	-dot -Tsvg $(DOTDIR)/$(IMG_IN).dot -o $(DOTDIR)/$(IMG_IN).svg
+	-dot -Tpng $(DOTDIR)/$(IMG_OUT).dot -o $(DOTDIR)/$(IMG_OUT).png
+	-dot -Tsvg $(DOTDIR)/$(IMG_OUT).dot -o $(DOTDIR)/$(IMG_OUT).svg

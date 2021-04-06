@@ -1,0 +1,21 @@
+<html><head><style>body {
+   color: black;
+}
+</style></head><body><h2 id="trabalho-final-tec">Trabalho Final - TEC</h2>
+<p><strong>Paulo Roberto Albuquerque</strong></p>
+<h3 id="depend-ncias">Dependências</h3>
+<p>Para executar o programa em si, não há nenhuma dependência, porém, para criar as imagens geradas pelo GraphViz, é necessário a instalação do pacote do GraphViz.
+No Ubuntu 20.04:</p>
+<pre><code class="lang-sh">$ sudo apt <span class="hljs-keyword">install</span> graphviz
+</code></pre>
+<h3 id="execu-o">Execução</h3>
+<p>Para compilar o programa:</p>
+<pre><code class="lang-sh"><span class="hljs-variable">$ </span>make
+</code></pre>
+<p>Para rodar o programa:</p>
+<pre><code class="lang-sh">$ ./main <span class="hljs-tag">&lt;<span class="hljs-name">NOME_DO_ARQUIVO</span>&gt;</span>
+</code></pre>
+<p>Para gerar os grafos em <em>png</em> e <em>svg</em>, que ficarão no diretório <strong>dot/</strong>:</p>
+<pre><code class="lang-sh"><span class="hljs-variable">$ </span>make dot
+</code></pre>
+</body></html>
