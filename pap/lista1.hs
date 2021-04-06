@@ -9,18 +9,18 @@ pertence :: Eq a => a -> [a] -> Bool
 -- base
 pertence x [] = False
 -- recursivo
-pertence x (y : ys) =
-  (x == y) || pertence x ys
-
--- if x == y then True else pertence x ys
+pertence x (y : ys)
+  | x == y = True
+  | otherwise = pertence x ys
 
 intersecao :: Eq a => [a] -> [a] -> [a]
 -- base
 intersecao x [] = []
 intersecao [] y = []
 -- recursivo
-intersecao (x : xs) y =
-  if pertence x y then x : intersecao xs y else intersecao xs y
+intersecao (x : xs) y
+  | pertence x y = x : intersecao xs y
+  | otherwise = intersecao xs y
 
 inverso :: [a] -> [a]
 -- base
@@ -57,36 +57,12 @@ binParaInt ('1' : xs) =
 binParaInt xs =
   error "Valor nao é binario"
 
--- --Versão Gaspa ( versao mamaco )
--- strParaInt :: Char -> Int
--- strParaInt '0' = 0
--- strParaInt '1' = 1
-
--- potencial :: Int -> Int -> Int
--- potencial _ 0 = 1
--- potencial 0 _ = 0
--- potencial n e = n * potencial n (e -1)
-
--- tam :: String -> Int
--- tam [] = 0
--- tam (x : xs) = 1 + tam xs
-
--- binParaInt :: String -> Int
--- binParaInt [] = 0
--- binParaInt (x : xs) = strParaInt x * potencial 2 (tam xs) + binParaInt xs
-
--- Versão Gaspa ( versao top )
-
--- binParaInt :: Int -> Int
--- binParaInt 0 = 0
--- binParaInt i = 2 * binParaInt (i `div` 10) + (i `mod` 10)
-
 intParaBin :: Int -> String
 -- base
 intParaBin 0 = "0"
 intParaBin 1 = "1"
 intParaBin n
-  | mod n 2 == 0 = concatenacao (intParaBin (div n 2)) "0"
+  | even n = concatenacao (intParaBin (div n 2)) "0"
   | otherwise = concatenacao (intParaBin (div n 2)) "1"
 
 menorValor :: Ord a => [a] -> a
@@ -113,3 +89,75 @@ ordenar [x] = [x]
 -- recursivo
 ordenar xs =
   menorValor xs : ordenar (removerPrimeiro xs (menorValor xs))
+
+dobrarDir :: (a -> b -> b) -> b -> [a] -> b
+--base
+dobrarDir f x [] =
+  x
+-- recursivo
+dobrarDir f x (y : ys) =
+  f y (dobrarDir f x ys)
+
+dobrarEsq :: (b -> a -> b) -> b -> [a] -> b
+--base
+dobrarEsq f x [] =
+  x
+--recursivo
+dobrarEsq f x (y : ys) =
+  dobrarEsq f (f x y) ys
+
+filtrar :: (a -> Bool) -> [a] -> [a]
+--base
+filtrar _ [] =
+  []
+-- recursivo
+filtrar f (x : xs)
+  | f x = x : filtrar f xs
+  | otherwise = filtrar f xs
+
+verificaImpar :: Int -> Bool
+verificaImpar n = (n `mod` 2) == 1
+
+impares :: [Int] -> [Int]
+impares = filtrar verificaImpar
+
+mapear :: (a -> b) -> [a] -> [b]
+-- base
+mapear f [x] = [f x]
+-- recursivo
+mapear f (x : xs) =
+  f x : mapear f xs
+
+primeiros2 :: [(a, b)] -> [a]
+-- base
+primeiros2 [(a, b)] = [a]
+-- recursivo
+primeiros2 ((a, b) : xs) =
+  a : primeiros2 xs
+
+todos :: [Bool] -> Bool
+-- base
+todos [x] = x
+-- recursivo
+todos x = dobrarDir verificaVerdade True x
+
+verificaVerdade :: Bool -> Bool -> Bool
+verificaVerdade x y = x && y
+
+data Tree a
+  = Leaf a
+  | Branch (Tree a) (Tree a)
+
+maior2 :: Ord a => Tree a -> a
+-- base
+maior2 (Leaf x) = x
+-- recursivo
+maior2 (Branch x y)
+  | maior2 x > maior2 y = maior2 x
+  | otherwise = maior2 y
+
+altura :: Tree a -> Int
+-- base
+altura (Leaf x) = 0
+-- recursivo
+altura (Branch x y) = 1 + max (altura x) (altura y)
