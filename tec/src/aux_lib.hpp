@@ -47,7 +47,8 @@ void gerar_dot(std::vector<std::vector<std::string>> m, std::string filename) {
   }
   ws << "digraph " << filename << " {\n";
   ws << "\trankdir=LR\n";
-  ws << "\tnode [shape=circle, fixedsize=false, width=0.7]\n\n";
+  ws << "\tnode [shape=circle, fixedsize=false, width=0.7]\n";
+  ws << "\t	edge [color=lightgrey]\n\n";
   replace_underlines(m);
   for(auto &q : m) {
     if(q[4] == "halt_accept") {
