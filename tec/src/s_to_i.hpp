@@ -17,8 +17,8 @@ bool q_already_exists(std::vector<quintuple> &m, quintuple q_) {
 }
 
 bool is_in_alphabet(std::vector<std::string> a, std::string c) {
-  for(auto &e : a) {
-    if(e == c) return true;
+  for(auto &s : a) {
+    if(s == c) return true;
   }
   return false;
 }

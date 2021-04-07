@@ -56,7 +56,7 @@ void gerar_dot(std::vector<std::vector<std::string>> m, std::string filename) {
          << "\" [shape=doublecircle, style=filled, color=red, fillcolor=lightgrey]\n";
     }
     std::string t = "\t\"" + q[0] + "\"" + "->\"" + q[4] + "\"" + " [label=\"" + q[1] + " -> " +
-                    q[2] + ' ' + q[3] + "\"];";
+                    q[2] + ", " + q[3] + "\"];";
     ws << t << '\n';
   }
   ws << "\n}" << std::flush;

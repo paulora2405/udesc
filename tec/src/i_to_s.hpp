@@ -46,23 +46,26 @@ std::vector<quintuple> i_to_s(std::vector<quintuple> m) {
   for(auto &q : m) {
     if(q[3] == "r" && q[4] != "halt-accept") {
       // nomes dos estados auxiliares
-      std::string name1 = "dir_" + q[0] + "_" + q[4];
-      std::string name2 = "pushdir_" + q[0] + "_" + q[4];
-      std::string name3 = "stopdir_" + q[0] + "_" + q[4];
+      std::string q0_q1 = "dir_" + q[0] + "_" + q[4];
+      std::string push = "pushdir_" + q[0] + "_" + q[4];
+      std::string aux_p = "stopdir_" + q[0] + "_" + q[4];
 
-      quintuple tmp1{q[0], q[1], q[2], "r", name1};
-      quintuple tmp2{name1, right_limit, "_", "r", name2};
-      quintuple tmp3{name2, "_", right_limit, "l", name1};
-      quintuple tmp4{name1, "*", "*", "l", name3};
-      quintuple tmp5{name3, "*", "*", "r", q[4]};
+      // quintupla especifica
+      quintuple esp1{q[0], q[1], q[2], "r", q0_q1};
 
-      if(!q_already_exists(m_new, tmp1)) m_new.push_back(tmp1);
+      // quintuplas gerais
+      quintuple geral1{q0_q1, right_limit, "_", "r", push};
+      quintuple geral2{push, "_", right_limit, "l", q0_q1};
+      quintuple geral3{q0_q1, "*", "*", "l", aux_p};
+      quintuple geral4{aux_p, "*", "*", "r", q[4]};
 
-      if(!q_already_exists(m_new, tmp2)) {
-        m_new.push_back(tmp2);
-        m_new.push_back(tmp3);
-        m_new.push_back(tmp4);
-        m_new.push_back(tmp5);
+      m_new.push_back(esp1);
+
+      if(!q_already_exists(m_new, geral1)) {
+        m_new.push_back(geral1);
+        m_new.push_back(geral2);
+        m_new.push_back(geral3);
+        m_new.push_back(geral4);
       }
 
       // marca a transição original para nao ser inserida
@@ -95,7 +98,55 @@ std::vector<quintuple> i_to_s(std::vector<quintuple> m) {
 
   for(auto &q : m) {
     if(q[3] == "l" && q[4] != "halt-accept") {
-      // TODO
+      std::string q0_q1 = "esq_" + q[0] + "_" + q[4];
+      std::string aux_p = "stopesq_" + q[0] + "_" + q[4];
+      std::string desloc = "desloc_" + q[0] + "_" + q[4];
+      std::string daux = "daux_" + q[0] + "_" + q[4];
+      std::string daux0 = "daux0_" + q[0] + "_" + q[4];
+      std::string daux1 = "daux1_" + q[0] + "_" + q[4];
+
+      // quintuplas especifica
+      quintuple esp1{q[0], q[1], q[2], "l", q0_q1};
+
+      // quintuplas gerais
+      quintuple geral1{q0_q1, "*", "*", "r", aux_p};
+      quintuple geral2{aux_p, "*", "*", "l", q[4]};
+      quintuple geral3{q0_q1, left_limit, left_limit, "l", desloc};
+      quintuple geral4{desloc, "*", "*", "r", desloc};
+      quintuple geral5{desloc, right_limit, "_", "r", daux};
+      quintuple geral6{daux, "_", right_limit, "l", daux0};
+      quintuple geral7{daux0, "_", "_", "l", daux1};
+      quintuple geral8{daux1, "_", "_", "l", daux1};
+      quintuple geral9{daux1, left_limit, left_limit, "r", q[4]};
+
+      // quintuplas gerais dinamicas ao alfabeto da fita
+      std::vector<quintuple> gerais_alfabeto;
+      for(auto &s : tape_alphabet) {
+        if(s == "_") continue;
+        std::string daux2_s = "daux2_" + q[0] + "_" + q[4] + "_" + s;
+        quintuple geral_tmp1{daux1, s, "_", "r", daux2_s};
+        quintuple geral_tmp2{daux2_s, "_", s, "l", daux0};
+        gerais_alfabeto.push_back(geral_tmp1);
+        gerais_alfabeto.push_back(geral_tmp2);
+      }
+
+      m_new.push_back(esp1);
+
+      if(!q_already_exists(m_new, geral1)) {
+        m_new.push_back(geral1);
+        m_new.push_back(geral2);
+        m_new.push_back(geral3);
+        m_new.push_back(geral4);
+        m_new.push_back(geral5);
+        m_new.push_back(geral6);
+        m_new.push_back(geral7);
+        m_new.push_back(geral8);
+        m_new.push_back(geral9);
+        for(auto &g : gerais_alfabeto) m_new.push_back(g);
+      }
+
+      // marca a transição original para nao ser inserida
+      q.push_back("marcada");
     }
   }
 

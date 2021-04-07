@@ -1,13 +1,14 @@
-<html><head><style>body {
-   color: black;
-}
-</style></head><body><h2 id="trabalho-final-tec">Trabalho Final - TEC</h2>
+<h2 id="trabalho-final-tec">Trabalho Final - TEC</h2>
 <p><strong>Paulo Roberto Albuquerque</strong></p>
-<h3 id="depend-ncias">Dependências</h3>
-<p>Para executar o programa em si, não há nenhuma dependência, porém, para criar as imagens geradas pelo GraphViz, é necessário a instalação do pacote do GraphViz.
-No Ubuntu 20.04:</p>
-<pre><code class="lang-sh">$ sudo apt <span class="hljs-keyword">install</span> graphviz
-</code></pre>
+<h3 id="sobre">Sobre</h3>
+<p>No diretório do projeto, há um arquivo <strong>diagramas.drawio</strong>, que é um esboço do meu raciocínio para as
+   partes mais complexas da conversão de DI para Sipser.</p>
+<p>O programa também gera imagens de automatos finitos das máquinas de entrada e saída, para melhor visualização e
+   também por curiosidade =)</p>
+<p>As imagens dos grafos tem 2 formatos, <em>png</em> e <em>svg</em>. Eu indico, porém, o <em>svg</em> por se tratar de
+   um formato vetorizado, que é bem mais leve para visualizar, e ampliar.</p>
+<p>Também no diretório do projeto, há dois códigos de máquinas para testes, uma que gera infinitos 0&#39;s a direita e
+   outra a esquerda (nesta, a entrada deve ser 00).</p>
 <h3 id="execu-o">Execução</h3>
 <p>Para compilar o programa:</p>
 <pre><code class="lang-sh"><span class="hljs-variable">$ </span>make
@@ -15,7 +16,22 @@ No Ubuntu 20.04:</p>
 <p>Para rodar o programa:</p>
 <pre><code class="lang-sh">$ ./main <span class="hljs-tag">&lt;<span class="hljs-name">NOME_DO_ARQUIVO</span>&gt;</span>
 </code></pre>
+<p>A máquina convertida será escrita no arquivo <strong>output.txt</strong>.</p>
 <p>Para gerar os grafos em <em>png</em> e <em>svg</em>, que ficarão no diretório <strong>dot/</strong>:</p>
 <pre><code class="lang-sh"><span class="hljs-variable">$ </span>make dot
 </code></pre>
-</body></html>
+<p>A compilação das imagens de saída em formato <em>png</em> podem demorar um pouco, mas é normal.</p>
+<h3 id="arquivos-fonte">Arquivos Fonte</h3>
+<p>O arquivo <code>main.cpp</code>, contém apenas o fluxo principal de arquivos de entrada e saída.</p>
+<p>Em <code>aux_lib.hpp</code>, existem apenas algumas funções auxiliares.</p>
+<p>O header <code>i_to_s.hpp</code> é responsável pela conversão de DI para Sipser.</p>
+<p>O header <code>s_to_i.hpp</code> é responsável pela conversão de Sipser para DI, e possui algumas funções de auxílio
+   para a conversão e manipulação das máquinas, que são usadas no header acima também, bem como algumas constantes e
+   <em>typedefs</em>.
+</p>
+<h3 id="depend-ncias">Dependências</h3>
+<p>Para executar o programa em si, não há nenhuma dependência, porém, para criar as imagens geradas pelo GraphViz, é
+   necessário a instalação do pacote do GraphViz.</p>
+<p>No Ubuntu 20.04:</p>
+<pre><code class="lang-sh">$ sudo apt <span class="hljs-keyword">install</span> graphviz
+</code></pre>
