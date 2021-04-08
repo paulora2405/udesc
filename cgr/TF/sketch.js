@@ -15,7 +15,7 @@ function setup() {
   addParticleBt.mousePressed(addParticle);
 
   removeParticleBt = createButton("Remover Particula");
-  removeParticleBt.position(150, height + 5);
+  removeParticleBt.position(200, height + 5);
   removeParticleBt.mousePressed(removeParticle);
 
   addObstacleBt = createButton("Adicionar Obstáculo");
@@ -23,7 +23,7 @@ function setup() {
   addObstacleBt.mousePressed(addObstacle);
 
   removeObstacleBt = createButton("Remover Obstáculo");
-  removeObstacleBt.position(150, height + 35);
+  removeObstacleBt.position(200, height + 35);
   removeObstacleBt.mousePressed(removeObstacle);
 
   walls.push(new Boundary(-1, -1, width, -1));
