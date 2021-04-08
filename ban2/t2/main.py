@@ -6,9 +6,8 @@ def validCommands():
         '\nComandos válidos:\n',
         '1- Ver uma tabela\n',
         '2- Inserir em uma tabela\n',
-        '0- Sair\n',
+        '0- Sair',
         sep='  ',
-        end=''
     )
 
 

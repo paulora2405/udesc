@@ -1,6 +1,5 @@
 from tables import *
 from daos import *
-from mongo_connection import my_database
 
 cols = ['Banda', 'Disco', 'Endereco', 'Instrumento', 'Musica', 'Musico']
 
@@ -8,7 +7,7 @@ cols = ['Banda', 'Disco', 'Endereco', 'Instrumento', 'Musica', 'Musico']
 def listCollections():
     i = 0
     for c in cols:
-        print(c, f"({i})", sep="", end="  ")
+        print(c, f"({i})", sep="", end="  ", flush=False)
         i += 1
     print()
 
@@ -18,9 +17,10 @@ def keysListing(col_instance):
     first = True
     for key, v in col_instance.__dict__.items():
         if not first:
-            print(key)
+            print(key, end="  ", flush=False)
         else:
             first = False
+    print()
 
 
 def inputAttributes(col_instance):
