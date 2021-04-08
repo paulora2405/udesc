@@ -1,46 +1,29 @@
-from connection import Connection
+from mongo_connection import my_database
 from tables import Banda
 
 
 class BandaDAO:
 
-    def __init__(self) -> None:
-        self.__sqlSelectAll = 'select * from banda'
-        self.__sqlCheckIdBanda = 'select count(id_banda) from banda where id_banda = {}'
-        self.__sqlInsert = "insert into banda values ({}, '{}')"
+    last_id = 0
+
+    def __init__(self):
+        self.col = my_database["Banda"]
+        BandaDAO.last_id = self.col.find()
+        max_id = 0
+        for i in BandaDAO.last_id:
+            if max_id < i["_id"]:
+                max_id = int(i["_id"])
+        BandaDAO.last_id = max_id
 
     def selectAll(self):
-        con = Connection()
-        cursor = con.cursor()
-        cursor.execute(self.__sqlSelectAll)
-        resul = cursor.fetchall()
-        bandas = []
-        for i in resul:
-            bandas.append(Banda().fromTupla(i))
+        cursor = self.col.find()
+        ret = []
+        for doc in cursor:
+            ret.append(doc)
 
-        return bandas
+        return ret
 
-    def checkConstraints(self, banda):
-        con = Connection()
-        cursor = con.cursor()
-        cursor.execute(self.__sqlCheckIdBanda.format(banda.getIdBanda()))
-        resul = cursor.fetchone()
-        if int(resul[0]) > 0:
-            return 'Este id_banda já existe'
-
-        return None
-
-    def insertBanda(self, banda):
-        ret = self.checkConstraints(banda)
-        if ret is not None:
-            return ret
-
-        con = Connection()
-        cursor = con.cursor()
-        # unpacking all attributes from a tuple
-        sql = self.__sqlInsert.format(*banda.getAllAtt())
-        print(sql)
-        cursor.execute(sql)
-        con.commit()
-
-        return None
+    def insert(self, instance):
+        BandaDAO.last_id += 1
+        instance.setId(BandaDAO.last_id)
+        self.col.insert_one(instance.asDict())

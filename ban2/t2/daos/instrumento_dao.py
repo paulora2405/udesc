@@ -1,45 +1,29 @@
-from connection import Connection
+from mongo_connection import my_database
 from tables import Instrumento
 
 
 class InstrumentoDAO:
 
-    def __init__(self) -> None:
-        self.__sqlSelectAll = 'select * from instrumento'
-        self.__sqlCheckIdInst = 'select count(cod_instrumento) from instrumento where cod_instrumento = {}'
-        self.__sqlInsert = "insert into instrumento values ({}, '{}')"
+    last_id = 0
+
+    def __init__(self):
+        self.col = my_database["Instrumento"]
+        InstrumentoDAO.last_id = self.col.find()
+        max_id = 0
+        for i in InstrumentoDAO.last_id:
+            if max_id < i["_id"]:
+                max_id = int(i["_id"])
+        InstrumentoDAO.last_id = max_id
 
     def selectAll(self):
-        con = Connection()
-        cursor = con.cursor()
-        cursor.execute(self.__sqlSelectAll)
-        resul = cursor.fetchall()
-        instrumentos = []
-        for i in resul:
-            instrumentos.append(Instrumento().fromTupla(i))
+        cursor = self.col.find()
+        ret = []
+        for doc in cursor:
+            ret.append(doc)
 
-        return instrumentos
+        return ret
 
-    def checkConstraints(self, instrumento):
-        con = Connection()
-        cursor = con.cursor()
-        cursor.execute(self.__sqlCheckIdInst.format(
-            instrumento.getAllAtt()[0]))
-        resul = cursor.fetchone()
-        if int(resul[0]) > 0:
-            return 'Este cod_instrumento já existe'
-        return None
-
-    def insertInstrumento(self, instrumento):
-        ret = self.checkConstraints(instrumento)
-        if ret is not None:
-            return ret
-
-        con = Connection()
-        cursor = con.cursor()
-        sql = self.__sqlInsert.format(*instrumento.getAllAtt())
-        print(f'Executando o seguinte comando: "{sql}"')
-        cursor.execute(sql)
-        con.commit()
-
-        return None
+    def insert(self, instance):
+        InstrumentoDAO.last_id += 1
+        instance.setId(InstrumentoDAO.last_id)
+        self.col.insert_one(instance.asDict())

@@ -1,61 +1,29 @@
-from connection import Connection
+from mongo_connection import my_database
 from tables import Musica
 
 
 class MusicaDAO:
 
-    def __init__(self) -> None:
-        self.__sqlSelectAll = 'select * from musica'
-        self.__sqlCheckIdMusica = 'select count(id_musica) from musica where id_musica = {}'
-        self.__sqlCheckIdBanda = 'select count(id_banda) from banda where id_banda = {}'
-        self.__sqlCheckReg = 'select count(num_registro) from musico where num_registro = {}'
-        self.__sqlInsert = "insert into musica values ({}, '{}', '{}', {}, {})"
-        # check on insert last 2 values are None, cause they are optional
+    last_id = 0
+
+    def __init__(self):
+        self.col = my_database["Musica"]
+        MusicaDAO.last_id = self.col.find()
+        max_id = 0
+        for i in MusicaDAO.last_id:
+            if max_id < i["_id"]:
+                max_id = int(i["_id"])
+        MusicaDAO.last_id = max_id
 
     def selectAll(self):
-        con = Connection()
-        cursor = con.cursor()
-        cursor.execute(self.__sqlSelectAll)
-        resul = cursor.fetchall()
-        musicas = []
-        for i in resul:
-            musicas.append(Musica().fromTupla(i))
-        return musicas
+        cursor = self.col.find()
+        ret = []
+        for doc in cursor:
+            ret.append(doc)
 
-    def checkConstraints(self, musica):
-        con = Connection()
-        cursor = con.cursor()
-        cursor.execute(
-            self.__sqlCheckIdMusica.format(musica.getAllAtt()[0]))
-        resul = cursor.fetchone()
-        if int(resul[0]) > 0:
-            return 'Este id_musica já existe'
+        return ret
 
-        cursor.execute(
-            self.__sqlCheckIdBanda.format(musica.getAllAtt()[3]))
-        resul = cursor.fetchone()
-        if int(resul[0]) == 0:
-            return 'Este id_banda não existe'
-
-        cursor.execute(self.__sqlCheckReg.format(
-            musica.getAllAtt()[4]))
-        resul = cursor.fetchone()
-        if int(resul[0]) == 0:
-            return 'Este num_registro não existe'
-
-        return None
-
-    def insertMusica(self, musica):
-        ret = self.checkConstraints(musica)
-        if ret is not None:
-            return ret
-
-        con = Connection()
-        cursor = con.cursor()
-        # unpacking all attributes from a tuple
-        sql = self.__sqlInsert.format(*musica.getAllAtt())
-        print(sql)
-        cursor.execute(sql)
-        con.commit()
-
-        return None
+    def insert(self, instance):
+        MusicaDAO.last_id += 1
+        instance.setId(MusicaDAO.last_id)
+        self.col.insert_one(instance.asDict())

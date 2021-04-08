@@ -1,46 +1,29 @@
-from connection import Connection
+from mongo_connection import my_database
 from tables import Produtor
 
 
 class ProdutorDAO:
 
-    def __init__(self) -> None:
-        self.__sqlSelectAll = 'select * from produtor'
-        self.__sqlCheckIdProd = 'select count(id_produtor) from produtor where id_produtor = {}'
-        self.__sqlInsert = "insert into produtor values ({}, '{}')"
+    last_id = 0
+
+    def __init__(self):
+        self.col = my_database["Produtor"]
+        ProdutorDAO.last_id = self.col.find()
+        max_id = 0
+        for i in ProdutorDAO.last_id:
+            if max_id < i["_id"]:
+                max_id = int(i["_id"])
+        ProdutorDAO.last_id = max_id
 
     def selectAll(self):
-        con = Connection()
-        cursor = con.cursor()
-        cursor.execute(self.__sqlSelectAll)
-        resul = cursor.fetchall()
-        produtores = []
-        for i in resul:
-            produtores.append(Produtor().fromTupla(i))
+        cursor = self.col.find()
+        ret = []
+        for doc in cursor:
+            ret.append(doc)
 
-        return produtores
+        return ret
 
-    def checkConstraints(self, produtor):
-        con = Connection()
-        cursor = con.cursor()
-        cursor.execute(
-            self.__sqlCheckIdProd.format(produtor.getAllAtt()[0]))
-        resul = cursor.fetchone()
-        if int(resul[0]) > 0:
-            return 'Este id_produtor já existe'
-
-        return None
-
-    def insertProdutor(self, produtor):
-        ret = self.checkConstraints(produtor)
-        if ret is not None:
-            return ret
-
-        con = Connection()
-        cursor = con.cursor()
-        sql = self.__sqlInsert.format(*produtor.getAllAtt())
-        print(sql)
-        cursor.execute(sql)
-        con.commit()
-
-        return None
+    def insert(self, instance):
+        ProdutorDAO.last_id += 1
+        instance.setId(ProdutorDAO.last_id)
+        self.col.insert_one(instance.asDict())

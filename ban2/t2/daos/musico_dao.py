@@ -1,53 +1,29 @@
-from connection import Connection
+from mongo_connection import my_database
 from tables import Musico
 
 
 class MusicoDAO:
 
+    last_id = 0
+
     def __init__(self):
-        self.__sqlSelectAll = 'select * from musico'
-        self.__sqlCheckReg = 'select count(num_registro) from musico where num_registro = {}'
-        self.__sqlCheckIdEnd = 'select count(id_endereco) from endereco where id_endereco = {}'
-        self.__sqlInsert = "insert into musico values ({}, '{}', {})"
+        self.col = my_database["Musico"]
+        MusicoDAO.last_id = self.col.find()
+        max_id = 0
+        for i in MusicoDAO.last_id:
+            if max_id < i["_id"]:
+                max_id = int(i["_id"])
+        MusicoDAO.last_id = max_id
 
     def selectAll(self):
-        con = Connection()
-        cursor = con.cursor()
-        cursor.execute(self.__sqlSelectAll)
-        resul = cursor.fetchall()
-        musicos = []
-        for i in resul:
-            musicos.append(Musico().fromTupla(i))
+        cursor = self.col.find()
+        ret = []
+        for doc in cursor:
+            ret.append(doc)
 
-        return musicos
+        return ret
 
-    def checkConstraints(self, musico):
-        con = Connection()
-        cursor = con.cursor()
-        cursor.execute(
-            self.__sqlCheckReg.format(musico.getAllAtt()[0]))
-        resul = cursor.fetchone()
-        if int(resul[0]) > 0:
-            return 'Este num_registro já existe'
-
-        cursor.execute(
-            self.__sqlCheckIdEnd.format(musico.getAllAtt()[2]))
-        resul = cursor.fetchone()
-        if int(resul[0]) == 0:
-            return 'Este id_endereco não existe'
-        return None
-
-    def insertMusico(self, musico):
-        ret = self.checkConstraints(musico)
-        if ret is not None:
-            return ret
-
-        con = Connection()
-        cursor = con.cursor()
-        # unpacking all attributes from a tuple
-        sql = self.__sqlInsert.format(*musico.getAllAtt())
-        print(sql)
-        cursor.execute(sql)
-        con.commit()
-
-        return None
+    def insert(self, instance):
+        MusicoDAO.last_id += 1
+        instance.setId(MusicoDAO.last_id)
+        self.col.insert_one(instance.asDict())

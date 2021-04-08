@@ -2,26 +2,11 @@ class Produtor:
 
     def __init__(self):
         self.__id_produtor = -1
-        self.__nome = ""
+        self.__nome = "NONE"
 
-    def fromTupla(self, tupla):
-        self.__id_produtor = tupla[0]
-        self.__nome = tupla[1]
+    def fromList(self, lista):
+        self.__nome = lista[0]
         return self
-
-    def nome(self, nome):
-        self.__nome = nome
-        return self
-
-    def id_produtor(self, id):
-        self.__id_produtor = id
-        return self
-
-    def getNome(self):
-        return self.__nome
-
-    def getIdProdutor(self):
-        return self.__id_produtor
 
     def getAllAtt(self):
         t = (
@@ -29,6 +14,15 @@ class Produtor:
             self.__nome
         )
         return t
+
+    def setId(self, _id):
+        self.__id_produtor = _id
+
+    def asDict(self):
+        return {
+            '_id': self.__id_produtor,
+            'nome': self.__nome
+        }
 
     def __repr__(self):
         return f'{self.__id_produtor}: {self.__nome}'
