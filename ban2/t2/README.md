@@ -1,6 +1,7 @@
 ## Dependencies
 
+Instalar MongoDB e módulo para python:
+
 ```sh
-$ sudo apt install python3-dev libpq-dev
-$ pip3 install psycopg2
+$ pip3 install pymongo
 ```
