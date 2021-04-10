@@ -1,67 +1,51 @@
-########################################################################
-####################### Makefile Template ##############################
-########################################################################
+CXX      := -g++
+CXXFLAGS := -std=c++14 -pedantic-errors -Wall -Wextra #-Werror
+LDFLAGS  := -lstdc++ -lm # -L/usr/lib
+BUILD    := ./build
+OBJ_DIR  := $(BUILD)/objects
+APP_DIR  := $(BUILD)/apps
+TARGET   := main
+INCLUDE  := -Iinclude/
+SRC      :=                      \
+	$(wildcard src/module1/*.cpp) \
+	$(wildcard src/module2/*.cpp) \
+	$(wildcard src/*.cpp)         \
 
-# Compiler settings - Can be customized.
-CC = g++
-WALLFLAGS = -Wall -Wextra -Wpedantic -Wno-unused-parameter -Wno-unused-variable
-CXXFLAGS = -std=c++14 -g $(WALLFLAGS) #-pthread
-LDFLAGS = #-lgmp
+OBJECTS  := $(SRC:%.cpp=$(OBJ_DIR)/%.o)
+DEPENDENCIES  \
+         := $(OBJECTS:.o=.d)
 
-# Makefile settings - Can be customized.
-APPNAME = main
-EXT = .cpp
-SRCDIR = src
-OBJDIR = obj
+all: build $(APP_DIR)/$(TARGET)
 
-############## Do not change anything from here downwards! #############
-SRC = $(wildcard $(SRCDIR)/*$(EXT))
-OBJ = $(SRC:$(SRCDIR)/%$(EXT)=$(OBJDIR)/%.o)
-DEP = $(OBJ:$(OBJDIR)/%.o=%.d)
-# UNIX-based OS variables & settings
-RM = rm
-RMDIR = rm -r
-TEST = test -s
-DELOBJ = $(OBJ)
+$(OBJ_DIR)/%.o: %.cpp
+	@mkdir -p $(@D)
+	$(CXX) $(CXXFLAGS) $(INCLUDE) -c $< -MMD -o $@
 
-########################################################################
-####################### Targets beginning here #########################
-########################################################################
+$(APP_DIR)/$(TARGET): $(OBJECTS)
+	@mkdir -p $(@D)
+	$(CXX) $(CXXFLAGS) -o $(APP_DIR)/$(TARGET) $^ $(LDFLAGS)
 
-all: mkdirs $(APPNAME)
-#! ($(TEST) $(DEP)) || $(RM) $(DEP)
+-include $(DEPENDENCIES)
 
-# Builds the app
-$(APPNAME): $(OBJ)
-	$(CC) $(CXXFLAGS) -o $@ $^ $(LDFLAGS)
+.PHONY: all build clean debug release info
 
-# Creates the dependecy rules
-%.d: $(SRCDIR)/%$(EXT)
-	@$(CPP) $(CFLAGS) $< -MM -MT $(@:%.d=$(OBJDIR)/%.o) >$@
+build:
+	@mkdir -p $(APP_DIR)
+	@mkdir -p $(OBJ_DIR)
 
-# Includes all .h files
--include $(DEP)
+debug: CXXFLAGS += -DDEBUG -g
+debug: all
 
-# Building rule for .o files and its .c/.cpp in combination with all .h
-$(OBJDIR)/%.o: $(SRCDIR)/%$(EXT)
-	$(CC) $(CXXFLAGS) -o $@ -c $<
+release: CXXFLAGS += -O2
+release: all
 
-# Building OBJ and SRC dir if they don't exist yet
-.PHONY: mkdirs
-mkdirs: $(OBJDIR)/
-
-$(OBJDIR)/:
-	mkdir -p $@
-
-################### Cleaning rules for Unix-based OS ###################
-# Cleans complete project
-.PHONY: clean
 clean:
-	-$(RM) $(DELOBJ) $(DEP) $(APPNAME)
-	-$(RMDIR) $(OBJDIR)
-	-$(RM) *.bin
+	-@rm -rvf $(OBJ_DIR)/*
+	-@rm -rvf $(APP_DIR)/*
 
-# Cleans only all files with the extension .d
-.PHONY: cleandep
-cleandep:
-	$(RM) $(DEP)
+info:
+	@echo "[*] Application dir: ${APP_DIR}     "
+	@echo "[*] Object dir:      ${OBJ_DIR}     "
+	@echo "[*] Sources:         ${SRC}         "
+	@echo "[*] Objects:         ${OBJECTS}     "
+	@echo "[*] Dependencies:    ${DEPENDENCIES}"

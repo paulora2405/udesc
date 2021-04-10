@@ -1,9 +1,4 @@
-#ifndef FILE_MANIPULATION_HPP
-#define FILE_MANIPULATION_HPP
-
-#include <fstream>
-#include <iostream>
-#include <string>
+#include "../include/file_manipulation.hpp"
 
 void print_file(std::string file_name) {
   std::ifstream is(file_name, std::ios::in | std::ios::binary);
@@ -47,5 +42,3 @@ void write_file(std::string file_name, std::string content) {
   delete[] string_c;
   ws.close();
 }
-
-#endif

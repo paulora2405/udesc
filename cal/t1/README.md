@@ -57,7 +57,7 @@ Dada uma mensagem `m` e uma mensagem cifrada `c`
   - Função de potenciação modular rápida.
 - `long long mod_pow_const_time(long long base, long long power, long long n)`
   - Função de potenciação modular com tempo constante.
-- `long long mod_pow_const_time_and_cond_copy(long long base, long long power, long long n)`
+- `long long mod_pow(long long base, long long power, long long n)`
   - Função de potenciação modular com tempo constante e cópia condicional.
 
 ##### `primality.hpp`

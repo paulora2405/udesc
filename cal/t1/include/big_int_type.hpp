@@ -3,6 +3,6 @@
 
 #include <boost/multiprecision/cpp_int.hpp>
 
-typedef boost::multiprecision::int128_t big_int;
+typedef boost::multiprecision::uint1024_t big_int;
 
 #endif
