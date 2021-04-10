@@ -4,34 +4,30 @@ Key_pair initialize_128(unsigned max_bits, bool print) {
   if(max_bits > 256) {
     throw std::runtime_error("Tamanho de chave não suportada\n");
   }
-  big_int p, q, n, totn, e, d;
+  big_int p, q, n, totn, e, d, tmp;
   Prime_generator gen(std::time(NULL));
 
   // Passo 1: Selecionar dois numeros primos aleatorios grandes p e q
-
-  p = gen.random_prime(max_bits);
-  do {
-    q = gen.random_prime(max_bits);
-  } while(q == p);
-
   // Passo 2: Calcular n = p * q
-
-  n = p * q;
-
   // Passo 3
-  totn = (p - 1) * (q - 1);
-
   // Passo 4: Achar um e tal que gcd(e, ø(n)) = 1 ; 1 < e < ø(n)
-  // e = get_e_value(totn);
-  do {
-    e = gen.random_prime(max_bits);
-  } while(e >= totn);
-
   // Passo 5: Calcular d tal que e*d = 1 (mod ø(n))
 
-  big_int tmp;
-  euclides_extended(e, totn, d, tmp);
-  if(d < 0) d += totn;
+  do {
+    p = gen.random_prime(max_bits / 2);
+    q = gen.random_prime(max_bits / 2);
+
+    n = p * q;
+    totn = (p - 1) * (q - 1);
+
+    do {
+      e = gen.random_prime(max_bits);
+    } while(e >= totn);
+
+    euclides_extended(e, totn, d, tmp);
+    d = (d % totn + totn) % totn;
+
+  } while((e * d % totn) != 1);
 
   // Imprimir os resultados
   if(print) {
@@ -45,8 +41,8 @@ Key_pair initialize_128(unsigned max_bits, bool print) {
     std::cout << "D = " << d << std::endl;
   }
 
-  Key pub = {n, e};
-  Key priv = {n, d};
+  Key pub = {e, n};
+  Key priv = {d, n};
   Key_pair pair = {pub, priv};
 
   return pair;
