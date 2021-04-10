@@ -21,8 +21,6 @@ typedef struct key_pair {
   Key priv_key;
 } Key_pair;
 
-// big_int get_e_value(big_int phin);
-
 /*
  * Gera os valores de p, q, n, Phi(n), e, d.
  * @returns Um par de chaves, contendo uma chave pública e uma chave privada.

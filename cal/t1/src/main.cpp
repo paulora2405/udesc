@@ -6,7 +6,7 @@ void test_encryption() {
   // std::string texto = "abcdefghijklmnopqrstuvwxyz";
   // std::string texto = "abcdef";
   // write_file("original.bin", texto);
-  Key_pair keys = initialize_128(32, true);
+  Key_pair keys = initialize_128(100, true);
 
   char c = 'a';
   big_int c_num = (int)c;

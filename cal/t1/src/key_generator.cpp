@@ -47,33 +47,3 @@ Key_pair initialize_128(unsigned max_bits, bool print) {
 
   return pair;
 }
-
-// big_int get_e_value(big_int phin) {
-// using namespace boost::multiprecision;
-
-// int casas = 0;
-// big_int phin_cp = phin;
-// while(phin_cp >= 10) {
-//   casas++;
-//   phin_cp = phin_cp / 10;
-// }
-
-// boost::random::uniform_int_distribution<int64_t> rand_64(2, (int64_t)pow(10, casas / 2) - 1);
-
-// big_int int_left = rand_64(mt19937_gen128);
-// big_int int_right = rand_64(mt19937_gen128);
-// big_int e = int_left * (int64_t)pow(10, casas / 2) + int_right;
-
-// e += !(e & 1);
-// while(gcd_iter(e, phin) != 1) {
-//   e += 2;
-//   if(e >= phin) {
-//     int_left = rand_64(mt19937_gen128);
-//     int_right = rand_64(mt19937_gen128);
-//     e = int_left * (int64_t)pow(10, casas / 2) + int_right;
-//     e += !(e & 1);
-//   }
-// }
-
-// return e;
-// }
