@@ -1,0 +1,2 @@
+gcc prog.c -pg -o prog.out
+gprof -a prog.c gmon.out > saida.txt

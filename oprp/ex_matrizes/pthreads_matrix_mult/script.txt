@@ -1,0 +1,1 @@
+for i in `seq 1 10`; do for j in `seq 1 10`; do ./pthreads_matrix_mult $i 1500; done; done > output.txt
