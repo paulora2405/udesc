@@ -27,9 +27,13 @@ void quicksort(int vetor[], int low, int high) {
   if(low < high) {
     int pivot = particiona(vetor, low, high);
 
-    // #pragma omp task
+// #pragma omp task
+#pragma omp task final((pivot - low) < omp_get_num_threads()) mergeable default(none) \
+    shared(vetor) firstprivate(low, pivot)
     { quicksort(vetor, low, pivot - 1); }
-    // #pragma omp task
+// #pragma omp task
+#pragma omp task final((high - pivot) < omp_get_num_threads()) mergeable default(none) \
+    shared(vetor) firstprivate(high, pivot)
     { quicksort(vetor, pivot + 1, high); }
   }
 }
@@ -60,9 +64,9 @@ int main(int argc, char** argv) {
   // Antes do processamento
   double start_time = omp_get_wtime();
 
-  // #pragma omp parallel
+#pragma omp parallel
   {
-    // #pragma omp single
+#pragma omp single
     {
       quicksort(vetor, 0, n - 1);  // Ponteiro
     }
