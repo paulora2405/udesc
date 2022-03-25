@@ -11,9 +11,9 @@ int main() {
   std::cin >> max_column;
   std::cin >> max_n;
 #else
-  max_row = 30;
-  max_column = 60;
-  max_n = 100;
+  max_row = 32;
+  max_column = 80;
+  max_n = 240;
 #endif
 
   char **mat = (char **)malloc(sizeof(char *) * max_row);
